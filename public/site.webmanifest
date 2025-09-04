@@ -1,0 +1,33 @@
+{
+  "name": "Conseil d'Orientation",
+  "short_name": "Conseil d'Orientation",
+  "description": "Votre compagnon pour un avenir brillant. Application mobile révolutionnaire de conseil d'orientation scolaire et professionnelle.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0ea5e9",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/app_icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/app_icon_blanc.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/app_icon_noir.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["education", "productivity", "lifestyle"],
+  "lang": "fr-FR",
+  "dir": "ltr"
+}
