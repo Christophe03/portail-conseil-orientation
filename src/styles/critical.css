@@ -1,0 +1,159 @@
+/* CSS critique pour optimiser les Core Web Vitals */
+
+/* Reset et base */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Optimisations pour le LCP (Largest Contentful Paint) */
+.hero-section {
+  contain: layout style paint;
+}
+
+.hero-image {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: cover;
+}
+
+/* Optimisations pour le CLS (Cumulative Layout Shift) */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Réserver l'espace pour les images */
+img[data-src] {
+  background-color: #f3f4f6;
+  min-height: 200px;
+}
+
+/* Optimisations pour le FID (First Input Delay) */
+button, a, input, select, textarea {
+  touch-action: manipulation;
+}
+
+/* Optimisations pour les polices */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@100..900&display=swap');
+}
+
+/* Optimisations pour le contenu critique */
+.critical-content {
+  contain: layout style paint;
+}
+
+/* Optimisations pour les animations */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Optimisations pour les écrans tactiles */
+@media (hover: none) and (pointer: coarse) {
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Optimisations pour les performances */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* Optimisations pour le contenu au-dessus du pli */
+.above-fold {
+  contain: layout style paint;
+}
+
+/* Optimisations pour les images lazy loading */
+.lazy {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.lazy.loaded {
+  opacity: 1;
+}
+
+/* Optimisations pour les composants critiques */
+.header {
+  contain: layout style paint;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.footer {
+  contain: layout style paint;
+}
+
+/* Optimisations pour les performances de rendu */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Optimisations pour les performances de scroll */
+.smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+/* Optimisations pour les performances de layout */
+.layout-optimized {
+  contain: layout;
+}
+
+/* Optimisations pour les performances de style */
+.style-optimized {
+  contain: style;
+}
+
+/* Optimisations pour les performances de peinture */
+.paint-optimized {
+  contain: paint;
+}
+
+/* Optimisations pour les performances complètes */
+.fully-optimized {
+  contain: layout style paint;
+}

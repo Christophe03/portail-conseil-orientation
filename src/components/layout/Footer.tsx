@@ -39,11 +39,11 @@ const footerLinks = {
 };
 
 const socialLinks = [
+  { name: 'WhatsApp', href: 'https://wa.me/22392722564', icon: '💬' },
   { name: 'Facebook', href: 'https://facebook.com/conseilorientation', icon: '📘' },
   { name: 'Twitter', href: 'https://twitter.com/conseilorient', icon: '🐦' },
   { name: 'Instagram', href: 'https://instagram.com/conseilorientation', icon: '📷' },
   { name: 'LinkedIn', href: 'https://linkedin.com/company/conseil-orientation', icon: '💼' },
-  { name: 'YouTube', href: 'https://youtube.com/@conseilorientation', icon: '📺' },
 ];
 
 export function Footer() {
@@ -76,15 +76,29 @@ export function Footer() {
             <div className="space-y-3">
               <div className="flex items-center space-x-3 text-neutral-400">
                 <EnvelopeIcon className="h-5 w-5 text-primary-400" />
-                <span>support@conseil-orientation.com</span>
+                <div className="flex flex-col">
+                  <a href="mailto:goldeninnovationtech@gmail.com" className="hover:text-primary-400 transition-colors">
+                    goldeninnovationtech@gmail.com
+                  </a>
+                  <a href="mailto:conseilorientationinfo@gmail.com" className="hover:text-primary-400 transition-colors">
+                    conseilorientationinfo@gmail.com
+                  </a>
+                </div>
               </div>
               <div className="flex items-center space-x-3 text-neutral-400">
                 <PhoneIcon className="h-5 w-5 text-primary-400" />
-                <span>+33 1 23 45 67 89</span>
+                <div className="flex flex-col">
+                  <a href="tel:+22396855282" className="hover:text-primary-400 transition-colors">
+                    +223 96 85 52 82
+                  </a>
+                  <a href="tel:+22392722564" className="hover:text-primary-400 transition-colors">
+                    +223 92 72 25 64
+                  </a>
+                </div>
               </div>
               <div className="flex items-center space-x-3 text-neutral-400">
                 <MapPinIcon className="h-5 w-5 text-primary-400" />
-                <span>Paris, France</span>
+                <span>Mali, Kati Koko</span>
               </div>
             </div>
           </div>
@@ -192,7 +206,7 @@ export function Footer() {
           <p className="text-neutral-500 text-sm">
             Fait avec{' '}
             <HeartIcon className="inline h-4 w-4 text-red-500 mx-1" />
-            {' '}en France pour les étudiants du monde entier
+            {' '}au Mali pour les étudiants du monde entier
           </p>
         </div>
       </div>

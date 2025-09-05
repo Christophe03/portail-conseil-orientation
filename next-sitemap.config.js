@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://conseil-orientation.com',
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://conseil-orientation-mali.com',
   generateRobotsTxt: true,
   generateIndexSitemap: false,
   robotsTxtOptions: {
@@ -8,12 +8,23 @@ module.exports = {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/admin/', '/_next/', '/private/'],
+        disallow: ['/api/', '/admin/', '/_next/', '/private/', '/temp/'],
+      },
+      {
+        userAgent: 'Googlebot',
+        allow: '/',
+        disallow: ['/api/', '/admin/', '/_next/', '/private/', '/temp/'],
+      },
+      {
+        userAgent: 'Bingbot',
+        allow: '/',
+        disallow: ['/api/', '/admin/', '/_next/', '/private/', '/temp/'],
       },
     ],
     additionalSitemaps: [
-      'https://conseil-orientation.com/sitemap.xml',
+      'https://conseil-orientation-mali.com/sitemap.xml',
     ],
+    host: 'https://conseil-orientation-mali.com',
   },
   exclude: [
     '/api/*',
@@ -27,39 +38,54 @@ module.exports = {
   priority: 0.7,
   sitemapSize: 5000,
   transform: async (config, path) => {
-    // Custom transformation for specific paths
+    // Priorités personnalisées par page
+    let priority = 0.7;
+    let changefreq = 'weekly';
+    
     if (path === '/') {
-      return {
-        loc: path,
-        changefreq: 'daily',
-        priority: 1.0,
-        lastmod: new Date().toISOString(),
-      };
+      priority = 1.0;
+      changefreq = 'daily';
+    } else if (path === '/about') {
+      priority = 0.8;
+      changefreq = 'weekly';
+    } else if (path === '/docs') {
+      priority = 0.9;
+      changefreq = 'weekly';
+    } else if (path === '/download') {
+      priority = 0.9;
+      changefreq = 'weekly';
+    } else if (path === '/features') {
+      priority = 0.8;
+      changefreq = 'weekly';
+    } else if (path === '/support') {
+      priority = 0.7;
+      changefreq = 'weekly';
+    } else if (path === '/privacy') {
+      priority = 0.5;
+      changefreq = 'monthly';
+    } else if (path.startsWith('/downloads/')) {
+      priority = 0.8;
+      changefreq = 'monthly';
+    } else if (path.startsWith('/docs/')) {
+      priority = 0.6;
+      changefreq = 'monthly';
     }
-    
-    if (path.startsWith('/downloads/')) {
-      return {
-        loc: path,
-        changefreq: 'monthly',
-        priority: 0.8,
-        lastmod: new Date().toISOString(),
-      };
-    }
-    
-    if (path.startsWith('/docs/')) {
-      return {
-        loc: path,
-        changefreq: 'monthly',
-        priority: 0.6,
-        lastmod: new Date().toISOString(),
-      };
-    }
-    
+
     return {
       loc: path,
-      changefreq: config.changefreq,
-      priority: config.priority,
+      changefreq: changefreq,
+      priority: priority,
       lastmod: new Date().toISOString(),
+      alternateRefs: [
+        {
+          href: `https://conseil-orientation-mali.com${path}`,
+          hreflang: 'fr',
+        },
+        {
+          href: `https://conseil-orientation-mali.com${path}`,
+          hreflang: 'x-default',
+        },
+      ],
     };
   },
 };

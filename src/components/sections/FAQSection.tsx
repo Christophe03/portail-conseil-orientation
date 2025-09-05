@@ -6,6 +6,7 @@ import {
   ChevronDownIcon,
   QuestionMarkCircleIcon
 } from '@heroicons/react/24/outline';
+import { FAQStructuredData } from '@/components/seo/StructuredData';
 
 const faqs = [
   {
@@ -26,7 +27,7 @@ const faqs = [
   },
   {
     question: "Comment puis-je contacter le support ?",
-    answer: "Notre équipe de support est disponible 24/7 via le chat intégré dans l'application, par email à support@conseil-orientation.com, ou par téléphone au +33 1 23 45 67 89."
+    answer: "Notre équipe de support est disponible 24/7 via le chat intégré dans l'application, par email à conseilorientationinfo@gmail.com, ou par téléphone au +223 92 72 25 64. Vous pouvez aussi nous contacter via WhatsApp."
   },
   {
     question: "Mes données sont-elles sécurisées ?",
@@ -51,6 +52,7 @@ export function FAQSection() {
 
   return (
     <section className="section-padding bg-white dark:bg-neutral-900">
+      <FAQStructuredData faqs={faqs} />
       <div className="container-custom">
         {/* Header */}
         <motion.div

@@ -7,7 +7,8 @@ import {
   EnvelopeIcon,
   PhoneIcon,
   MapPinIcon,
-  ClockIcon
+  ClockIcon,
+  ChatBubbleLeftRightIcon
 } from '@heroicons/react/24/outline';
 
 export function ContactForm() {
@@ -62,7 +63,14 @@ export function ContactForm() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-neutral-900 dark:text-white mb-1">Email</h3>
-                  <p className="text-neutral-600 dark:text-neutral-400">support@conseil-orientation.com</p>
+                  <div className="space-y-1">
+                    <a href="mailto:goldeninnovationtech@gmail.com" className="block text-neutral-600 dark:text-neutral-400 hover:text-primary-600 transition-colors">
+                      goldeninnovationtech@gmail.com
+                    </a>
+                    <a href="mailto:conseilorientationinfo@gmail.com" className="block text-neutral-600 dark:text-neutral-400 hover:text-primary-600 transition-colors">
+                      conseilorientationinfo@gmail.com
+                    </a>
+                  </div>
                   <p className="text-sm text-neutral-500 dark:text-neutral-500">Réponse sous 2h</p>
                 </div>
               </div>
@@ -73,8 +81,28 @@ export function ContactForm() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-neutral-900 dark:text-white mb-1">Téléphone</h3>
-                  <p className="text-neutral-600 dark:text-neutral-400">+33 1 23 45 67 89</p>
+                  <div className="space-y-1">
+                    <a href="tel:+22396855282" className="block text-neutral-600 dark:text-neutral-400 hover:text-primary-600 transition-colors">
+                      +223 96 85 52 82
+                    </a>
+                    <a href="tel:+22392722564" className="block text-neutral-600 dark:text-neutral-400 hover:text-primary-600 transition-colors">
+                      +223 92 72 25 64
+                    </a>
+                  </div>
                   <p className="text-sm text-neutral-500 dark:text-neutral-500">Lun-Ven 9h-18h</p>
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center">
+                  <ChatBubbleLeftRightIcon className="h-6 w-6 text-primary-600" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-neutral-900 dark:text-white mb-1">WhatsApp</h3>
+                  <a href="https://wa.me/22392722564" target="_blank" rel="noopener noreferrer" className="text-neutral-600 dark:text-neutral-400 hover:text-primary-600 transition-colors">
+                    +223 92 72 25 64
+                  </a>
+                  <p className="text-sm text-neutral-500 dark:text-neutral-500">Support instantané</p>
                 </div>
               </div>
 
@@ -84,7 +112,7 @@ export function ContactForm() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-neutral-900 dark:text-white mb-1">Adresse</h3>
-                  <p className="text-neutral-600 dark:text-neutral-400">123 Rue de l'Innovation<br />75001 Paris, France</p>
+                  <p className="text-neutral-600 dark:text-neutral-400">Mali, Kati Koko</p>
                 </div>
               </div>
 
@@ -95,7 +123,7 @@ export function ContactForm() {
                 <div>
                   <h3 className="font-semibold text-neutral-900 dark:text-white mb-1">Horaires</h3>
                   <p className="text-neutral-600 dark:text-neutral-400">Support 24/7 via l'application</p>
-                  <p className="text-sm text-neutral-500 dark:text-neutral-500">Équipe humaine 9h-18h</p>
+                  <p className="text-sm text-neutral-500 dark:text-neutral-500">Équipe humaine 9h-18h (GMT)</p>
                 </div>
               </div>
             </div>

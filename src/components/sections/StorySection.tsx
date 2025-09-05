@@ -10,36 +10,44 @@ import {
 
 const milestones = [
   {
-    year: '2020',
+    year: '2023',
     title: 'Fondation',
-    description: 'Création de l\'entreprise avec une vision claire : démocratiser l\'orientation scolaire.',
+    description: 'Création de l\'entreprise au Mali avec une vision claire : démocratiser l\'orientation scolaire en Afrique.',
     icon: LightBulbIcon,
     color: 'text-blue-600',
     bgColor: 'bg-blue-100 dark:bg-blue-900/30'
   },
   {
-    year: '2021',
-    title: 'Premier Prototype',
-    description: 'Développement du premier prototype de l\'application avec l\'assistant IA.',
+    year: 'Juin 2023',
+    title: 'Première Version',
+    description: 'Lancement de la première version de l\'application avec l\'assistant IA et la base de données de bourses.',
     icon: RocketLaunchIcon,
     color: 'text-green-600',
     bgColor: 'bg-green-100 dark:bg-green-900/30'
   },
   {
-    year: '2022',
-    title: 'Lancement Beta',
-    description: 'Lancement de la version beta avec 1000 utilisateurs pilotes.',
+    year: '2023',
+    title: 'Croissance Rapide',
+    description: 'Expansion rapide avec plus de 50 000 utilisateurs et une base de données de plus de 1000 bourses.',
     icon: ClockIcon,
     color: 'text-purple-600',
     bgColor: 'bg-purple-100 dark:bg-purple-900/30'
   },
   {
-    year: '2023',
-    title: 'Expansion',
-    description: 'Ouverture à 15 pays et dépassement des 25 000 utilisateurs.',
+    year: '2024',
+    title: 'Innovation Continue',
+    description: 'Amélioration continue de l\'IA et expansion des fonctionnalités pour servir mieux les étudiants.',
     icon: TrophyIcon,
     color: 'text-orange-600',
     bgColor: 'bg-orange-100 dark:bg-orange-900/30'
+  },
+  {
+    year: '2025',
+    title: 'IA de Nouvelle Génération',
+    description: 'Lancement de l\'IA de nouvelle génération avec des capacités prédictives avancées et une personnalisation ultra-précise.',
+    icon: RocketLaunchIcon,
+    color: 'text-indigo-600',
+    bgColor: 'bg-indigo-100 dark:bg-indigo-900/30'
   }
 ];
 
@@ -62,8 +70,8 @@ export function StorySection() {
             </span>
           </h2>
           <p className="text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
-            Un voyage de 4 ans marqué par l'innovation, la persévérance et 
-            l'engagement envers l'éducation de qualité pour tous.
+            Un voyage de 3 ans marqué par l'innovation, la persévérance et 
+            l'engagement envers l'éducation de qualité pour tous en Afrique.
           </p>
         </motion.div>
 
@@ -129,15 +137,15 @@ export function StorySection() {
               limité par la géographie et les ressources disponibles.
             </p>
             <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed mb-8">
-              Notre équipe de passionnés d'éducation et de technologie a décidé de changer cela. 
+              Notre équipe de passionnés d'éducation et de technologie au Mali a décidé de changer cela. 
               Nous avons combiné l'expertise pédagogique, l'intelligence artificielle et la 
-              technologie mobile pour créer une solution accessible à tous, partout dans le monde.
+              technologie mobile pour créer une solution accessible à tous les étudiants africains.
             </p>
             <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed">
               Aujourd'hui, Conseil d'Orientation n'est plus seulement une application - c'est 
-              un mouvement qui transforme la façon dont les étudiants découvrent leur potentiel 
-              et construisent leur avenir. Notre histoire continue de s'écrire avec chaque 
-              étudiant que nous aidons à réaliser ses rêves.
+              un mouvement qui transforme la façon dont les étudiants africains découvrent leur potentiel 
+              et construisent leur avenir. Avec l'arrivée de l'IA de nouvelle génération en 2025, 
+              nous continuons d'écrire notre histoire avec chaque étudiant que nous aidons à réaliser ses rêves.
             </p>
           </div>
         </motion.div>

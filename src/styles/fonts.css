@@ -1,0 +1,326 @@
+/* Optimisations des polices pour les performances */
+
+/* Preload des polices critiques */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@100..900&display=swap');
+}
+
+/* Optimisations pour les polices système */
+.font-system {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Optimisations pour les polices monospace */
+.font-mono {
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+}
+
+/* Optimisations pour les polices serif */
+.font-serif {
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* Optimisations pour les polices d'affichage */
+.font-display {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+/* Optimisations pour les polices de corps de texte */
+.font-body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* Optimisations pour les polices de titre */
+.font-heading {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+/* Optimisations pour les polices de sous-titre */
+.font-subheading {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.3;
+}
+
+/* Optimisations pour les polices de bouton */
+.font-button {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+/* Optimisations pour les polices de code */
+.font-code {
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-weight: 400;
+  font-size: 0.875em;
+  line-height: 1.5;
+}
+
+/* Optimisations pour les polices de citation */
+.font-quote {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.7;
+}
+
+/* Optimisations pour les polices de légende */
+.font-caption {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 0.75em;
+  line-height: 1.4;
+  color: #6b7280;
+}
+
+/* Optimisations pour les polices de label */
+.font-label {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 500;
+  font-size: 0.875em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Optimisations pour les polices de navigation */
+.font-nav {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 500;
+  font-size: 0.875em;
+  line-height: 1.4;
+  letter-spacing: 0.025em;
+}
+
+/* Optimisations pour les polices de footer */
+.font-footer {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 0.75em;
+  line-height: 1.5;
+  color: #9ca3af;
+}
+
+/* Optimisations pour les polices de métadonnées */
+.font-meta {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 0.75em;
+  line-height: 1.4;
+  color: #6b7280;
+}
+
+/* Optimisations pour les polices de statut */
+.font-status {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 500;
+  font-size: 0.75em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Optimisations pour les polices de prix */
+.font-price {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 700;
+  font-size: 1.25em;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+/* Optimisations pour les polices de pourcentage */
+.font-percentage {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 600;
+  font-size: 1.125em;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+/* Optimisations pour les polices de date */
+.font-date {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 0.875em;
+  line-height: 1.4;
+  color: #6b7280;
+}
+
+/* Optimisations pour les polices de temps */
+.font-time {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 500;
+  font-size: 0.875em;
+  line-height: 1.4;
+  color: #374151;
+}
+
+/* Optimisations pour les polices de numéro */
+.font-number {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 600;
+  font-size: 1.125em;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Optimisations pour les polices de devise */
+.font-currency {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 700;
+  font-size: 1.25em;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Optimisations pour les polices de téléphone */
+.font-phone {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 500;
+  font-size: 0.875em;
+  line-height: 1.4;
+  letter-spacing: 0.025em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Optimisations pour les polices d'email */
+.font-email {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 0.875em;
+  line-height: 1.4;
+  letter-spacing: 0.025em;
+  color: #2563eb;
+}
+
+/* Optimisations pour les polices d'URL */
+.font-url {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 0.875em;
+  line-height: 1.4;
+  letter-spacing: 0.025em;
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+/* Optimisations pour les polices de hashtag */
+.font-hashtag {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 500;
+  font-size: 0.875em;
+  line-height: 1.4;
+  letter-spacing: 0.025em;
+  color: #2563eb;
+}
+
+/* Optimisations pour les polices de mention */
+.font-mention {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 500;
+  font-size: 0.875em;
+  line-height: 1.4;
+  letter-spacing: 0.025em;
+  color: #2563eb;
+}
+
+/* Optimisations pour les polices de tag */
+.font-tag {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 500;
+  font-size: 0.75em;
+  line-height: 1.4;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
+/* Optimisations pour les polices de badge */
+.font-badge {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 600;
+  font-size: 0.75em;
+  line-height: 1.4;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+/* Optimisations pour les polices de tooltip */
+.font-tooltip {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 0.75em;
+  line-height: 1.4;
+  color: #ffffff;
+}
+
+/* Optimisations pour les polices de placeholder */
+.font-placeholder {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 0.875em;
+  line-height: 1.4;
+  color: #9ca3af;
+}
+
+/* Optimisations pour les polices de validation */
+.font-validation {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 0.75em;
+  line-height: 1.4;
+  color: #dc2626;
+}
+
+/* Optimisations pour les polices de succès */
+.font-success {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 0.75em;
+  line-height: 1.4;
+  color: #16a34a;
+}
+
+/* Optimisations pour les polices d'avertissement */
+.font-warning {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 0.75em;
+  line-height: 1.4;
+  color: #d97706;
+}
+
+/* Optimisations pour les polices d'information */
+.font-info {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 0.75em;
+  line-height: 1.4;
+  color: #2563eb;
+}

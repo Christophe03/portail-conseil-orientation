@@ -7,6 +7,9 @@ import { Footer } from '@/components/layout/Footer';
 import { Analytics } from '@/components/analytics/Analytics';
 import { CookieBanner } from '@/components/ui/CookieBanner';
 import { CookiePreferences } from '@/components/ui/CookiePreferences';
+import { StructuredData } from '@/components/seo/StructuredData';
+import { PerformanceOptimizer, CriticalResourcePreloader, CoreWebVitalsOptimizer } from '@/components/seo/PerformanceOptimizer';
+import { PerformanceMonitor, ImagePerformanceMonitor, PerformanceMetricsDisplay } from '@/components/seo/PerformanceMonitor';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -23,14 +26,20 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Conseil d\'Orientation - Votre Compagnon pour un Avenir Brillant',
-    template: '%s | Conseil d\'Orientation'
+    default: 'Conseil d\'Orientation Mali - IA pour Orientation Scolaire & Bourses d\'Études',
+    template: '%s | Conseil d\'Orientation Mali'
   },
-  description: 'Application mobile révolutionnaire de conseil d\'orientation scolaire et professionnelle. Intelligence artificielle, bourses d\'études et ressources éducatives au service de votre réussite.',
-  keywords: ['orientation scolaire', 'conseil orientation', 'bourses études', 'IA orientation', 'application mobile', 'éducation', 'carrière'],
-  authors: [{ name: 'Conseil d\'Orientation Team' }],
-  creator: 'Conseil d\'Orientation',
-  publisher: 'Conseil d\'Orientation',
+  description: 'Application mobile d\'orientation scolaire au Mali avec IA avancée. Découvrez 1000+ bourses d\'études, conseils personnalisés et accompagnement pour votre réussite académique en Afrique.',
+  keywords: [
+    'orientation scolaire Mali', 'conseil orientation Afrique', 'bourses études Mali', 
+    'IA orientation scolaire', 'application mobile éducation', 'orientation universitaire Mali',
+    'bourses internationales', 'conseil carrière étudiant', 'orientation professionnelle Mali',
+    'études supérieures Mali', 'bourses bourse Mali', 'orientation scolaire gratuite',
+    'conseil orientation IA', 'application éducation Mali', 'orientation scolaire personnalisée'
+  ],
+  authors: [{ name: 'Conseil d\'Orientation Mali Team' }],
+  creator: 'Conseil d\'Orientation Mali',
+  publisher: 'Conseil d\'Orientation Mali',
   formatDetection: {
     email: false,
     address: false,
@@ -44,9 +53,9 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'fr_FR',
     url: '/',
-    title: 'Conseil d\'Orientation - Votre Compagnon pour un Avenir Brillant',
-    description: 'Application mobile révolutionnaire de conseil d\'orientation scolaire et professionnelle.',
-    siteName: 'Conseil d\'Orientation',
+    title: 'Conseil d\'Orientation Mali - IA pour Orientation Scolaire & Bourses d\'Études',
+    description: 'Application mobile d\'orientation scolaire au Mali avec IA avancée. Découvrez 1000+ bourses d\'études, conseils personnalisés et accompagnement pour votre réussite académique en Afrique.',
+    siteName: 'Conseil d\'Orientation Mali',
     images: [
       {
         url: '/app_icon.png',
@@ -64,10 +73,11 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Conseil d\'Orientation - Votre Compagnon pour un Avenir Brillant',
-    description: 'Application mobile révolutionnaire de conseil d\'orientation scolaire et professionnelle.',
+    title: 'Conseil d\'Orientation Mali - IA pour Orientation Scolaire & Bourses d\'Études',
+    description: 'Application mobile d\'orientation scolaire au Mali avec IA avancée. Découvrez 1000+ bourses d\'études, conseils personnalisés et accompagnement pour votre réussite académique en Afrique.',
     images: ['/app_icon.png'],
     creator: '@conseilorient',
+    site: '@conseilorient',
   },
   robots: {
     index: true,
@@ -108,6 +118,27 @@ export default function RootLayout({
         <meta name="theme-color" content="#0ea5e9" />
         <meta name="msapplication-TileColor" content="#0ea5e9" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
+        
+        {/* SEO Meta Tags */}
+        <meta name="geo.region" content="ML" />
+        <meta name="geo.placename" content="Mali" />
+        <meta name="geo.position" content="17.570692;-3.996166" />
+        <meta name="ICBM" content="17.570692, -3.996166" />
+        <meta name="language" content="fr" />
+        <meta name="revisit-after" content="7 days" />
+        <meta name="rating" content="general" />
+        <meta name="distribution" content="global" />
+        <meta name="target" content="all" />
+        <meta name="HandheldFriendly" content="True" />
+        <meta name="MobileOptimized" content="320" />
+        
+        {/* Structured Data */}
+        <StructuredData type="organization" />
+        <StructuredData type="website" />
+        <StructuredData type="mobileApplication" />
+        
+        {/* Performance Optimizations */}
+        <CriticalResourcePreloader />
       </head>
       <body className={`${inter.variable} ${poppins.variable} font-sans antialiased`}>
         <ThemeProvider
@@ -124,6 +155,11 @@ export default function RootLayout({
           <Analytics />
           <CookieBanner />
           <CookiePreferences />
+          <PerformanceOptimizer />
+          <CoreWebVitalsOptimizer />
+          <PerformanceMonitor />
+          <ImagePerformanceMonitor />
+          <PerformanceMetricsDisplay />
         </ThemeProvider>
       </body>
     </html>

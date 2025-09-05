@@ -96,16 +96,17 @@ export function MissionSection() {
               L'Histoire derrière l'Innovation
             </h3>
             <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed mb-8">
-              Tout a commencé en 2020, quand notre équipe de passionnés d'éducation a constaté 
-              que l'orientation scolaire était souvent un parcours du combattant pour les étudiants. 
+              Tout a commencé en 2023, quand notre équipe de passionnés d'éducation au Mali a constaté 
+              que l'orientation scolaire était souvent un parcours du combattant pour les étudiants africains. 
               Nous avons décidé de créer une solution qui combine l'intelligence artificielle, 
               l'expertise pédagogique et la technologie mobile pour démocratiser l'accès à 
-              des conseils d'orientation de qualité.
+              des conseils d'orientation de qualité en Afrique.
             </p>
             <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              Aujourd'hui, Conseil d'Orientation aide des milliers d'étudiants à travers le monde 
+              Aujourd'hui, Conseil d'Orientation aide des milliers d'étudiants africains 
               à trouver leur voie, à découvrir des opportunités qu'ils n'auraient jamais imaginées, 
-              et à construire un avenir qui correspond à leurs rêves et à leur potentiel.
+              et à construire un avenir qui correspond à leurs rêves et à leur potentiel. 
+              En 2025, notre IA de nouvelle génération révolutionnera encore plus l'orientation scolaire.
             </p>
           </div>
         </motion.div>
