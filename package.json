@@ -15,7 +15,7 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "export": "next export",
-    "deploy": "npm run build && npm run export && firebase deploy --only hosting",
+    "deploy": "npm run build && npm run export",
     "analyze": "ANALYZE=true next build",
     "sitemap": "next-sitemap"
   },
@@ -24,7 +24,6 @@
     "@radix-ui/react-slot": "^1.2.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "firebase": "^12.2.1",
     "framer-motion": "^10.18.0",
     "lucide-react": "^0.294.0",
     "next": "^14.2.32",
@@ -52,9 +51,10 @@
     "typescript": "^5.9.2"
   },
   "engines": {
-  "node": "20.x",
+  "node": ">=18.0.0",
   "npm": ">=9.0.0"
 },
+
   "keywords": [
     "conseil-orientation",
     "orientation-scolaire",

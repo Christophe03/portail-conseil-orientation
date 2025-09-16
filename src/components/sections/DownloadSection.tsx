@@ -35,13 +35,13 @@ const platforms = [
     delay: 0.2,
   },
   {
-    name: 'APK Direct',
+    name: 'APKPure',
     icon: ComputerDesktopIcon,
-    description: 'Installation manuelle Android',
-    buttonText: 'Télécharger APK',
+    description: 'Installation manuelle Android via APKPure',
+    buttonText: 'Télécharger via APKPure',
     buttonVariant: 'outline' as const,
-    link: '/downloads/conseil-orientation.apk',
-    features: ['Installation hors store', 'Contrôle total', 'Version pure'],
+    link: 'https://apkpure.com/p/com.tcd.conseil_orientation',
+    features: ['Source fiable', 'Version à jour', 'Installation hors store'],
     delay: 0.3,
   },
 ];
