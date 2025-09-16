@@ -8,8 +8,10 @@ import { Analytics } from '@/components/analytics/Analytics';
 import { CookieBanner } from '@/components/ui/CookieBanner';
 import { CookiePreferences } from '@/components/ui/CookiePreferences';
 import { StructuredData } from '@/components/seo/StructuredData';
-import { PerformanceOptimizer, CriticalResourcePreloader, CoreWebVitalsOptimizer } from '@/components/seo/PerformanceOptimizer';
-import { PerformanceMonitor, ImagePerformanceMonitor, PerformanceMetricsDisplay } from '@/components/seo/PerformanceMonitor';
+// import { PerformanceOptimizer, CriticalResourcePreloader, CoreWebVitalsOptimizer } from '@/components/seo/PerformanceOptimizer';
+// import { PerformanceMonitor, ImagePerformanceMonitor, PerformanceMetricsDisplay } from '@/components/seo/PerformanceMonitor';
+// import { AuthProvider } from '@/components/firebase/AuthProvider';
+// import { FirebaseAnalytics } from '@/components/firebase/FirebaseAnalytics';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -138,7 +140,7 @@ export default function RootLayout({
         <StructuredData type="mobileApplication" />
         
         {/* Performance Optimizations */}
-        <CriticalResourcePreloader />
+        {/* <CriticalResourcePreloader /> */}
       </head>
       <body className={`${inter.variable} ${poppins.variable} font-sans antialiased`}>
         <ThemeProvider
@@ -155,11 +157,11 @@ export default function RootLayout({
           <Analytics />
           <CookieBanner />
           <CookiePreferences />
-          <PerformanceOptimizer />
+          {/* <PerformanceOptimizer />
           <CoreWebVitalsOptimizer />
           <PerformanceMonitor />
           <ImagePerformanceMonitor />
-          <PerformanceMetricsDisplay />
+          <PerformanceMetricsDisplay /> */}
         </ThemeProvider>
       </body>
     </html>

@@ -165,13 +165,25 @@ const nextConfig = {
   
   // Configuration des expérimentations
   experimental: {
-    optimizeCss: true,
     optimizePackageImports: ['@heroicons/react', 'framer-motion'],
   },
 
   // Configuration des types
   typescript: {
     ignoreBuildErrors: false,
+  },
+
+  // Exclure les fonctions Firebase du build
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+      };
+    }
+    return config;
   },
 
   // Configuration ESLint

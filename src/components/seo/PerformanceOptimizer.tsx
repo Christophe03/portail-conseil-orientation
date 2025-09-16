@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect } from 'react';
 
 export function PerformanceOptimizer() {
@@ -179,14 +181,14 @@ export function CoreWebVitalsOptimizer() {
       const images = document.querySelectorAll('img:not([width]):not([height])');
       images.forEach(img => {
         if (!img.getAttribute('width') && !img.getAttribute('height')) {
-          img.style.aspectRatio = '16/9';
+          (img as HTMLImageElement).style.aspectRatio = '16/9';
         }
       });
 
       // Reserve space for dynamic content
       const dynamicElements = document.querySelectorAll('[data-dynamic]');
       dynamicElements.forEach(element => {
-        element.style.minHeight = '200px';
+        (element as HTMLElement).style.minHeight = '200px';
       });
     };
 
@@ -195,16 +197,8 @@ export function CoreWebVitalsOptimizer() {
     optimizeFID();
     optimizeCLS();
 
-    // Monitor Core Web Vitals
-    if ('web-vital' in window) {
-      import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
-        getCLS(console.log);
-        getFID(console.log);
-        getFCP(console.log);
-        getLCP(console.log);
-        getTTFB(console.log);
-      });
-    }
+    // Monitor Core Web Vitals (temporairement désactivé)
+    console.log('Core Web Vitals monitoring disabled for deployment');
   }, []);
 
   return null;
