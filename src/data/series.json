@@ -1,0 +1,93 @@
+[
+  {
+    "abre": "TLL",
+    "nom": "Terminale Lettres et Langues",
+    "description": "Série axée sur l'étude approfondie des langues, de la littérature et des sciences humaines.",
+    "avantage": "Débouchés vers les études de lettres, langues, journalisme, communication, enseignement, etc.",
+    "icon": "book"
+  },
+  {
+    "abre": "TAL",
+    "nom": "Terminale Arts et Lettres",
+    "description": "Série orientée vers les disciplines artistiques et littéraires, incluant l'histoire de l'art et la culture.",
+    "avantage": "Accès aux filières artistiques, culturelles, communication, métiers de la création et de l'enseignement.",
+    "icon": "palette"
+  },
+  {
+    "abre": "TSS",
+    "nom": "Terminale Sciences Sociales",
+    "description": "Série centrée sur l'étude des sciences humaines et sociales : histoire, géographie, sociologie, économie.",
+    "avantage": "Prépare aux études en droit, sciences politiques, sociologie, histoire, géographie, etc.",
+    "icon": "people"
+  },
+  {
+    "abre": "TSEXP",
+    "nom": "Terminale Sciences Expérimentales",
+    "description": "Série scientifique généraliste axée sur la biologie, la chimie et la physique.",
+    "avantage": "Permet d'accéder aux études de médecine, pharmacie, biologie, chimie, agronomie, etc.",
+    "icon": "science"
+  },
+  {
+    "abre": "TSE",
+    "nom": "Terminale Sciences Exactes",
+    "description": "Série scientifique spécialisée dans les sciences exactes.",
+    "avantage": "Facilite l'accès aux filières d'ingénierie, physique, chimie, informatique, etc.",
+    "icon": "biotech"
+  },
+  {
+    "abre": "TSECO",
+    "nom": "Terminale Sciences Économiques",
+    "description": "Série axée sur l'économie, la gestion, les mathématiques appliquées et les sciences sociales.",
+    "avantage": "Ouvre la voie aux études en économie, gestion, commerce, finance, administration, etc.",
+    "icon": "bar_chart"
+  },
+  {
+    "abre": "CF",
+    "nom": "Comptabilité et Finance",
+    "description": "Série axée sur l'étude de la comptabilité, de la finance et des mathématiques appliquées.",
+    "avantage": "Ouvre la voie aux études en comptabilité, finance, gestion, administration, etc.",
+    "icon": "account_balance"
+  },
+  {
+    "abre": "GCO",
+    "nom": "Génie Civil Option Ouvrages",
+    "description": "Spécialisation du génie civil axée sur la conception et la réalisation d'ouvrages (bâtiments, routes, ponts).",
+    "avantage": "Débouchés dans le secteur du BTP, conception et gestion de projets d'infrastructures.",
+    "icon": "apartment"
+  },
+  {
+    "abre": "GC",
+    "nom": "Génie Civil",
+    "description": "Formation technique sur la construction, la gestion et la maintenance des infrastructures civiles.",
+    "avantage": "Permet de travailler dans le bâtiment, les travaux publics, l'urbanisme, etc.",
+    "icon": "domain"
+  },
+  {
+    "abre": "GM",
+    "nom": "Génie Mécanique",
+    "description": "Série technique axée sur la conception, la fabrication et la maintenance des systèmes mécaniques.",
+    "avantage": "Accès aux métiers de la mécanique, de l'industrie, de la maintenance et de l'ingénierie.",
+    "icon": "build"
+  },
+  {
+    "abre": "GMI",
+    "nom": "Génie Mécanique Industriel",
+    "description": "Spécialisation en mécanique appliquée à l'industrie, incluant la production et la gestion industrielle.",
+    "avantage": "Débouchés dans l'industrie manufacturière, la production, la maintenance industrielle.",
+    "icon": "precision_manufacturing"
+  },
+  {
+    "abre": "GELN",
+    "nom": "Génie Électrique Option Électronique",
+    "description": "Série technique spécialisée dans l'électronique, les systèmes embarqués et l'automatisation.",
+    "avantage": "Permet de travailler dans l'électronique, l'informatique industrielle, la robotique, etc.",
+    "icon": "memory"
+  },
+  {
+    "abre": "GEN",
+    "nom": "Génie Électrique Option Électrotechnique",
+    "description": "Série technique axée sur l'électrotechnique, la production et la distribution d'énergie électrique.",
+    "avantage": "Débouchés dans l'énergie, l'électrotechnique, la maintenance des installations électriques.",
+    "icon": "bolt"
+  }
+] 
