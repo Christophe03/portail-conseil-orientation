@@ -5,7 +5,7 @@ export const seoConfig = {
   site: {
     name: 'Conseil d\'Orientation Mali',
     url: 'https://conseil-orientation-mali.com',
-    description: 'Application mobile d\'orientation scolaire au Mali avec IA avancée. Découvrez 1000+ bourses d\'études, conseils personnalisés et accompagnement pour votre réussite académique en Afrique.',
+    description: 'Application mobile d\'orientation scolaire au Mali avec IA avancée. Conseils personnalisés et accompagnement pour votre réussite académique en Afrique.',
     logo: '/logo_full.png',
     icon: '/app_icon.png',
     language: 'fr',
@@ -23,17 +23,14 @@ export const seoConfig = {
     primary: [
       'orientation scolaire Mali',
       'conseil orientation Afrique',
-      'bourses études Mali',
       'IA orientation scolaire',
       'application mobile éducation'
     ],
     secondary: [
       'orientation universitaire Mali',
-      'bourses internationales',
       'conseil carrière étudiant',
       'orientation professionnelle Mali',
       'études supérieures Mali',
-      'bourses bourse Mali',
       'orientation scolaire gratuite',
       'conseil orientation IA',
       'application éducation Mali',
@@ -42,11 +39,9 @@ export const seoConfig = {
     longTail: [
       'comment choisir orientation scolaire Mali',
       'meilleure application orientation scolaire Afrique',
-      'bourses études supérieures Mali 2024',
       'conseil orientation professionnelle gratuite',
       'application mobile éducation Mali',
       'IA pour orientation scolaire personnalisée',
-      'trouver bourse études internationales Mali',
       'conseil carrière étudiant université Mali'
     ]
   },
@@ -54,13 +49,13 @@ export const seoConfig = {
   // Configuration des pages
   pages: {
     home: {
-      title: 'Conseil d\'Orientation Mali - IA pour Orientation Scolaire & Bourses d\'Études',
-      description: 'Application mobile d\'orientation scolaire au Mali avec IA avancée. Découvrez 1000+ bourses d\'études, conseils personnalisés et accompagnement pour votre réussite académique en Afrique.',
+      title: 'Conseil d\'Orientation Mali - IA pour Orientation Scolaire',
+      description: 'Application mobile d\'orientation scolaire au Mali avec IA avancée. Conseils personnalisés et accompagnement pour votre réussite académique en Afrique.',
       keywords: [
-        'orientation scolaire Mali', 'conseil orientation Afrique', 'bourses études Mali', 
+        'orientation scolaire Mali', 'conseil orientation Afrique', 
         'IA orientation scolaire', 'application mobile éducation', 'orientation universitaire Mali',
-        'bourses internationales', 'conseil carrière étudiant', 'orientation professionnelle Mali',
-        'études supérieures Mali', 'bourses bourse Mali', 'orientation scolaire gratuite',
+        'conseil carrière étudiant', 'orientation professionnelle Mali',
+        'études supérieures Mali', 'orientation scolaire gratuite',
         'conseil orientation IA', 'application éducation Mali', 'orientation scolaire personnalisée'
       ],
       priority: 1.0,
@@ -81,7 +76,7 @@ export const seoConfig = {
       title: 'Fonctionnalités - Conseil d\'Orientation Mali | IA & Bourses d\'Études',
       description: 'Découvrez toutes les fonctionnalités de Conseil d\'Orientation Mali : assistant IA avancé, 1000+ bourses d\'études, conseils personnalisés, recherche de formations et analyse de marché du travail.',
       keywords: [
-        'fonctionnalités conseil orientation Mali', 'assistant IA orientation scolaire', 'bourses études Mali',
+        'fonctionnalités conseil orientation Mali', 'assistant IA orientation scolaire',
         'conseils personnalisés orientation', 'recherche formations Mali', 'analyse marché travail Mali',
         'application mobile éducation', 'IA orientation scolaire Afrique', 'base données bourses Mali',
         'conseil carrière étudiant Mali', 'orientation professionnelle IA', 'fonctionnalités app éducation'
@@ -95,7 +90,7 @@ export const seoConfig = {
       keywords: [
         'télécharger conseil orientation Mali', 'app mobile orientation scolaire', 'application gratuite éducation Mali',
         'télécharger app Android iOS', 'conseil orientation mobile Mali', 'application orientation scolaire gratuite',
-        'télécharger app éducation Afrique', 'conseil orientation téléchargement', 'app mobile bourses études Mali',
+        'télécharger app éducation Afrique', 'conseil orientation téléchargement',
         'télécharger application IA orientation', 'conseil orientation app store', 'play store conseil orientation Mali'
       ],
       priority: 0.9,

@@ -6,16 +6,16 @@ import { SystemRequirements } from '@/components/sections/SystemRequirements';
 
 export const metadata: Metadata = {
   title: 'Télécharger - Conseil d\'Orientation Mali | App Mobile Gratuite',
-  description: 'Téléchargez gratuitement l\'application Conseil d\'Orientation Mali sur Android et iOS. IA avancée, 1000+ bourses d\'études, conseils personnalisés pour votre orientation scolaire.',
+  description: 'Téléchargez gratuitement l\'application Conseil d\'Orientation Mali sur Android (APK).',
   keywords: [
     'télécharger conseil orientation Mali', 'app mobile orientation scolaire', 'application gratuite éducation Mali',
-    'télécharger app Android iOS', 'conseil orientation mobile Mali', 'application orientation scolaire gratuite',
-    'télécharger app éducation Afrique', 'conseil orientation téléchargement', 'app mobile bourses études Mali',
+    'télécharger app Android APK', 'conseil orientation mobile Mali', 'application orientation scolaire gratuite',
+    'télécharger app éducation Afrique', 'conseil orientation téléchargement',
     'télécharger application IA orientation', 'conseil orientation app store', 'play store conseil orientation Mali'
   ],
   openGraph: {
     title: 'Télécharger - Conseil d\'Orientation Mali | App Mobile Gratuite',
-    description: 'Téléchargez gratuitement l\'application Conseil d\'Orientation Mali sur Android et iOS. IA avancée, 1000+ bourses d\'études, conseils personnalisés pour votre orientation scolaire.',
+    description: 'Téléchargez gratuitement l\'application Conseil d\'Orientation Mali sur Android (APK).',
     url: '/download',
     siteName: 'Conseil d\'Orientation Mali',
     images: [
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Télécharger - Conseil d\'Orientation Mali | App Mobile Gratuite',
-    description: 'Téléchargez gratuitement l\'application Conseil d\'Orientation Mali sur Android et iOS. IA avancée, 1000+ bourses d\'études, conseils personnalisés pour votre orientation scolaire.',
+    description: 'Téléchargez gratuitement l\'application Conseil d\'Orientation Mali sur Android (APK).',
     images: ['/app_icon.png'],
   },
   alternates: {

@@ -8,18 +8,18 @@ import { CTASection } from '@/components/sections/CTASection';
 import { StructuredData } from '@/components/seo/StructuredData';
 
 export const metadata: Metadata = {
-  title: 'Conseil d\'Orientation Mali - IA pour Orientation Scolaire & Bourses d\'Études',
-  description: 'Application mobile d\'orientation scolaire au Mali avec IA avancée. Découvrez 1000+ bourses d\'études, conseils personnalisés et accompagnement pour votre réussite académique en Afrique.',
+  title: 'Conseil d\'Orientation Mali - IA pour Orientation Scolaire',
+  description: 'Application mobile d\'orientation scolaire au Mali avec IA avancée. Conseils personnalisés et accompagnement pour votre réussite académique en Afrique.',
   keywords: [
-    'orientation scolaire Mali', 'conseil orientation Afrique', 'bourses études Mali', 
+    'orientation scolaire Mali', 'conseil orientation Afrique', 
     'IA orientation scolaire', 'application mobile éducation', 'orientation universitaire Mali',
-    'bourses internationales', 'conseil carrière étudiant', 'orientation professionnelle Mali',
-    'études supérieures Mali', 'bourses bourse Mali', 'orientation scolaire gratuite',
+    'conseil carrière étudiant', 'orientation professionnelle Mali',
+    'études supérieures Mali', 'orientation scolaire gratuite',
     'conseil orientation IA', 'application éducation Mali', 'orientation scolaire personnalisée'
   ],
   openGraph: {
-    title: 'Conseil d\'Orientation Mali - IA pour Orientation Scolaire & Bourses d\'Études',
-    description: 'Application mobile d\'orientation scolaire au Mali avec IA avancée. Découvrez 1000+ bourses d\'études, conseils personnalisés et accompagnement pour votre réussite académique en Afrique.',
+    title: 'Conseil d\'Orientation Mali - IA pour Orientation Scolaire',
+    description: 'Application mobile d\'orientation scolaire au Mali avec IA avancée. Conseils personnalisés et accompagnement pour votre réussite académique en Afrique.',
     url: '/',
     siteName: 'Conseil d\'Orientation Mali',
     images: [

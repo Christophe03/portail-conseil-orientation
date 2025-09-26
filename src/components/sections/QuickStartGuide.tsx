@@ -13,50 +13,51 @@ const steps = [
   {
     icon: DevicePhoneMobileIcon,
     title: '1. Téléchargement',
-    description: 'Téléchargez l\'application depuis l\'App Store, Google Play ou notre site web.',
+    description: 'Téléchargez l\'application Android depuis APKPure.',
     details: [
-      'iOS : App Store (iOS 12.0+)',
-      'Android : Google Play (Android 6.0+)',
-      'APK : Téléchargement direct depuis notre site'
+      'Android : APKPure (Android 6.0+)',
+      'Version stable et à jour',
+      'Installation hors store officiel',
+      'Source fiable et sécurisée'
     ],
     color: 'text-blue-600',
     bgColor: 'bg-blue-100 dark:bg-blue-900/30'
   },
   {
     icon: UserIcon,
-    title: '2. Création de Compte',
-    description: 'Créez votre profil étudiant en quelques étapes simples.',
+    title: '2. Découverte des Universités',
+    description: 'Explorez les universités privées et publiques du Mali.',
     details: [
-      'Informations personnelles de base',
-      'Niveau d\'études actuel',
-      'Centres d\'intérêt et objectifs',
-      'Préférences de formation'
+      'Liste complète des universités privées',
+      'Recherche par série du baccalauréat',
+      'Informations détaillées de chaque établissement',
+      'Contact et localisation des universités'
     ],
     color: 'text-green-600',
     bgColor: 'bg-green-100 dark:bg-green-900/30'
   },
   {
     icon: LightBulbIcon,
-    title: '3. Configuration IA',
-    description: 'Laissez notre IA analyser votre profil pour des recommandations personnalisées.',
+    title: '3. Recherche par Série',
+    description: 'Trouvez les universités qui correspondent à votre série du BAC.',
     details: [
-      'Analyse automatique de votre profil',
-      'Génération de recommandations',
-      'Personnalisation des conseils',
-      'Adaptation continue'
+      'Sélection de votre série (TSE, TSS, TLL, etc.)',
+      'Liste des universités compatibles',
+      'Facultés et licences disponibles',
+      'Débouchés professionnels détaillés'
     ],
     color: 'text-purple-600',
     bgColor: 'bg-purple-100 dark:bg-purple-900/30'
   },
   {
     icon: CheckCircleIcon,
-    title: '4. Première Utilisation',
-    description: 'Explorez les fonctionnalités et commencez votre parcours d\'orientation.',
+    title: '4. Orientation Post-BAC',
+    description: 'Découvrez les parcours possibles après l\'obtention du baccalauréat.',
     details: [
-      'Découverte de l\'interface',
-      'Recherche de bourses',
-      'Accès aux ressources',
-      'Premiers conseils IA'
+      'Guide complet par série',
+      'Conseils d\'orientation personnalisés',
+      'Étapes clés pour votre réussite',
+      'Ressources éducatives adaptées'
     ],
     color: 'text-orange-600',
     bgColor: 'bg-orange-100 dark:bg-orange-900/30'
@@ -64,10 +65,10 @@ const steps = [
 ];
 
 const tips = [
-  'Prenez le temps de bien remplir votre profil pour des recommandations plus précises',
-  'Activez les notifications pour ne manquer aucune opportunité de bourse',
-  'Utilisez régulièrement l\'assistant IA pour affiner vos choix',
-  'Téléchargez les ressources éducatives pour un accès hors ligne'
+  'Explorez toutes les universités privées du Mali pour avoir une vue d\'ensemble complète',
+  'Utilisez la recherche par série pour trouver les établissements les plus adaptés à votre profil',
+  'Consultez les détails de chaque université (contact, localisation, site web) avant de postuler',
+  'Découvrez les débouchés professionnels de chaque formation pour faire un choix éclairé'
 ];
 
 export function QuickStartGuide() {
@@ -87,8 +88,8 @@ export function QuickStartGuide() {
           </h2>
         </div>
         <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl">
-          Prêt à commencer votre voyage d'orientation ? Suivez ce guide en 4 étapes 
-          pour configurer et utiliser l'application Conseil d'Orientation.
+          Prêt à découvrir les universités du Mali ? Suivez ce guide en 4 étapes 
+          pour utiliser l'application Conseil d'Orientation et trouver votre voie.
         </p>
       </motion.div>
 
@@ -164,15 +165,15 @@ export function QuickStartGuide() {
           Prêt pour la Suite ?
         </h3>
         <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
-          Maintenant que vous avez configuré l'application, explorez nos guides détaillés 
-          pour maîtriser toutes les fonctionnalités.
+          Maintenant que vous connaissez les bases, explorez nos guides détaillés 
+          pour découvrir toutes les fonctionnalités de l'application.
         </p>
         <div className="flex flex-wrap justify-center gap-4">
           <button className="px-6 py-3 bg-secondary-600 hover:bg-secondary-700 text-white rounded-xl font-semibold transition-colors duration-200">
-            Guide des Fonctionnalités
+            Guide des Universités
           </button>
           <button className="px-6 py-3 border-2 border-secondary-600 text-secondary-600 hover:bg-secondary-600 hover:text-white rounded-xl font-semibold transition-all duration-200">
-            Tutoriels Vidéo
+            Recherche par Série
           </button>
         </div>
       </motion.div>

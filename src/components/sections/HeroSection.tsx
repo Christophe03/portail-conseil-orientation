@@ -3,9 +3,8 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import { 
-  SparklesIcon, 
+  SparklesIcon,
   DevicePhoneMobileIcon,
-  ChatBubbleLeftRightIcon,
   AcademicCapIcon,
   CurrencyDollarIcon
 } from '@heroicons/react/24/outline';
@@ -13,19 +12,14 @@ import Image from 'next/image';
 
 const features = [
   {
-    icon: ChatBubbleLeftRightIcon,
-    text: 'Assistant IA Intelligent',
-    delay: 0.2,
-  },
-  {
     icon: AcademicCapIcon,
-    text: '1000+ Bourses d\'Études',
-    delay: 0.4,
+    text: 'Universités & Formations',
+    delay: 0.2,
   },
   {
     icon: CurrencyDollarIcon,
     text: 'Ressources Éducatives',
-    delay: 0.6,
+    delay: 0.4,
   },
 ];
 
@@ -41,19 +35,6 @@ export function HeroSection() {
 
       <div className="container-custom relative z-10">
         <div className="text-center max-w-4xl mx-auto">
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center space-x-2 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm border border-neutral-200 dark:border-neutral-700 rounded-full px-4 py-2 mb-8"
-          >
-            <SparklesIcon className="h-4 w-4 text-accent-500" />
-            <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
-              🚀 Application Révolutionnaire
-            </span>
-          </motion.div>
-
           {/* Main Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -94,7 +75,7 @@ export function HeroSection() {
             className="text-xl md:text-2xl text-neutral-600 dark:text-neutral-400 mb-8 max-w-3xl mx-auto leading-relaxed"
           >
             Découvrez l'application mobile qui révolutionne l'orientation scolaire et professionnelle. 
-            Intelligence artificielle, bourses d'études et ressources éducatives au service de votre réussite.
+            Intelligence artificielle et ressources éducatives au service de votre réussite.
           </motion.p>
 
           {/* Features List */}
@@ -163,7 +144,7 @@ export function HeroSection() {
                 1000+
               </div>
               <div className="text-neutral-600 dark:text-neutral-400">
-                Bourses d'Études
+                Formations Découvertes
               </div>
             </div>
             <div className="text-center">

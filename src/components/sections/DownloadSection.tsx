@@ -15,41 +15,19 @@ import {
 
 const platforms = [
   {
-    name: 'Google Play Store',
-    icon: PlayIcon,
-    description: 'Version officielle Android',
-    buttonText: 'Télécharger sur Google Play',
-    buttonVariant: 'primary' as const,
-    link: 'https://play.google.com/store/apps/details?id=com.tcd.conseil_orientation',
-    features: ['Mises à jour automatiques', 'Sécurité Google Play', 'Support officiel'],
-    delay: 0.1,
-  },
-  {
-    name: 'App Store',
-    icon: DeviceTabletIcon,
-    description: 'Version officielle iOS',
-    buttonText: 'Télécharger sur App Store',
-    buttonVariant: 'primary' as const,
-    link: 'https://apps.apple.com/app/conseil-orientation/id1234567890',
-    features: ['Optimisé pour iOS', 'iCloud Sync', 'Support Apple'],
-    delay: 0.2,
-  },
-  {
     name: 'APKPure',
     icon: ComputerDesktopIcon,
-    description: 'Installation manuelle Android via APKPure',
+    description: 'Installation Android via APK (APKPure)',
     buttonText: 'Télécharger via APKPure',
-    buttonVariant: 'outline' as const,
+    buttonVariant: 'primary' as const,
     link: 'https://apkpure.com/p/com.tcd.conseil_orientation',
     features: ['Source fiable', 'Version à jour', 'Installation hors store'],
-    delay: 0.3,
+    delay: 0.1,
   },
 ];
 
 const requirements = [
-  { platform: 'Android', minVersion: '6.0 (API 23)', ram: '2 GB', storage: '100 MB', connection: 'Internet' },
-  { platform: 'iOS', minVersion: '12.0', ram: '2 GB', storage: '100 MB', connection: 'Internet' },
-  { platform: 'APK', minVersion: '6.0 (API 23)', ram: '2 GB', storage: '80 MB', connection: 'Internet' },
+  { platform: 'Android (APK)', minVersion: '6.0 (API 23)', ram: '2 GB', storage: '80 MB', connection: 'Internet' },
 ];
 
 const stats = [
@@ -89,68 +67,66 @@ export function DownloadSection() {
             </div>
           </motion.div>
 
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900 dark:text-white mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-white mb-4">
             Téléchargez{' '}
             <span className="bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
               Maintenant
             </span>
           </h2>
-          <p className="text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
-            Disponible sur toutes les plateformes. Choisissez votre méthode de téléchargement 
-            préférée et commencez votre voyage vers la réussite.
-          </p>
+          <div className="flex justify-center">
+            <span className="inline-flex items-center space-x-2 bg-white/90 dark:bg-neutral-800/80 backdrop-blur-sm border border-neutral-200/80 dark:border-neutral-700 rounded-full px-5 py-2.5 text-sm md:text-base text-neutral-800 dark:text-neutral-200 shadow-soft ring-1 ring-primary-300/40 dark:ring-neutral-700">
+              <DevicePhoneMobileIcon className="h-5 w-5 text-primary-600" />
+              <span className="font-medium">Version Android : APKPure</span>
+            </span>
+          </div>
         </motion.div>
 
-        {/* Platform Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          {platforms.map((platform, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: platform.delay }}
-              whileHover={{ y: -8 }}
-              className="card-hover p-8 text-center"
-            >
-              {/* Platform Icon */}
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-2xl mb-6">
-                <platform.icon className="h-10 w-10 text-white" />
+        {/* APKPure Highlight Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="mb-16"
+        >
+          <div className="bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-neutral-800 dark:to-neutral-700 rounded-2xl p-8 md:p-12 border border-primary-200 dark:border-neutral-600">
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-2xl mb-6">
+                <ComputerDesktopIcon className="h-8 w-8 text-white" />
               </div>
-
-              {/* Platform Info */}
-              <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-2">
-                {platform.name}
+              <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white mb-4">
+                APKPure
               </h3>
-              <p className="text-neutral-600 dark:text-neutral-400 mb-6">
-                {platform.description}
+              <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-8 max-w-2xl mx-auto">
+                Installation Android via APK (APKPure)
               </p>
-
-              {/* Download Button */}
               <Button
-                variant={platform.buttonVariant}
                 size="lg"
-                className="w-full mb-6"
+                className="bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white font-bold text-lg px-8 py-4 shadow-soft hover:shadow-medium transform hover:scale-105 transition-all duration-200 mb-8"
                 asChild
               >
-                <a href={platform.link} target="_blank" rel="noopener noreferrer">
-                  <ArrowDownTrayIcon className="h-5 w-5 mr-2" />
-                  {platform.buttonText}
+                <a href="https://apkpure.com/p/com.tcd.conseil_orientation" target="_blank" rel="noopener noreferrer">
+                  <ArrowDownTrayIcon className="h-6 w-6 mr-2" />
+                  Télécharger via APKPure
                 </a>
               </Button>
-
-              {/* Features */}
-              <ul className="space-y-2 text-left">
-                {platform.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-center space-x-2 text-sm text-neutral-600 dark:text-neutral-400">
-                    <CheckCircleIcon className="h-4 w-4 text-green-500 flex-shrink-0" />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="flex items-center space-x-3 text-left">
+                  <CheckCircleIcon className="h-6 w-6 text-green-500 flex-shrink-0" />
+                  <span className="text-neutral-700 dark:text-neutral-300 font-medium">Source fiable</span>
+                </div>
+                <div className="flex items-center space-x-3 text-left">
+                  <CheckCircleIcon className="h-6 w-6 text-green-500 flex-shrink-0" />
+                  <span className="text-neutral-700 dark:text-neutral-300 font-medium">Version à jour</span>
+                </div>
+                <div className="flex items-center space-x-3 text-left">
+                  <CheckCircleIcon className="h-6 w-6 text-green-500 flex-shrink-0" />
+                  <span className="text-neutral-700 dark:text-neutral-300 font-medium">Installation hors store</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
 
         {/* Stats Section */}
         <motion.div

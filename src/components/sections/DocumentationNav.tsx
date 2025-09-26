@@ -16,7 +16,7 @@ const navSections = [
     title: 'Démarrage Rapide',
     icon: RocketLaunchIcon,
     items: [
-      { name: 'Installation', href: '#installation', description: 'Installer et configurer l\'application' },
+      { name: 'Installation', href: '#installation', description: 'Télécharger l\'application Android' },
       { name: 'Premiers Pas', href: '#first-steps', description: 'Guide de démarrage rapide' },
       { name: 'Interface', href: '#interface', description: 'Découvrir l\'interface utilisateur' }
     ]
@@ -25,18 +25,19 @@ const navSections = [
     title: 'Fonctionnalités',
     icon: LightBulbIcon,
     items: [
-      { name: 'Assistant IA', href: '#ai-assistant', description: 'Utiliser l\'intelligence artificielle' },
-      { name: 'Bourses', href: '#scholarships', description: 'Rechercher des bourses d\'études' },
-      { name: 'Ressources', href: '#resources', description: 'Accéder aux ressources éducatives' }
+      { name: 'Universités Privées', href: '#universites-privees', description: 'Explorer les universités privées du Mali' },
+      { name: 'Universités Publiques', href: '#universites-publiques', description: 'Découvrir les universités publiques par série' },
+      { name: 'Séries du BAC', href: '#series', description: 'Comprendre les séries du baccalauréat' },
+      { name: 'Orientation Post-BAC', href: '#orientation', description: 'Guide d\'orientation après le BAC' }
     ]
   },
   {
     title: 'Tutoriels',
     icon: AcademicCapIcon,
     items: [
-      { name: 'Vidéos', href: '#videos', description: 'Tutoriels vidéo pas à pas' },
-      { name: 'Exemples', href: '#examples', description: 'Cas d\'usage concrets' },
-      { name: 'Bonnes Pratiques', href: '#best-practices', description: 'Conseils d\'utilisation' }
+      { name: 'Recherche d\'Universités', href: '#recherche', description: 'Comment trouver une université' },
+      { name: 'Choix de Série', href: '#choix-serie', description: 'Choisir la bonne série' },
+      { name: 'Débouchés', href: '#debouches', description: 'Comprendre les débouchés professionnels' }
     ]
   },
   {
@@ -45,7 +46,7 @@ const navSections = [
     items: [
       { name: 'FAQ', href: '#faq', description: 'Questions fréquentes' },
       { name: 'Problèmes Courants', href: '#common-issues', description: 'Solutions aux erreurs' },
-      { name: 'Support', href: '#support', description: 'Contacter l\'équipe' }
+      { name: 'Contact', href: '#contact', description: 'Contacter l\'équipe' }
     ]
   },
   {
@@ -53,7 +54,7 @@ const navSections = [
     icon: CodeBracketIcon,
     items: [
       { name: 'API', href: '#api', description: 'Documentation de l\'API' },
-      { name: 'SDK', href: '#sdk', description: 'Kits de développement' },
+      { name: 'Données', href: '#donnees', description: 'Structure des données' },
       { name: 'Intégration', href: '#integration', description: 'Guides d\'intégration' }
     ]
   }
@@ -139,26 +140,26 @@ export function DocumentationNav() {
           <div className="space-y-3">
             <button className="w-full text-left p-3 bg-secondary-50 dark:bg-secondary-900/20 rounded-lg hover:bg-secondary-100 dark:hover:bg-secondary-900/30 transition-colors duration-200">
               <div className="font-medium text-secondary-700 dark:text-secondary-300">
-                📚 Guide Complet
+                🏛️ Guide des Universités
               </div>
               <div className="text-sm text-secondary-600 dark:text-secondary-400">
-                Télécharger le PDF
+                Liste complète
               </div>
             </button>
             <button className="w-full text-left p-3 bg-accent-50 dark:bg-accent-900/20 rounded-lg hover:bg-accent-100 dark:hover:bg-accent-900/30 transition-colors duration-200">
               <div className="font-medium text-accent-700 dark:text-accent-300">
-                🎥 Tutoriels Vidéo
+                📊 Recherche par Série
               </div>
               <div className="text-sm text-accent-600 dark:text-accent-400">
-                Chaîne YouTube
+                Trouver votre voie
               </div>
             </button>
             <button className="w-full text-left p-3 bg-primary-50 dark:bg-primary-900/20 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors duration-200">
               <div className="font-medium text-primary-700 dark:text-primary-300">
-                💬 Support Chat
+                💬 Contact
               </div>
               <div className="text-sm text-primary-600 dark:text-primary-400">
-                Aide en direct
+                Aide et support
               </div>
             </button>
           </div>

@@ -4,11 +4,8 @@ import { motion, useInView } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
 import { 
   UsersIcon,
-  AcademicCapIcon,
-  GlobeAltIcon,
   StarIcon,
-  ChartBarIcon,
-  RocketLaunchIcon
+  ChartBarIcon
 } from '@heroicons/react/24/outline';
 
 const stats = [
@@ -22,31 +19,13 @@ const stats = [
     delay: 0.1,
   },
   {
-    icon: AcademicCapIcon,
-    value: 1000,
-    suffix: '+',
-    label: 'Bourses d\'Études',
-    description: 'Opportunités de financement disponibles',
-    color: 'from-green-500 to-emerald-500',
-    delay: 0.2,
-  },
-  {
-    icon: GlobeAltIcon,
-    value: 150,
-    suffix: '+',
-    label: 'Pays Couverts',
-    description: 'Étudiants du monde entier utilisent notre plateforme',
-    color: 'from-purple-500 to-pink-500',
-    delay: 0.3,
-  },
-  {
     icon: StarIcon,
     value: 4.8,
     suffix: '/5',
     label: 'Note Moyenne',
     description: 'Évaluation des utilisateurs sur les stores',
     color: 'from-yellow-500 to-amber-500',
-    delay: 0.4,
+    delay: 0.2,
   },
   {
     icon: ChartBarIcon,
@@ -55,16 +34,7 @@ const stats = [
     label: 'Taux de Satisfaction',
     description: 'Utilisateurs satisfaits de notre service',
     color: 'from-indigo-500 to-blue-500',
-    delay: 0.5,
-  },
-  {
-    icon: RocketLaunchIcon,
-    value: 1000,
-    suffix: '+',
-    label: 'Formations Découvertes',
-    description: 'Parcours académiques identifiés par notre IA',
-    color: 'from-red-500 to-pink-500',
-    delay: 0.6,
+    delay: 0.3,
   },
 ];
 
@@ -72,7 +42,7 @@ const achievements = [
   {
     year: '2024',
     title: 'Lancement Officiel',
-    description: 'Application disponible sur iOS et Android',
+    description: 'Application disponible sur Android via APKPure',
     icon: '🚀',
   },
   {
@@ -80,18 +50,6 @@ const achievements = [
     title: '10K Utilisateurs',
     description: 'Premier objectif atteint en 3 mois',
     icon: '🎯',
-  },
-  {
-    year: '2024',
-    title: 'Partenariats Universitaires',
-    description: 'Accords avec 50+ établissements',
-    icon: '🤝',
-  },
-  {
-    year: '2025',
-    title: 'Expansion Internationale',
-    description: 'Disponible dans 20+ langues',
-    icon: '🌍',
   },
 ];
 
@@ -148,7 +106,7 @@ export function StatsSection() {
         </motion.div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {stats.map((stat, index) => (
             <motion.div
               key={index}
@@ -199,31 +157,37 @@ export function StatsSection() {
           className="mb-16"
         >
           <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
-            <h3 className="text-2xl font-bold text-center mb-8">
+            <h3 className="text-2xl font-bold text-center mb-10">
               Notre Parcours de Réussite
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {achievements.map((achievement, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.1 * index }}
-                  className="text-center"
-                >
-                  <div className="text-4xl mb-3">{achievement.icon}</div>
-                  <div className="text-primary-400 font-semibold mb-2">
-                    {achievement.year}
-                  </div>
-                  <h4 className="text-lg font-semibold text-white mb-2">
-                    {achievement.title}
-                  </h4>
-                  <p className="text-neutral-300 text-sm">
-                    {achievement.description}
-                  </p>
-                </motion.div>
-              ))}
+
+            {/* Timeline */}
+            <div className="relative">
+              {/* Line (vertical on mobile, horizontal on lg) */}
+              <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-400 to-secondary-400 lg:left-0 lg:top-8 lg:bottom-auto lg:h-0.5 lg:w-full lg:bg-gradient-to-r"></div>
+
+              <div className="space-y-10 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-10">
+                {achievements.map((a, i) => (
+                  <motion.div
+                    key={`${a.title}-${i}`}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.1 * i }}
+                    className="relative pl-12 lg:pl-0"
+                  >
+                    {/* Node */}
+                    <div className="absolute left-4 -translate-x-1/2 top-0 lg:left-auto lg:top-auto lg:relative lg:translate-x-0 lg:mb-4">
+                      <div className="h-3 w-3 rounded-full bg-primary-300 shadow-lg"></div>
+                    </div>
+                    <div className="card-hover bg-white/5 border border-white/10 rounded-xl p-5">
+                      <div className="text-primary-300 font-semibold text-sm">{a.year}</div>
+                      <h4 className="text-lg font-semibold text-white mt-1">{a.title}</h4>
+                      <p className="text-neutral-300 text-sm mt-2">{a.description}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
         </motion.div>

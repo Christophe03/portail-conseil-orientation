@@ -17,10 +17,9 @@ import Image from 'next/image';
 
 const navigation = [
   { name: 'Accueil', href: '/' },
-  { name: 'Fonctionnalités', href: '#features' },
   { name: 'Télécharger', href: '#download' },
+  { name: 'Universités', href: '/universites' },
   { name: 'Documentation', href: '/docs' },
-  { name: 'Support', href: '/support' },
   { name: 'À propos', href: '/about' },
 ];
 

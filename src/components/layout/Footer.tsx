@@ -12,29 +12,18 @@ import {
 
 const footerLinks = {
   produit: [
-    { name: 'Fonctionnalités', href: '#features' },
-    { name: 'Télécharger', href: '#download' },
-    { name: 'Prix', href: '/pricing' },
-    { name: 'Mises à jour', href: '/updates' },
+    { name: 'Universités', href: '/universites' },
+    { name: 'Universités Privées', href: '/universites/privees' },
+    { name: 'Universités Publiques', href: '/universites/publiques' },
+    { name: 'Séries', href: '/universites/series' },
+    { name: 'Télécharger', href: '/download' },
   ],
   ressources: [
     { name: 'Documentation', href: '/docs' },
-    { name: 'Guide utilisateur', href: '/guide' },
-    { name: 'FAQ', href: '/faq' },
-    { name: 'Blog', href: '/blog' },
   ],
   entreprise: [
     { name: 'À propos', href: '/about' },
-    { name: 'Équipe', href: '/team' },
-    { name: 'Carrières', href: '/careers' },
-    { name: 'Partenaires', href: '/partners' },
     { name: 'Politique de confidentialité', href: '/privacy' },
-  ],
-  support: [
-    { name: 'Centre d\'aide', href: '/help' },
-    { name: 'Contact', href: '/contact' },
-    { name: 'Statut', href: '/status' },
-    { name: 'Communauté', href: '/community' },
   ],
 };
 
@@ -68,8 +57,8 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-neutral-400 mb-6 max-w-md">
-              Votre compagnon pour un avenir brillant. Application mobile révolutionnaire 
-              de conseil d'orientation scolaire et professionnelle.
+              Application et site d'orientation au Mali : universités privées et publiques,
+              recherche par série et parcours post-BAC.
             </p>
             
             {/* Contact Info */}
@@ -142,23 +131,6 @@ export function Footer() {
             <h3 className="text-lg font-semibold mb-4 text-white">Entreprise</h3>
             <ul className="space-y-3">
               {footerLinks.entreprise.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-neutral-400 hover:text-primary-400 transition-colors duration-200"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Liens Support */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4 text-white">Support</h3>
-            <ul className="space-y-3">
-              {footerLinks.support.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}

@@ -11,7 +11,6 @@ import {
 
 const benefits = [
   'Assistant IA intelligent et personnalisé',
-  'Base de données de 1000+ bourses d\'études',
   'Ressources éducatives complètes',
   'Interface moderne et intuitive',
   'Support technique 24/7',

@@ -38,7 +38,7 @@ export function HeroDownload() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold text-neutral-900 dark:text-white mb-6"
+            className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-neutral-900 dark:text-white mb-4"
           >
             Téléchargez{' '}
             <span className="bg-gradient-to-r from-brand-600 via-primary-600 to-accent-500 bg-clip-text text-transparent">
@@ -51,11 +51,24 @@ export function HeroDownload() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl md:text-2xl text-neutral-600 dark:text-neutral-400 mb-8 max-w-3xl mx-auto leading-relaxed"
+            className="text-lg md:text-xl text-neutral-600 dark:text-neutral-400 mb-6 max-w-3xl mx-auto leading-relaxed"
           >
             Commencez votre voyage vers la réussite dès aujourd'hui. 
-            Disponible sur iOS, Android et APK direct.
+            Disponible sur Android (APK) via APKPure.
           </motion.p>
+
+          {/* Android Version Info */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="mb-10"
+          >
+            <span className="inline-flex items-center space-x-2 bg-white/90 dark:bg-neutral-800/80 backdrop-blur-sm border border-neutral-200/80 dark:border-neutral-700 rounded-full px-5 py-2.5 text-sm md:text-base text-neutral-800 dark:text-neutral-200 shadow-soft ring-1 ring-brand-300/40 dark:ring-neutral-700">
+              <DevicePhoneMobileIcon className="h-5 w-5 text-brand-600" />
+              <span className="font-medium">Version Android : APKPure</span>
+            </span>
+          </motion.div>
 
           {/* Quick Stats */}
           <motion.div

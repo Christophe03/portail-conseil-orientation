@@ -5,56 +5,50 @@ import { StarIcon, ChatBubbleLeftRightIcon } from '@heroicons/react/24/solid';
 
 const testimonials = [
   {
-    name: 'Marie Dubois',
+    name: 'Aminata Traoré',
     role: 'Étudiante en Master',
-    university: 'Sorbonne Université',
     rating: 5,
-    content: 'Cette application a complètement transformé mon approche de l\'orientation. L\'assistant IA m\'a aidée à identifier des formations que je n\'aurais jamais découvertes autrement. Je recommande à tous les étudiants !',
+    content: 'Cette application a complètement transformé mon approche de l\'orientation. Elle m\'a aidée à identifier des formations que je n\'aurais jamais découvertes autrement. Je recommande à tous les étudiants !',
     avatar: '👩‍🎓',
     delay: 0.1,
   },
   {
-    name: 'Thomas Martin',
+    name: 'Ibrahim Keita',
     role: 'Étudiant en Licence',
-    university: 'Université de Lyon',
     rating: 5,
-    content: 'Grâce aux bourses d\'études, j\'ai pu financer mes études à l\'étranger. L\'application est intuitive et les notifications m\'ont permis de ne manquer aucune opportunité.',
+    content: 'Grâce à cette application, j\'ai pu découvrir les universités privées du Mali et leurs programmes. L\'application est intuitive et m\'a permis de faire les bons choix pour mon avenir.',
     avatar: '👨‍🎓',
     delay: 0.2,
   },
   {
-    name: 'Sophie Bernard',
+    name: 'Fatoumata Diarra',
     role: 'Étudiante en BTS',
-    university: 'Lycée Technique',
     rating: 5,
-    content: 'Les ressources éducatives sont exceptionnelles. J\'ai pu explorer différents métiers et comprendre les débouchés de ma formation. L\'interface est moderne et agréable à utiliser.',
+    content: 'Les ressources éducatives sont exceptionnelles. J\'ai pu explorer différentes séries et comprendre les débouchés de ma formation. L\'interface est moderne et agréable à utiliser.',
     avatar: '👩‍💼',
     delay: 0.3,
   },
   {
-    name: 'Lucas Moreau',
+    name: 'Moussa Coulibaly',
     role: 'Étudiant en Doctorat',
-    university: 'École Centrale',
     rating: 5,
     content: 'En tant qu\'étudiant en recherche, j\'apprécie particulièrement la qualité des conseils et la pertinence des recommandations. L\'application s\'adapte parfaitement à mon profil.',
     avatar: '👨‍🔬',
     delay: 0.4,
   },
   {
-    name: 'Emma Rousseau',
+    name: 'Aïcha Diallo',
     role: 'Étudiante en École de Commerce',
-    university: 'HEC Paris',
     rating: 5,
-    content: 'L\'assistant IA est incroyablement intelligent. Il m\'a guidée dans mes choix de spécialisation et m\'a aidée à construire un parcours cohérent avec mes objectifs.',
+    content: 'L\'application est incroyablement utile. Elle m\'a guidée dans mes choix de spécialisation et m\'a aidée à construire un parcours cohérent avec mes objectifs.',
     avatar: '👩‍💻',
     delay: 0.5,
   },
   {
-    name: 'Alexandre Petit',
+    name: 'Boubacar Sangaré',
     role: 'Étudiant en École d\'Ingénieur',
-    university: 'Polytechnique',
     rating: 5,
-    content: 'La gestion des bourses est parfaite. J\'ai pu postuler à plusieurs programmes internationaux et suivre mes candidatures facilement. Une vraie révolution !',
+    content: 'La recherche d\'universités par série est parfaite. J\'ai pu trouver les établissements qui correspondent à mon profil et suivre mes candidatures facilement. Une vraie révolution !',
     avatar: '👨‍🔧',
     delay: 0.6,
   },
@@ -147,9 +141,6 @@ export function TestimonialsSection() {
                   </div>
                   <div className="text-sm text-neutral-600 dark:text-neutral-400">
                     {testimonial.role}
-                  </div>
-                  <div className="text-xs text-primary-600 dark:text-primary-400">
-                    {testimonial.university}
                   </div>
                 </div>
               </div>
