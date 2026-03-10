@@ -89,9 +89,9 @@ export function ComparisonTable() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className={`relative bg-gradient-to-br ${plan.bgColor} dark:${plan.darkBgColor} rounded-2xl p-8 border-2 ${
+              className={`relative bg-gradient-to-br ${plan.bgColor} dark:${plan.darkBgColor} rounded-2xl p-6 md:p-8 border-2 ${
                 plan.popular 
-                  ? 'border-primary-500 shadow-2xl scale-105' 
+                  ? 'border-primary-500 shadow-2xl md:scale-105' 
                   : 'border-neutral-200 dark:border-neutral-700'
               } hover:shadow-xl transition-all duration-300`}
             >

@@ -59,7 +59,7 @@ export function PriveesList({ items }: { items: Privee[] }) {
             <Link
               key={u.ID}
               href={`/universites/privees/${slug}`}
-              className="group rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-3 sm:p-5 shadow-soft hover:shadow-medium transition-all flex items-center gap-3 sm:gap-4"
+              className="group w-full rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-3 sm:p-5 shadow-soft hover:shadow-medium transition-all flex items-start gap-3 sm:gap-4"
             >
               <div className="relative h-12 w-12 sm:h-14 sm:w-14 rounded-xl overflow-hidden bg-neutral-100 dark:bg-neutral-800 flex-shrink-0">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -70,13 +70,13 @@ export function PriveesList({ items }: { items: Privee[] }) {
                 )}
               </div>
               <div className="min-w-0">
-                <h3 className="text-sm sm:text-base font-semibold text-neutral-900 dark:text-white truncate">
+                <h3 className="text-sm sm:text-base font-semibold text-neutral-900 dark:text-white break-words sm:truncate">
                   {display}
                 </h3>
-                <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 truncate">
+                <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 break-words sm:truncate">
                   {truncateText(u.Désignation || '', 90)}
                 </p>
-                <div className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
+                <div className="mt-2 text-xs text-neutral-500 dark:text-neutral-400 break-words">
                   {u.Localisation || ''}
                 </div>
               </div>

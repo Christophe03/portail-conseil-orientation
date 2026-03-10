@@ -32,12 +32,12 @@ export default function PriveesPage() {
     .sort((a, b) => a.Nom.localeCompare(b.Nom));
 
   return (
-    <section className="container-custom pt-28 pb-16">
-      <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-neutral-900 dark:text-white text-center">
+    <section className="container-custom pt-24 pb-12 sm:pt-28">
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-neutral-900 dark:text-white text-center text-balance">
         Universités privées
       </h1>
       <div className="mt-3 flex flex-col items-center gap-2">
-        <p className="text-neutral-600 dark:text-neutral-300 text-center">
+        <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-300 text-center">
           Recherchez par sigle ou nom, puis cliquez pour voir les détails.
         </p>
         <span className="text-xs px-2 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300">
@@ -48,5 +48,6 @@ export default function PriveesPage() {
     </section>
   );
 }
+
 
 

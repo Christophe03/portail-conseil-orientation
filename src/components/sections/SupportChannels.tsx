@@ -111,7 +111,7 @@ export function SupportChannels() {
                 </div>
               </div>
               
-              <div className="grid grid-cols-2 gap-4 mb-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                 <div className="flex items-center space-x-2">
                   <ClockIcon className="h-5 w-5 text-neutral-500" />
                   <div>

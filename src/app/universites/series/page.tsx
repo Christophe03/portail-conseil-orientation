@@ -98,11 +98,11 @@ export default function SeriesListPage() {
     }
   };
   return (
-    <section className="container-custom pt-28 pb-16">
-      <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-neutral-900 dark:text-white text-center">
+    <section className="container-custom pt-24 pb-12 sm:pt-28">
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-neutral-900 dark:text-white text-center text-balance">
         Séries
       </h1>
-      <p className="mt-3 text-center text-neutral-600 dark:text-neutral-300">
+      <p className="mt-3 text-center text-sm sm:text-base text-neutral-600 dark:text-neutral-300">
         Cliquez sur une série pour voir sa description et ses avantages.
       </p>
 
@@ -111,7 +111,7 @@ export default function SeriesListPage() {
           <Link
             key={s.abre}
             href={`/universites/series/${slugify(s.abre)}`}
-            className="group rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-5 shadow-soft hover:shadow-medium transition-all"
+            className="group rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4 sm:p-5 shadow-soft hover:shadow-medium transition-all"
           >
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
@@ -120,7 +120,7 @@ export default function SeriesListPage() {
                 </div>
                 <h2 className="text-lg font-semibold text-neutral-900 dark:text-white">{s.abre}</h2>
               </div>
-              <span className="text-sm text-neutral-600 dark:text-neutral-300 group-hover:text-primary-600 transition-colors truncate">
+              <span className="text-sm text-neutral-600 dark:text-neutral-300 group-hover:text-primary-600 transition-colors break-words sm:truncate">
                 {s.nom}
               </span>
             </div>
@@ -130,5 +130,6 @@ export default function SeriesListPage() {
     </section>
   );
 }
+
 
 

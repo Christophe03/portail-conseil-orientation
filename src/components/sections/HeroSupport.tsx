@@ -10,7 +10,7 @@ import {
 
 export function HeroSupport() {
   return (
-    <section className="relative pt-32 pb-20 overflow-hidden bg-gradient-to-br from-accent-50 via-white to-warning-50 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">
+    <section className="relative pt-24 pb-16 sm:pt-28 overflow-hidden bg-gradient-to-br from-accent-50 via-white to-warning-50 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-accent-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
@@ -24,7 +24,7 @@ export function HeroSupport() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center space-x-2 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm border border-neutral-200 dark:border-neutral-700 rounded-full px-4 py-2 mb-8"
+            className="inline-flex items-center space-x-2 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm border border-neutral-200 dark:border-neutral-700 rounded-full px-4 py-2 mb-6"
           >
             <ExclamationTriangleIcon className="h-4 w-4 text-accent-500" />
             <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
@@ -37,7 +37,7 @@ export function HeroSupport() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold text-neutral-900 dark:text-white mb-6"
+            className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-neutral-900 dark:text-white mb-5 leading-tight text-balance"
           >
             Besoin d'{' '}
             <span className="bg-gradient-to-r from-accent-600 via-warning-600 to-primary-500 bg-clip-text text-transparent">
@@ -50,7 +50,7 @@ export function HeroSupport() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl md:text-2xl text-neutral-600 dark:text-neutral-400 mb-8 max-w-3xl mx-auto leading-relaxed"
+            className="text-lg sm:text-xl md:text-2xl text-neutral-600 dark:text-neutral-400 mb-6 max-w-3xl mx-auto leading-relaxed"
           >
             Notre équipe de support est là pour vous accompagner. 
             FAQ, guides de dépannage et contact direct pour résoudre tous vos problèmes.

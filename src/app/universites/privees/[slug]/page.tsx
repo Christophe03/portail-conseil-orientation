@@ -42,7 +42,7 @@ export default function PriveeDetailPage({ params }: { params: { slug: string } 
   const u = matchUniversity(params.slug);
   if (!u) {
     return (
-      <section className="container-custom pt-28 pb-16">
+      <section className="container-custom pt-24 pb-12 sm:pt-28">
         <p className="text-center text-neutral-600 dark:text-neutral-300">Université introuvable.</p>
       </section>
     );
@@ -51,13 +51,13 @@ export default function PriveeDetailPage({ params }: { params: { slug: string } 
   const logoSrc = u.Logo && u.Logo.trim() !== '' ? u.Logo : '/logo_appbar.png';
 
   return (
-    <section className="container-custom pt-28 pb-16">
+    <section className="container-custom pt-24 pb-12 sm:pt-28">
       <div className="max-w-3xl mx-auto">
         <Link href="/universites/privees" className="text-sm text-primary-600 hover:underline">
           ← Retour à la liste
         </Link>
-        <div className="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-6 shadow-soft">
-          <div className="flex items-center gap-4">
+        <div className="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-5 sm:p-6 shadow-soft">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
             <div className="relative h-16 w-16 rounded-xl overflow-hidden bg-neutral-100 dark:bg-neutral-800 flex-shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               {logoSrc.startsWith('http') ? (
@@ -67,10 +67,10 @@ export default function PriveeDetailPage({ params }: { params: { slug: string } 
               )}
             </div>
             <div>
-              <h1 className="text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white">
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white break-words">
                 {u.Nom}
               </h1>
-              <p className="text-neutral-600 dark:text-neutral-300">{u.Désignation}</p>
+              <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-300">{u.Désignation}</p>
             </div>
           </div>
 
@@ -132,5 +132,6 @@ export default function PriveeDetailPage({ params }: { params: { slug: string } 
     </section>
   );
 }
+
 
 

@@ -18,12 +18,12 @@ export default function UniversitesPage() {
   (seriesPub as unknown as SeriePub[]).forEach((s) => s.universite?.forEach((u) => u.nom && publicSet.add(u.nom)));
   const publicCount = publicSet.size;
   return (
-    <section className="container-custom pt-28 pb-16">
+    <section className="container-custom pt-24 pb-12 sm:pt-28">
       <div className="max-w-3xl mx-auto text-center">
-        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-neutral-900 dark:text-white">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-neutral-900 dark:text-white text-balance">
           Universités au Mali
         </h1>
-        <p className="mt-4 text-neutral-600 dark:text-neutral-300">
+        <p className="mt-3 text-sm sm:text-base text-neutral-600 dark:text-neutral-300">
           Parcourez les établissements privés et publics, leurs facultés, licences et débouchés.
         </p>
       </div>
@@ -31,7 +31,7 @@ export default function UniversitesPage() {
       <div className="mt-12 grid gap-6 sm:grid-cols-2">
         <Link
           href="/universites/privees"
-          className="group relative rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-6 shadow-soft hover:shadow-medium transition-all"
+          className="group relative rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-5 sm:p-6 shadow-soft hover:shadow-medium transition-all"
         >
           <div className="flex items-start gap-4">
             <div className="rounded-xl p-3 bg-primary-50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300">
@@ -47,12 +47,12 @@ export default function UniversitesPage() {
               </span>
             </div>
           </div>
-          <ArrowRightIcon className="h-5 w-5 absolute right-6 bottom-6 text-neutral-400 group-hover:text-primary-600 transition-colors" />
+          <ArrowRightIcon className="h-5 w-5 absolute right-6 bottom-6 text-neutral-400 group-hover:text-primary-600 transition-colors hidden sm:block" />
         </Link>
 
         <Link
           href="/universites/series"
-          className="group relative rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-6 shadow-soft hover:shadow-medium transition-all"
+          className="group relative rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-5 sm:p-6 shadow-soft hover:shadow-medium transition-all"
         >
           <div className="flex items-start gap-4">
             <div className="rounded-xl p-3 bg-neutral-50 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
@@ -65,12 +65,12 @@ export default function UniversitesPage() {
               </p>
             </div>
           </div>
-          <ArrowRightIcon className="h-5 w-5 absolute right-6 bottom-6 text-neutral-400 group-hover:text-primary-600 transition-colors" />
+          <ArrowRightIcon className="h-5 w-5 absolute right-6 bottom-6 text-neutral-400 group-hover:text-primary-600 transition-colors hidden sm:block" />
         </Link>
 
         <Link
           href="/universites/publiques"
-          className="group relative rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-6 shadow-soft hover:shadow-medium transition-all"
+          className="group relative rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-5 sm:p-6 shadow-soft hover:shadow-medium transition-all"
         >
           <div className="flex items-start gap-4">
             <div className="rounded-xl p-3 bg-secondary-50 text-secondary-700 dark:bg-secondary-900/30 dark:text-secondary-300">
@@ -86,11 +86,12 @@ export default function UniversitesPage() {
               </span>
             </div>
           </div>
-          <ArrowRightIcon className="h-5 w-5 absolute right-6 bottom-6 text-neutral-400 group-hover:text-primary-600 transition-colors" />
+          <ArrowRightIcon className="h-5 w-5 absolute right-6 bottom-6 text-neutral-400 group-hover:text-primary-600 transition-colors hidden sm:block" />
         </Link>
       </div>
     </section>
   );
 }
+
 
 

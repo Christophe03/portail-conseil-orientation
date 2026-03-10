@@ -6,7 +6,16 @@ const nextConfig = {
   
   // Configuration des images
   images: {
-    domains: ['conseil-orientation-mali.com', 'cdn.conseil-orientation-mali.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'conseil-orientation-mali.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.conseil-orientation-mali.com',
+      },
+    ],
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
@@ -152,6 +161,16 @@ const nextConfig = {
       };
     }
 
+    // Exclure les fonctions Firebase du build
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+      };
+    }
+
     return config;
   },
 
@@ -173,18 +192,6 @@ const nextConfig = {
     ignoreBuildErrors: false,
   },
 
-  // Exclure les fonctions Firebase du build
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-        net: false,
-        tls: false,
-      };
-    }
-    return config;
-  },
 
   // Configuration ESLint
   eslint: {

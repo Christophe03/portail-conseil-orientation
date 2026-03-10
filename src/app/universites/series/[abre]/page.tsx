@@ -43,7 +43,7 @@ export default function SerieDetailPage({ params }: { params: { abre: string } }
   const s = getSerie(params.abre);
   if (!s) {
     return (
-      <section className="container-custom pt-28 pb-16">
+      <section className="container-custom pt-24 pb-12 sm:pt-28">
         <p className="text-center text-neutral-600 dark:text-neutral-300">Série introuvable.</p>
       </section>
     );
@@ -82,12 +82,12 @@ export default function SerieDetailPage({ params }: { params: { abre: string } }
   };
 
   return (
-    <section className="container-custom pt-28 pb-16">
+    <section className="container-custom pt-24 pb-12 sm:pt-28">
       <div className="max-w-3xl mx-auto">
         <Link href="/universites/series" className="text-sm text-primary-600 hover:underline">
           ← Retour aux séries
         </Link>
-        <div className="mt-4 flex items-start gap-3">
+        <div className="mt-4 flex flex-col sm:flex-row sm:items-center gap-3">
           <div className={`rounded-lg p-2 ${colorFor(s.icon)}`}>
             {(function(icon?: string) {
               const cls = 'h-7 w-7';
@@ -122,20 +122,20 @@ export default function SerieDetailPage({ params }: { params: { abre: string } }
               }
             })(s.icon)}
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white break-words">
             {s.abre} — {s.nom}
           </h1>
         </div>
 
         <div className="mt-6 space-y-4">
           {s.description && (
-            <div className="rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-5">
+            <div className="rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4 sm:p-5">
               <h2 className="text-base font-semibold text-neutral-900 dark:text-white">Description</h2>
               <p className="mt-2 text-neutral-700 dark:text-neutral-300">{s.description}</p>
             </div>
           )}
           {s.avantage && (
-            <div className="rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-5">
+            <div className="rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4 sm:p-5">
               <h2 className="text-base font-semibold text-neutral-900 dark:text-white">Avantages</h2>
               <p className="mt-2 text-neutral-700 dark:text-neutral-300">{s.avantage}</p>
             </div>
@@ -145,5 +145,6 @@ export default function SerieDetailPage({ params }: { params: { abre: string } }
     </section>
   );
 }
+
 
 

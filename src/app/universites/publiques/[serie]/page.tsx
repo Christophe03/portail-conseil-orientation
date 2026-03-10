@@ -28,30 +28,30 @@ export default function SerieUniversitesPage({ params }: { params: { serie: stri
   const s = getSerie(params.serie);
   if (!s) {
     return (
-      <section className="container-custom pt-28 pb-16">
+      <section className="container-custom pt-24 pb-12 sm:pt-28">
         <p className="text-center text-neutral-600 dark:text-neutral-300">Série introuvable.</p>
       </section>
     );
   }
 
   return (
-    <section className="container-custom pt-28 pb-16">
+    <section className="container-custom pt-24 pb-12 sm:pt-28">
       <div className="max-w-4xl mx-auto">
         <Link href="/universites/publiques" className="text-sm text-primary-600 hover:underline">
           ← Retour aux séries
         </Link>
-        <h1 className="mt-4 text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white">
+        <h1 className="mt-4 text-xl sm:text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white break-words">
           {s.nom}
         </h1>
 
         <div className="mt-6 space-y-4">
           {s.universite.map((u) => (
-            <div key={u.nom} className="rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-5 shadow-soft">
-              <div className="flex items-start justify-between gap-4">
+            <div key={u.nom} className="rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4 sm:p-5 shadow-soft">
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
                 <div>
                   <h2 className="text-lg font-semibold text-neutral-900 dark:text-white">{u.nom}</h2>
                 </div>
-                <Link href={`/universites/publiques/${params.serie}/${slugify(u.nom)}`} className="text-primary-600 hover:underline whitespace-nowrap">
+                <Link href={`/universites/publiques/${params.serie}/${slugify(u.nom)}`} className="text-primary-600 hover:underline text-sm sm:text-base">
                   Voir les facultés →
                 </Link>
               </div>
@@ -62,5 +62,6 @@ export default function SerieUniversitesPage({ params }: { params: { serie: stri
     </section>
   );
 }
+
 
 

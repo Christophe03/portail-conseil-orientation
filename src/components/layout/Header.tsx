@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Bars3Icon, 
@@ -26,6 +27,7 @@ const navigation = [
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
   const { theme, setTheme } = useTheme();
 
   useEffect(() => {
@@ -37,18 +39,21 @@ export function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const isHome = pathname === '/';
+  const solidHeader = scrolled || !isHome;
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-white/80 backdrop-blur-md border-b border-neutral-200 shadow-soft dark:bg-neutral-900/80 dark:border-neutral-700'
+        solidHeader
+          ? 'bg-white/90 backdrop-blur-md border-b border-neutral-200 shadow-soft dark:bg-neutral-900/90 dark:border-neutral-700'
           : 'bg-transparent'
       }`}
     >
       <nav className="container-custom">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3">
+          <Link href="/" className="flex items-center space-x-3 min-w-0">
             <div className="relative w-12 h-12 md:w-14 md:h-14">
               {theme === 'dark' ? (
                 <Image
@@ -68,7 +73,7 @@ export function Header() {
                 />
               )}
             </div>
-            <span className="text-xl md:text-2xl font-bold text-neutral-900 dark:text-white">
+            <span className="text-base sm:text-lg md:text-2xl font-bold text-neutral-900 dark:text-white truncate max-w-[170px] sm:max-w-none">
               Conseil d'Orientation
             </span>
           </Link>
@@ -103,8 +108,10 @@ export function Header() {
             <ThemeToggle />
             <button
               type="button"
-              className="p-2 text-neutral-700 hover:text-primary-600 dark:text-neutral-300 dark:hover:text-primary-400"
+              className="p-2.5 text-neutral-700 hover:text-primary-600 dark:text-neutral-300 dark:hover:text-primary-400"
               onClick={() => setMobileMenuOpen(true)}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-menu"
             >
               <span className="sr-only">Ouvrir le menu</span>
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
@@ -136,7 +143,8 @@ export function Header() {
                 animate={{ x: 0 }}
                 exit={{ x: '100%' }}
                 transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                className="fixed right-0 top-0 h-full w-full max-w-sm bg-white dark:bg-neutral-900 shadow-large"
+                className="fixed right-0 top-0 h-full w-full max-w-sm bg-white dark:bg-neutral-900 shadow-large overflow-y-auto"
+                id="mobile-menu"
               >
                 <div className="flex items-center justify-between p-6 border-b border-neutral-200 dark:border-neutral-700">
                   <span className="text-lg font-semibold text-neutral-900 dark:text-white">
@@ -152,12 +160,12 @@ export function Header() {
                   </button>
                 </div>
                 
-                <div className="px-6 py-4 space-y-4">
+                <div className="px-6 py-4 space-y-2">
                   {navigation.map((item) => (
                     <Link
                       key={item.name}
                       href={item.href}
-                      className="block text-lg text-neutral-700 hover:text-primary-600 dark:text-neutral-300 dark:hover:text-primary-400 transition-colors duration-200"
+                      className="block text-lg rounded-lg px-2 py-2 text-neutral-700 hover:text-primary-600 hover:bg-neutral-50 dark:text-neutral-300 dark:hover:text-primary-400 dark:hover:bg-neutral-800 transition-colors duration-200"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       {item.name}

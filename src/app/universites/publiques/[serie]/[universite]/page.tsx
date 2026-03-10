@@ -38,7 +38,7 @@ export default function UniversiteFacultesPage({ params }: { params: { serie: st
   const { serie, univ } = findContext(params.serie, params.universite);
   if (!serie || !univ) {
     return (
-      <section className="container-custom pt-28 pb-16">
+      <section className="container-custom pt-24 pb-12 sm:pt-28">
         <p className="text-center text-neutral-600 dark:text-neutral-300">Université introuvable.</p>
       </section>
     );
@@ -47,9 +47,9 @@ export default function UniversiteFacultesPage({ params }: { params: { serie: st
   const faculties: Fac[] = Array.isArray(univ.fac) ? univ.fac : [];
 
   return (
-    <section className="container-custom pt-28 pb-16">
+    <section className="container-custom pt-24 pb-12 sm:pt-28">
       <div className="max-w-4xl mx-auto">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           <div className="space-x-2 text-sm">
             <Link href="/universites/publiques" className="text-primary-600 hover:underline">Séries</Link>
             <span className="text-neutral-500">/</span>
@@ -58,14 +58,14 @@ export default function UniversiteFacultesPage({ params }: { params: { serie: st
           <Link href={`/universites/publiques/${params.serie}`} className="text-sm text-primary-600 hover:underline">← Retour</Link>
         </div>
 
-        <h1 className="mt-4 text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white">{univ.nom}</h1>
+        <h1 className="mt-4 text-xl sm:text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white break-words">{univ.nom}</h1>
 
         {faculties.length === 0 ? (
           <p className="mt-6 text-neutral-600 dark:text-neutral-300">Aucune faculté disponible pour cette université.</p>
         ) : (
           <div className="mt-6 space-y-6">
             {faculties.map((f) => (
-              <div key={f.nom} className="rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-5 shadow-soft">
+              <div key={f.nom} className="rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4 sm:p-5 shadow-soft">
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <h2 className="text-lg font-semibold text-neutral-900 dark:text-white">{f.nom} {f.abre ? `(${f.abre})` : ''}</h2>
@@ -81,7 +81,7 @@ export default function UniversiteFacultesPage({ params }: { params: { serie: st
                 {f.licence && f.licence.length > 0 && (
                   <div className="mt-4 grid gap-3 sm:grid-cols-2">
                     {f.licence.map((l) => (
-                      <div key={l.nom} className="rounded-lg border border-neutral-200 dark:border-neutral-700 p-4">
+                      <div key={l.nom} className="rounded-lg border border-neutral-200 dark:border-neutral-700 p-3 sm:p-4">
                         <h3 className="font-medium text-neutral-900 dark:text-white">{l.nom}</h3>
                         {l.debouche && l.debouche.length > 0 && (
                           <ul className="mt-2 list-disc list-inside text-sm text-neutral-700 dark:text-neutral-300 space-y-1">
@@ -102,5 +102,6 @@ export default function UniversiteFacultesPage({ params }: { params: { serie: st
     </section>
   );
 }
+
 
 

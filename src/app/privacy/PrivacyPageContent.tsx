@@ -112,7 +112,7 @@ export function PrivacyPageContent() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-neutral-50 to-primary-50 dark:from-neutral-900 dark:to-neutral-800">
       {/* Hero Section */}
-      <section className="section-padding">
+      <section className="section-padding pt-24 sm:pt-28">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -120,18 +120,18 @@ export function PrivacyPageContent() {
             transition={{ duration: 0.8 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-2xl mb-8">
+            <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-2xl mb-6">
               <ShieldCheckIcon className="h-10 w-10 text-white" />
             </div>
             
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-900 dark:text-white mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-900 dark:text-white mb-5 leading-tight text-balance">
               Politique de{' '}
               <span className="bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
                 Confidentialité
               </span>
             </h1>
             
-            <p className="text-xl text-neutral-600 dark:text-neutral-400 mb-8 leading-relaxed">
+            <p className="text-lg sm:text-xl text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed">
               Votre vie privée est notre priorité. Découvrez comment nous protégeons vos données 
               personnelles et respectons vos droits dans notre application de conseil d'orientation.
             </p>
@@ -181,7 +181,7 @@ export function PrivacyPageContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 rounded-2xl p-8 border border-primary-200 dark:border-primary-700"
+                className="bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 rounded-2xl p-6 sm:p-8 border border-primary-200 dark:border-primary-700"
               >
                 <div className="flex items-start space-x-4 mb-6">
                   <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center">
@@ -271,7 +271,7 @@ export function PrivacyPageContent() {
             </p>
           </motion.div>
 
-          <div className="bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 rounded-2xl p-8 border border-primary-200 dark:border-primary-700">
+          <div className="bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 rounded-2xl p-6 sm:p-8 border border-primary-200 dark:border-primary-700">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {dataRetention.map((item, index) => (
                 <motion.div
@@ -299,7 +299,7 @@ export function PrivacyPageContent() {
       </section>
 
       {/* Contact et questions */}
-      <section className="py-20 bg-gradient-to-br from-secondary-50 to-accent-50 dark:from-secondary-900/20 dark:to-accent-900/20">
+      <section className="py-16 md:py-20 bg-gradient-to-br from-secondary-50 to-accent-50 dark:from-secondary-900/20 dark:to-accent-900/20">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -344,3 +344,4 @@ export function PrivacyPageContent() {
     </main>
   );
 }
+

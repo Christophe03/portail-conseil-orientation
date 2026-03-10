@@ -60,7 +60,7 @@ export function StorySection() {
         {/* Timeline */}
         <div className="relative">
           {/* Timeline Line */}
-          <div className="absolute left-1/2 transform -translate-x-px h-full w-0.5 bg-gradient-to-b from-secondary-200 to-primary-200 dark:from-secondary-700 dark:to-primary-700"></div>
+          <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-gradient-to-b from-secondary-200 to-primary-200 dark:from-secondary-700 dark:to-primary-700 sm:left-1/2 sm:-translate-x-px"></div>
 
           {/* Milestones */}
           <div className="space-y-16">
@@ -71,12 +71,16 @@ export function StorySection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={`relative flex items-center ${
-                  index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
+                className={`relative flex flex-col sm:flex-row items-start sm:items-center ${
+                  index % 2 === 0 ? 'sm:flex-row' : 'sm:flex-row-reverse'
                 }`}
               >
                 {/* Content */}
-                <div className={`w-1/2 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
+                <div
+                  className={`w-full pl-12 text-left sm:w-1/2 sm:pl-0 ${
+                    index % 2 === 0 ? 'sm:pr-8 sm:text-right' : 'sm:pl-8 sm:text-left'
+                  }`}
+                >
                   <div className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-soft border border-neutral-200 dark:border-neutral-700">
                     <div className={`inline-flex items-center justify-center w-12 h-12 ${milestone.bgColor} rounded-xl mb-4`}>
                       <milestone.icon className={`h-6 w-6 ${milestone.color}`} />
@@ -94,7 +98,7 @@ export function StorySection() {
                 </div>
 
                 {/* Timeline Dot */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-white dark:bg-neutral-800 border-4 border-secondary-500 rounded-full shadow-lg"></div>
+                <div className="absolute left-4 top-8 -translate-x-1/2 w-6 h-6 bg-white dark:bg-neutral-800 border-4 border-secondary-500 rounded-full shadow-lg sm:left-1/2 sm:top-1/2 sm:-translate-y-1/2"></div>
               </motion.div>
             ))}
           </div>

@@ -25,7 +25,7 @@ const features = [
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-12 sm:pt-28 bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
@@ -40,7 +40,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold text-neutral-900 dark:text-white mb-6"
+            className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-neutral-900 dark:text-white mb-5 leading-tight text-balance"
           >
             Votre{' '}
             <span className="bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-500 bg-clip-text text-transparent">
@@ -54,9 +54,9 @@ export function HeroSection() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="flex justify-center mb-8"
+            className="flex justify-center mb-6"
           >
-            <div className="relative w-32 h-32 md:w-40 md:h-40">
+            <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-40 md:h-40">
               <Image
                 src="/app_icon.png"
                 alt="Conseil d'Orientation"
@@ -72,7 +72,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl md:text-2xl text-neutral-600 dark:text-neutral-400 mb-8 max-w-3xl mx-auto leading-relaxed"
+            className="text-lg sm:text-xl md:text-2xl text-neutral-600 dark:text-neutral-400 mb-6 max-w-3xl mx-auto leading-relaxed"
           >
             Découvrez l'application mobile qui révolutionne l'orientation scolaire et professionnelle. 
             Intelligence artificielle et ressources éducatives au service de votre réussite.
