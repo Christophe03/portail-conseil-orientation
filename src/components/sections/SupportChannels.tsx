@@ -17,6 +17,7 @@ const supportChannels = [
     description: 'Obtenez une réponse immédiate de nos experts',
     availability: '24/7',
     responseTime: '< 2 minutes',
+    href: 'https://wa.me/22392722564',
     color: 'from-green-500 to-emerald-600',
     bgColor: 'from-green-50 to-emerald-50',
     darkBgColor: 'from-green-900/20 to-emerald-900/20'
@@ -27,6 +28,7 @@ const supportChannels = [
     description: 'Support détaillé par email pour les questions complexes',
     availability: 'Lun-Ven 9h-18h',
     responseTime: '< 4 heures',
+    href: 'mailto:conseilorientationinfo@gmail.com?subject=Support%20Conseil%20d%27Orientation',
     color: 'from-blue-500 to-indigo-600',
     bgColor: 'from-blue-50 to-indigo-50',
     darkBgColor: 'from-blue-900/20 to-indigo-900/20'
@@ -37,6 +39,7 @@ const supportChannels = [
     description: 'Assistance vocale personnalisée',
     availability: 'Lun-Ven 9h-17h',
     responseTime: 'Immédiat',
+    href: 'tel:+22392722564',
     color: 'from-purple-500 to-violet-600',
     bgColor: 'from-purple-50 to-violet-50',
     darkBgColor: 'from-purple-900/20 to-violet-900/20'
@@ -47,6 +50,7 @@ const supportChannels = [
     description: 'Sessions de support en visioconférence',
     availability: 'Sur RDV',
     responseTime: '< 24h',
+    href: 'mailto:conseilorientationinfo@gmail.com?subject=Demande%20de%20visioconference%20support',
     color: 'from-orange-500 to-red-600',
     bgColor: 'from-orange-50 to-red-50',
     darkBgColor: 'from-orange-900/20 to-red-900/20'
@@ -64,7 +68,7 @@ const languages = [
 
 export function SupportChannels() {
   return (
-    <section className="section-padding bg-gradient-to-br from-neutral-50 to-secondary-50 dark:from-neutral-800 dark:to-neutral-900">
+    <section id="channels" className="section-padding bg-gradient-to-br from-neutral-50 to-secondary-50 dark:from-neutral-800 dark:to-neutral-900">
       <div className="container-custom">
         {/* Header */}
         <motion.div
@@ -128,9 +132,14 @@ export function SupportChannels() {
                 </div>
               </div>
 
-              <button className={`w-full py-3 px-6 bg-gradient-to-r ${channel.color} text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-200 transform hover:scale-105`}>
+              <a
+                href={channel.href}
+                target={channel.href.startsWith('http') ? '_blank' : undefined}
+                rel={channel.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                className={`block w-full py-3 px-6 text-center bg-gradient-to-r ${channel.color} text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-200 transform hover:scale-105`}
+              >
                 Utiliser ce canal
-              </button>
+              </a>
             </motion.div>
           ))}
         </div>
@@ -185,12 +194,12 @@ export function SupportChannels() {
             et un accès direct à nos experts seniors.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <button className="px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-semibold transition-colors duration-200">
+            <a href="/features#formules" className="px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-semibold transition-colors duration-200">
               Découvrir les Formules
-            </button>
-            <button className="px-8 py-4 border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white rounded-xl font-semibold transition-all duration-200">
+            </a>
+            <a href="mailto:conseilorientationinfo@gmail.com?subject=Question%20commerciale" className="px-8 py-4 border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white rounded-xl font-semibold transition-all duration-200">
               Contacter les Ventes
-            </button>
+            </a>
           </div>
         </motion.div>
       </div>

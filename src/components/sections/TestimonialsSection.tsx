@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { StarIcon, ChatBubbleLeftRightIcon } from '@heroicons/react/24/solid';
 
@@ -169,12 +170,12 @@ export function TestimonialsSection() {
               Basée sur plus de 10,000 avis d'utilisateurs satisfaits de notre application.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="btn-primary btn-lg">
+              <Link href="/support#contact" className="btn-primary btn-lg">
                 Lire Tous les Avis
-              </button>
-              <button className="btn-outline btn-lg">
+              </Link>
+              <a href="mailto:conseilorientationinfo@gmail.com?subject=Avis%20Conseil%20d%27Orientation" className="btn-outline btn-lg">
                 Laisser un Avis
-              </button>
+              </a>
             </div>
           </div>
         </motion.div>

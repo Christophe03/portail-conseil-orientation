@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import series from '@/data/series_mali.json';
 import { slugify } from '@/lib/utils';
+import { BackLink } from '@/components/ui/BackLink';
 
 type Licence = { nom: string; debouche?: string[] };
 type Fac = {
@@ -39,7 +40,12 @@ export default function UniversiteFacultesPage({ params }: { params: { serie: st
   if (!serie || !univ) {
     return (
       <section className="container-custom pt-24 pb-12 sm:pt-28">
-        <p className="text-center text-neutral-600 dark:text-neutral-300">Université introuvable.</p>
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-neutral-600 dark:text-neutral-300">Université introuvable.</p>
+          <BackLink fallbackHref={`/universites/publiques/${params.serie}`} className="mt-4 inline-flex text-sm text-primary-600 hover:underline">
+            Retour
+          </BackLink>
+        </div>
       </section>
     );
   }
@@ -55,7 +61,7 @@ export default function UniversiteFacultesPage({ params }: { params: { serie: st
             <span className="text-neutral-500">/</span>
             <Link href={`/universites/publiques/${params.serie}`} className="text-primary-600 hover:underline">{serie.nom}</Link>
           </div>
-          <Link href={`/universites/publiques/${params.serie}`} className="text-sm text-primary-600 hover:underline">← Retour</Link>
+          <BackLink fallbackHref={`/universites/publiques/${params.serie}`} className="text-sm text-primary-600 hover:underline">← Retour</BackLink>
         </div>
 
         <h1 className="mt-4 text-xl sm:text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white break-words">{univ.nom}</h1>

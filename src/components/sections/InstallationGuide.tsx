@@ -91,7 +91,7 @@ export function InstallationGuide() {
   const [selectedPlatform, setSelectedPlatform] = useState<'android' | 'ios'>('android');
 
   return (
-    <section className="section-padding bg-gradient-to-br from-neutral-50 to-primary-50 dark:from-neutral-800 dark:to-neutral-900">
+    <section id="installation" className="section-padding bg-gradient-to-br from-neutral-50 to-primary-50 dark:from-neutral-800 dark:to-neutral-900">
       <div className="container-custom">
         {/* Header */}
         <motion.div
@@ -270,12 +270,12 @@ export function InstallationGuide() {
               des difficultés lors de l'installation.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <button className="px-8 py-4 bg-secondary-600 hover:bg-secondary-700 text-white rounded-xl font-semibold transition-colors duration-200">
+              <a href="/support#contact" className="px-8 py-4 bg-secondary-600 hover:bg-secondary-700 text-white rounded-xl font-semibold transition-colors duration-200">
                 Contacter le Support
-              </button>
-              <button className="px-8 py-4 border-2 border-secondary-600 text-secondary-600 hover:bg-secondary-600 hover:text-white rounded-xl font-semibold transition-all duration-200">
+              </a>
+              <a href="/support#faq" className="px-8 py-4 border-2 border-secondary-600 text-secondary-600 hover:bg-secondary-600 hover:text-white rounded-xl font-semibold transition-all duration-200">
                 Voir la FAQ
-              </button>
+              </a>
             </div>
           </div>
         </motion.div>

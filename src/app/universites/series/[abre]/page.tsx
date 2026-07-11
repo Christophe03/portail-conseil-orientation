@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import series from '@/data/series.json';
 import { slugify } from '@/lib/utils';
+import { BackLink } from '@/components/ui/BackLink';
 import {
   BookOpenIcon,
   PaintBrushIcon,
@@ -44,7 +44,12 @@ export default function SerieDetailPage({ params }: { params: { abre: string } }
   if (!s) {
     return (
       <section className="container-custom pt-24 pb-12 sm:pt-28">
-        <p className="text-center text-neutral-600 dark:text-neutral-300">Série introuvable.</p>
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-neutral-600 dark:text-neutral-300">Série introuvable.</p>
+          <BackLink fallbackHref="/universites/series" className="mt-4 inline-flex text-sm text-primary-600 hover:underline">
+            Retour aux séries
+          </BackLink>
+        </div>
       </section>
     );
   }
@@ -84,9 +89,9 @@ export default function SerieDetailPage({ params }: { params: { abre: string } }
   return (
     <section className="container-custom pt-24 pb-12 sm:pt-28">
       <div className="max-w-3xl mx-auto">
-        <Link href="/universites/series" className="text-sm text-primary-600 hover:underline">
+        <BackLink fallbackHref="/universites/series" className="text-sm text-primary-600 hover:underline">
           ← Retour aux séries
-        </Link>
+        </BackLink>
         <div className="mt-4 flex flex-col sm:flex-row sm:items-center gap-3">
           <div className={`rounded-lg p-2 ${colorFor(s.icon)}`}>
             {(function(icon?: string) {

@@ -76,7 +76,7 @@ const additionalFeatures = [
 
 export function FeaturesSection() {
   return (
-    <section className="section-padding bg-white dark:bg-neutral-900">
+    <section id="features" className="section-padding bg-white dark:bg-neutral-900">
       <div className="container-custom">
         {/* Header */}
         <motion.div

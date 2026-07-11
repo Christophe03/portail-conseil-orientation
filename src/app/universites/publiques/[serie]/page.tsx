@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import series from '@/data/series_mali.json';
 import { slugify } from '@/lib/utils';
+import { BackLink } from '@/components/ui/BackLink';
 
 type Fac = {
   li?: boolean;
@@ -29,7 +30,12 @@ export default function SerieUniversitesPage({ params }: { params: { serie: stri
   if (!s) {
     return (
       <section className="container-custom pt-24 pb-12 sm:pt-28">
-        <p className="text-center text-neutral-600 dark:text-neutral-300">Série introuvable.</p>
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-neutral-600 dark:text-neutral-300">Série introuvable.</p>
+          <BackLink fallbackHref="/universites/publiques" className="mt-4 inline-flex text-sm text-primary-600 hover:underline">
+            Retour aux séries
+          </BackLink>
+        </div>
       </section>
     );
   }
@@ -37,9 +43,9 @@ export default function SerieUniversitesPage({ params }: { params: { serie: stri
   return (
     <section className="container-custom pt-24 pb-12 sm:pt-28">
       <div className="max-w-4xl mx-auto">
-        <Link href="/universites/publiques" className="text-sm text-primary-600 hover:underline">
+        <BackLink fallbackHref="/universites/publiques" className="text-sm text-primary-600 hover:underline">
           ← Retour aux séries
-        </Link>
+        </BackLink>
         <h1 className="mt-4 text-xl sm:text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white break-words">
           {s.nom}
         </h1>

@@ -53,7 +53,7 @@ const recommendations = [
 
 export function SystemRequirements() {
   return (
-    <section className="section-padding bg-white dark:bg-neutral-900">
+    <section id="requirements" className="section-padding bg-white dark:bg-neutral-900">
       <div className="container-custom">
         {/* Header */}
         <motion.div
@@ -180,10 +180,10 @@ export function SystemRequirements() {
           <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-4">
             Votre appareil n'est pas compatible ? Contactez notre support pour des alternatives.
           </p>
-          <button className="inline-flex items-center space-x-2 text-primary-600 hover:text-primary-700 font-semibold transition-colors duration-200">
+          <a href="/support#contact" className="inline-flex items-center space-x-2 text-primary-600 hover:text-primary-700 font-semibold transition-colors duration-200">
             <span>Contacter le support</span>
             <CheckCircleIcon className="h-4 w-4" />
-          </button>
+          </a>
         </motion.div>
       </div>
     </section>

@@ -18,11 +18,18 @@ export function ContactForm() {
     subject: '',
     message: ''
   });
+  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Ici vous pouvez ajouter la logique d'envoi du formulaire
-    console.log('Form submitted:', formData);
+
+    const subject = encodeURIComponent(`Contact site - ${formData.subject}`);
+    const body = encodeURIComponent(
+      `Nom: ${formData.name}\nEmail: ${formData.email}\nSujet: ${formData.subject}\n\nMessage:\n${formData.message}`
+    );
+
+    window.location.href = `mailto:conseilorientationinfo@gmail.com?subject=${subject}&body=${body}`;
+    setSubmitted(true);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -33,7 +40,7 @@ export function ContactForm() {
   };
 
   return (
-    <section className="section-padding bg-gradient-to-br from-neutral-50 to-primary-50 dark:from-neutral-800 dark:to-neutral-900">
+    <section id="contact" className="section-padding bg-gradient-to-br from-neutral-50 to-primary-50 dark:from-neutral-800 dark:to-neutral-900">
       <div className="container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Contact Information */}
@@ -220,6 +227,11 @@ export function ContactForm() {
               >
                 Envoyer le Message
               </Button>
+              {submitted && (
+                <p className="text-sm text-green-600 dark:text-green-400">
+                  Votre client email va s'ouvrir avec le message prérempli.
+                </p>
+              )}
             </form>
           </motion.div>
         </div>

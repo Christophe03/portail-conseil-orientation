@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://conseil-orientation-mali.com',
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.conseil-orientation-mali.com',
   generateRobotsTxt: true,
   generateIndexSitemap: false,
   robotsTxtOptions: {
@@ -22,9 +22,9 @@ module.exports = {
       },
     ],
     additionalSitemaps: [
-      'https://conseil-orientation-mali.com/sitemap.xml',
+      'https://www.conseil-orientation-mali.com/sitemap.xml',
     ],
-    host: 'https://conseil-orientation-mali.com',
+    host: 'https://www.conseil-orientation-mali.com',
   },
   exclude: [
     '/api/*',
@@ -78,11 +78,11 @@ module.exports = {
       lastmod: new Date().toISOString(),
       alternateRefs: [
         {
-          href: `https://conseil-orientation-mali.com${path}`,
+          href: `https://www.conseil-orientation-mali.com${path}`,
           hreflang: 'fr',
         },
         {
-          href: `https://conseil-orientation-mali.com${path}`,
+          href: `https://www.conseil-orientation-mali.com${path}`,
           hreflang: 'x-default',
         },
       ],

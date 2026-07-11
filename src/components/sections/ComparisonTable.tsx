@@ -1,6 +1,8 @@
 'use client';
 
+import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { APP_DOWNLOAD_URL } from '@/lib/app-links';
 import { 
   CheckIcon,
   XMarkIcon,
@@ -58,7 +60,7 @@ const plans = [
 
 export function ComparisonTable() {
   return (
-    <section className="section-padding bg-gradient-to-br from-neutral-50 to-secondary-50 dark:from-neutral-800 dark:to-neutral-900">
+    <section id="formules" className="section-padding bg-gradient-to-br from-neutral-50 to-secondary-50 dark:from-neutral-800 dark:to-neutral-900">
       <div className="container-custom">
         {/* Header */}
         <motion.div
@@ -144,9 +146,14 @@ export function ComparisonTable() {
               </div>
 
               {/* CTA Button */}
-              <button className={`w-full py-4 px-6 bg-gradient-to-r ${plan.color} text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-200 transform hover:scale-105`}>
+              <a
+                href={plan.popular ? APP_DOWNLOAD_URL : '/download'}
+                target={plan.popular ? '_blank' : undefined}
+                rel={plan.popular ? 'noopener noreferrer' : undefined}
+                className={`block w-full py-4 px-6 text-center bg-gradient-to-r ${plan.color} text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-200 transform hover:scale-105`}
+              >
                 {plan.popular ? 'Commencer l\'essai gratuit' : 'Choisir ce plan'}
-              </button>
+              </a>
             </motion.div>
           ))}
         </div>
@@ -200,12 +207,15 @@ export function ComparisonTable() {
             </div>
             
             <div className="flex flex-wrap justify-center gap-4">
-              <button className="px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-semibold transition-colors duration-200">
+              <a
+                href="mailto:conseilorientationinfo@gmail.com?subject=Question%20sur%20les%20formules"
+                className="px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-semibold transition-colors duration-200"
+              >
                 Contacter les Ventes
-              </button>
-              <button className="px-8 py-4 border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white rounded-xl font-semibold transition-all duration-200">
+              </a>
+              <Link href="/support#faq" className="px-8 py-4 border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white rounded-xl font-semibold transition-all duration-200">
                 Voir la FAQ
-              </button>
+              </Link>
             </div>
           </div>
         </motion.div>

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 export function APIDocumentation() {
   return (
-    <section className="mb-16">
+    <section id="api" className="mb-16">
       {/* SDK Section */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -22,15 +22,15 @@ export function APIDocumentation() {
             et d'autres langages populaires.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <button className="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-semibold transition-colors duration-200">
+            <a href="mailto:conseilorientationinfo@gmail.com?subject=Demande%20SDK%20JavaScript" className="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-semibold transition-colors duration-200">
               SDK JavaScript
-            </button>
-            <button className="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-semibold transition-colors duration-200">
+            </a>
+            <a href="mailto:conseilorientationinfo@gmail.com?subject=Demande%20SDK%20Python" className="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-semibold transition-colors duration-200">
               SDK Python
-            </button>
-            <button className="px-6 py-3 border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white rounded-xl font-semibold transition-all duration-200">
+            </a>
+            <a href="mailto:conseilorientationinfo@gmail.com?subject=Demande%20SDK%20Conseil%20d%27Orientation" className="px-6 py-3 border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white rounded-xl font-semibold transition-all duration-200">
               Voir Tous les SDK
-            </button>
+            </a>
           </div>
         </div>
       </motion.div>

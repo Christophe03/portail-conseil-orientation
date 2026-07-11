@@ -114,18 +114,40 @@ const quickFixes = [
 
 export function Troubleshooting() {
   const [selectedCategory, setSelectedCategory] = useState(0);
-  const [expandedIssues, setExpandedIssues] = useState<number[]>([]);
+  const [expandedIssues, setExpandedIssues] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const toggleIssue = (issueIndex: number) => {
+  const toggleIssue = (issueKey: string) => {
     setExpandedIssues(prev => 
-      prev.includes(issueIndex) 
-        ? prev.filter(i => i !== issueIndex)
-        : [...prev, issueIndex]
+      prev.includes(issueKey)
+        ? prev.filter(i => i !== issueKey)
+        : [...prev, issueKey]
     );
   };
 
+  const normalizedSearch = searchQuery.trim().toLowerCase();
+  const visibleIssues = normalizedSearch
+    ? commonIssues.flatMap((category, categoryIndex) =>
+        category.issues
+          .map((issue, issueIndex) => ({
+            ...issue,
+            category: category.category,
+            key: `${categoryIndex}-${issueIndex}`,
+          }))
+          .filter((issue) =>
+            `${issue.category} ${issue.problem} ${issue.solution} ${issue.steps.join(' ')}`
+              .toLowerCase()
+              .includes(normalizedSearch)
+          )
+      )
+    : commonIssues[selectedCategory].issues.map((issue, issueIndex) => ({
+        ...issue,
+        category: commonIssues[selectedCategory].category,
+        key: `${selectedCategory}-${issueIndex}`,
+      }));
+
   return (
-    <section className="section-padding bg-white dark:bg-neutral-900">
+    <section id="common-issues" className="section-padding bg-white dark:bg-neutral-900">
       <div className="container-custom">
         {/* Header */}
         <motion.div
@@ -198,6 +220,8 @@ export function Troubleshooting() {
               <MagnifyingGlassIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-neutral-400" />
               <input
                 type="text"
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
                 placeholder="Rechercher un problème spécifique..."
                 className="w-full pl-12 pr-4 py-4 bg-white dark:bg-neutral-800 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl focus:border-primary-500 focus:outline-none transition-colors duration-200"
               />
@@ -239,17 +263,17 @@ export function Troubleshooting() {
           className="max-w-4xl mx-auto"
         >
           <div className="space-y-4">
-            {commonIssues[selectedCategory].issues.map((issue, issueIndex) => (
+            {visibleIssues.map((issue) => (
               <motion.div
-                key={issueIndex}
+                key={issue.key}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: issueIndex * 0.1 }}
+                transition={{ duration: 0.5 }}
                 className="bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 overflow-hidden"
               >
                 <button
-                  onClick={() => toggleIssue(issueIndex)}
+                  onClick={() => toggleIssue(issue.key)}
                   className="w-full p-6 text-left hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors duration-200"
                 >
                   <div className="flex items-center justify-between">
@@ -265,7 +289,7 @@ export function Troubleshooting() {
                       </div>
                     </div>
                     <div className={`transform transition-transform duration-200 ${
-                      expandedIssues.includes(issueIndex) ? 'rotate-180' : ''
+                      expandedIssues.includes(issue.key) ? 'rotate-180' : ''
                     }`}>
                       <svg className="h-5 w-5 text-neutral-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -274,7 +298,7 @@ export function Troubleshooting() {
                   </div>
                 </button>
                 
-                {expandedIssues.includes(issueIndex) && (
+                {expandedIssues.includes(issue.key) && (
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
@@ -302,6 +326,11 @@ export function Troubleshooting() {
                 )}
               </motion.div>
             ))}
+            {visibleIssues.length === 0 && (
+              <div className="rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-6 text-center text-neutral-600 dark:text-neutral-300">
+                Aucun résultat trouvé. Essayez un autre mot-clé ou contactez le support.
+              </div>
+            )}
           </div>
         </motion.div>
 
@@ -322,12 +351,12 @@ export function Troubleshooting() {
               notre équipe de support est là pour vous aider.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <button className="px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-semibold transition-colors duration-200">
+              <a href="#contact" className="px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-semibold transition-colors duration-200">
                 Contacter le Support
-              </button>
-              <button className="px-8 py-4 border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white rounded-xl font-semibold transition-all duration-200">
+              </a>
+              <a href="mailto:conseilorientationinfo@gmail.com?subject=Ticket%20support%20Conseil%20d%27Orientation" className="px-8 py-4 border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white rounded-xl font-semibold transition-all duration-200">
                 Ouvrir un Ticket
-              </button>
+              </a>
             </div>
           </div>
         </motion.div>

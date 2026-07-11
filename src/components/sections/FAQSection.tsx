@@ -51,7 +51,7 @@ export function FAQSection() {
   };
 
   return (
-    <section className="section-padding bg-white dark:bg-neutral-900">
+    <section id="faq" className="section-padding bg-white dark:bg-neutral-900">
       <FAQStructuredData faqs={faqs} />
       <div className="container-custom">
         {/* Header */}
@@ -136,10 +136,10 @@ export function FAQSection() {
           <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-4">
             Vous ne trouvez pas la réponse à votre question ?
           </p>
-          <button className="inline-flex items-center space-x-2 text-accent-600 hover:text-accent-700 font-semibold transition-colors duration-200">
+          <a href="#contact" className="inline-flex items-center space-x-2 text-accent-600 hover:text-accent-700 font-semibold transition-colors duration-200">
             <span>Contacter notre équipe de support</span>
             <ChevronDownIcon className="h-4 w-4 rotate-[-90deg]" />
-          </button>
+          </a>
         </motion.div>
       </div>
     </section>

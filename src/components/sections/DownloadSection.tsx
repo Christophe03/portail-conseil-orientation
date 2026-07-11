@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { APP_DOWNLOAD_URL } from '@/lib/app-links';
 import { 
@@ -207,11 +208,15 @@ export function DownloadSection() {
               à utiliser l'application en quelques minutes.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="outline" size="lg">
+              <Button variant="outline" size="lg" asChild>
+                <a href="#installation">
                 Guide d'Installation
+                </a>
               </Button>
-              <Button size="lg">
+              <Button size="lg" asChild>
+                <Link href="/support">
                 Support Technique
+                </Link>
               </Button>
             </div>
           </div>

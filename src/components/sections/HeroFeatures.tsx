@@ -1,8 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
+import { APP_DOWNLOAD_URL } from '@/lib/app-links';
 import { 
   SparklesIcon, 
   RocketLaunchIcon,
@@ -67,17 +69,23 @@ export function HeroFeatures() {
             <Button
               size="lg"
               className="bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white px-8 py-4 text-lg"
+              asChild
             >
-              <RocketLaunchIcon className="h-5 w-5 mr-2" />
-              Commencer Maintenant
+              <a href={APP_DOWNLOAD_URL} target="_blank" rel="noopener noreferrer">
+                <RocketLaunchIcon className="h-5 w-5 mr-2" />
+                Commencer Maintenant
+              </a>
             </Button>
             <Button
               variant="outline"
               size="lg"
               className="border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white px-8 py-4 text-lg"
+              asChild
             >
-              <LightBulbIcon className="h-5 w-5 mr-2" />
-              Voir la Démo
+              <Link href="/universites">
+                <LightBulbIcon className="h-5 w-5 mr-2" />
+                Voir la Démo
+              </Link>
             </Button>
           </motion.div>
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { 
   BookOpenIcon, 
@@ -84,25 +85,34 @@ export function HeroDocs() {
               variant="outline"
               size="lg"
               className="border-2 border-secondary-600 text-secondary-600 hover:bg-secondary-600 hover:text-white px-5 py-2.5 text-sm sm:text-base"
+              asChild
             >
-              <AcademicCapIcon className="h-5 w-5 mr-2" />
-              Guide de Démarrage
+              <a href="#first-steps">
+                <AcademicCapIcon className="h-5 w-5 mr-2" />
+                Guide de Démarrage
+              </a>
             </Button>
             <Button
               variant="outline"
               size="lg"
               className="border-2 border-secondary-600 text-secondary-600 hover:bg-secondary-600 hover:text-white px-5 py-2.5 text-sm sm:text-base"
+              asChild
             >
-              <BookOpenIcon className="h-5 w-5 mr-2" />
-              Tutoriels Vidéo
+              <Link href="/universites">
+                <BookOpenIcon className="h-5 w-5 mr-2" />
+                Tutoriels Vidéo
+              </Link>
             </Button>
             <Button
               variant="outline"
               size="lg"
               className="border-2 border-secondary-600 text-secondary-600 hover:bg-secondary-600 hover:text-white px-5 py-2.5 text-sm sm:text-base"
+              asChild
             >
-              <MagnifyingGlassIcon className="h-5 w-5 mr-2" />
-              FAQ
+              <Link href="/support#faq">
+                <MagnifyingGlassIcon className="h-5 w-5 mr-2" />
+                FAQ
+              </Link>
             </Button>
           </motion.div>
         </div>

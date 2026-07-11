@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { APP_DOWNLOAD_URL } from '@/lib/app-links';
 import { 
@@ -123,8 +124,9 @@ export function HeroSection() {
               variant="outline"
               size="lg"
               className="border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white transform hover:scale-105 transition-all duration-200"
+              asChild
             >
-              Découvrir les Fonctionnalités
+              <Link href="/features">Découvrir les Fonctionnalités</Link>
             </Button>
           </motion.div>
 

@@ -129,10 +129,10 @@ export function TeamSection() {
             Vous partagez notre passion pour l'éducation et l'innovation ? 
             Découvrez nos opportunités de carrière et contribuez à transformer l'avenir de l'orientation.
           </p>
-          <button className="inline-flex items-center space-x-2 bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-200 hover:scale-105">
+          <a href="mailto:conseilorientationinfo@gmail.com?subject=Candidature%20Conseil%20d%27Orientation" className="inline-flex items-center space-x-2 bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-200 hover:scale-105">
             <span>Voir nos offres</span>
             <UserGroupIcon className="h-5 w-5" />
-          </button>
+          </a>
         </motion.div>
       </div>
     </section>

@@ -93,17 +93,23 @@ export function HeroSupport() {
             <Button
               size="lg"
               className="bg-gradient-to-r from-accent-600 to-warning-600 hover:from-accent-700 hover:to-warning-700 text-white px-8 py-4 text-lg"
+              asChild
             >
-              <ChatBubbleLeftRightIcon className="h-5 w-5 mr-2" />
-              Contacter le Support
+              <a href="#contact">
+                <ChatBubbleLeftRightIcon className="h-5 w-5 mr-2" />
+                Contacter le Support
+              </a>
             </Button>
             <Button
               variant="outline"
               size="lg"
               className="border-2 border-accent-600 text-accent-600 hover:bg-accent-600 hover:text-white px-8 py-4 text-lg"
+              asChild
             >
-              <QuestionMarkCircleIcon className="h-5 w-5 mr-2" />
-              Voir la FAQ
+              <a href="#faq">
+                <QuestionMarkCircleIcon className="h-5 w-5 mr-2" />
+                Voir la FAQ
+              </a>
             </Button>
           </motion.div>
         </div>

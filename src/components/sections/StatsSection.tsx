@@ -1,7 +1,9 @@
 'use client';
 
+import Link from 'next/link';
 import { motion, useInView } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
+import { APP_DOWNLOAD_URL } from '@/lib/app-links';
 import { 
   UsersIcon,
   StarIcon,
@@ -209,12 +211,12 @@ export function StatsSection() {
               votre parcours académique avec notre application innovante.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="btn-primary btn-lg bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700">
+              <a href={APP_DOWNLOAD_URL} target="_blank" rel="noopener noreferrer" className="btn-primary btn-lg bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700">
                 Commencer Maintenant
-              </button>
-              <button className="btn-outline btn-lg border-white/30 text-white hover:bg-white hover:text-neutral-900">
+              </a>
+              <Link href="/features" className="btn-outline btn-lg border-white/30 text-white hover:bg-white hover:text-neutral-900">
                 En Savoir Plus
-              </button>
+              </Link>
             </div>
           </div>
         </motion.div>

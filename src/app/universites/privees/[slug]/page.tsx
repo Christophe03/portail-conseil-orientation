@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import data from '@/data/universites_privees.json';
 import { slugify } from '@/lib/utils';
-import Link from 'next/link';
+import { BackLink } from '@/components/ui/BackLink';
 
 type Privee = {
   ID: string;
@@ -43,7 +43,12 @@ export default function PriveeDetailPage({ params }: { params: { slug: string } 
   if (!u) {
     return (
       <section className="container-custom pt-24 pb-12 sm:pt-28">
-        <p className="text-center text-neutral-600 dark:text-neutral-300">Université introuvable.</p>
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-neutral-600 dark:text-neutral-300">Université introuvable.</p>
+          <BackLink fallbackHref="/universites/privees" className="mt-4 inline-flex text-sm text-primary-600 hover:underline">
+            Retour à la liste
+          </BackLink>
+        </div>
       </section>
     );
   }
@@ -53,9 +58,9 @@ export default function PriveeDetailPage({ params }: { params: { slug: string } 
   return (
     <section className="container-custom pt-24 pb-12 sm:pt-28">
       <div className="max-w-3xl mx-auto">
-        <Link href="/universites/privees" className="text-sm text-primary-600 hover:underline">
+        <BackLink fallbackHref="/universites/privees" className="text-sm text-primary-600 hover:underline">
           ← Retour à la liste
-        </Link>
+        </BackLink>
         <div className="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-5 sm:p-6 shadow-soft">
           <div className="flex flex-col sm:flex-row sm:items-center gap-4">
             <div className="relative h-16 w-16 rounded-xl overflow-hidden bg-neutral-100 dark:bg-neutral-800 flex-shrink-0">
@@ -103,7 +108,7 @@ export default function PriveeDetailPage({ params }: { params: { slug: string } 
               <div className="rounded-lg border border-neutral-200 dark:border-neutral-700 p-4">
                 <dt className="text-xs uppercase tracking-wide text-neutral-500">Site web</dt>
                 <dd className="mt-1 font-medium break-all">
-                  <a href={`https://${u.Site.replace(/^https?:\/\//, '')}`} className="text-primary-600 hover:underline" target="_blank" rel="noreferrer">
+                  <a href={`https://${u.Site.replace(/^https?:\/\//, '')}`} className="text-primary-600 hover:underline" target="_blank" rel="noopener noreferrer">
                     {u.Site}
                   </a>
                 </dd>
@@ -119,7 +124,7 @@ export default function PriveeDetailPage({ params }: { params: { slug: string } 
               <div className="rounded-lg border border-neutral-200 dark:border-neutral-700 p-4 sm:col-span-2">
                 <dt className="text-xs uppercase tracking-wide text-neutral-500">Facebook</dt>
                 <dd className="mt-1 font-medium break-all">
-                  <a href={u.Facebook} className="text-primary-600 hover:underline" target="_blank" rel="noreferrer">
+                  <a href={u.Facebook} className="text-primary-600 hover:underline" target="_blank" rel="noopener noreferrer">
                     {u.Facebook}
                   </a>
                 </dd>

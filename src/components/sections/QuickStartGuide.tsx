@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { 
   RocketLaunchIcon,
@@ -73,7 +74,7 @@ const tips = [
 
 export function QuickStartGuide() {
   return (
-    <section className="mb-16">
+    <section id="first-steps" className="mb-16">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -169,12 +170,12 @@ export function QuickStartGuide() {
           pour découvrir toutes les fonctionnalités de l'application.
         </p>
         <div className="flex flex-wrap justify-center gap-4">
-          <button className="px-6 py-3 bg-secondary-600 hover:bg-secondary-700 text-white rounded-xl font-semibold transition-colors duration-200">
+          <Link href="/universites" className="px-6 py-3 bg-secondary-600 hover:bg-secondary-700 text-white rounded-xl font-semibold transition-colors duration-200">
             Guide des Universités
-          </button>
-          <button className="px-6 py-3 border-2 border-secondary-600 text-secondary-600 hover:bg-secondary-600 hover:text-white rounded-xl font-semibold transition-all duration-200">
+          </Link>
+          <Link href="/universites/series" className="px-6 py-3 border-2 border-secondary-600 text-secondary-600 hover:bg-secondary-600 hover:text-white rounded-xl font-semibold transition-all duration-200">
             Recherche par Série
-          </button>
+          </Link>
         </div>
       </motion.div>
     </section>

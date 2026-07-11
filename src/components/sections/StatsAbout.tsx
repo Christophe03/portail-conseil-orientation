@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { APP_DOWNLOAD_URL } from '@/lib/app-links';
 import { 
   UsersIcon,
   GlobeAltIcon,
@@ -177,10 +178,10 @@ export function StatsAbout() {
           <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
             Faites partie de cette transformation éducative et découvrez votre potentiel.
           </p>
-          <button className="inline-flex items-center space-x-2 bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-200 hover:scale-105">
+          <a href={APP_DOWNLOAD_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center space-x-2 bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-200 hover:scale-105">
             <span>Commencer Maintenant</span>
             <RocketLaunchIcon className="h-5 w-5" />
-          </button>
+          </a>
         </motion.div>
       </div>
     </section>

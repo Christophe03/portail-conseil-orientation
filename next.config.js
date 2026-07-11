@@ -120,16 +120,6 @@ const nextConfig = {
     ];
   },
 
-  // Configuration des rewrites
-  async rewrites() {
-    return [
-      {
-        source: '/sitemap.xml',
-        destination: '/api/sitemap',
-      },
-    ];
-  },
-
   // Configuration de la compression
   compress: true,
 
@@ -176,7 +166,7 @@ const nextConfig = {
 
   // Configuration des variables d'environnement
   env: {
-    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL || 'https://conseil-orientation-mali.com',
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.conseil-orientation-mali.com',
   },
 
   // Configuration de la génération statique

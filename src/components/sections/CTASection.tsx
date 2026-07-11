@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { APP_DOWNLOAD_URL } from '@/lib/app-links';
 import { 
@@ -135,8 +136,9 @@ export function CTASection() {
               variant="outline"
               size="lg"
               className="border-2 border-white/30 text-white hover:bg-white hover:text-neutral-900 font-bold text-lg px-8 py-4 transform hover:scale-105 transition-all duration-200"
+              asChild
             >
-              Voir la Démo
+              <Link href="/features#features">Voir la Démo</Link>
             </Button>
           </motion.div>
 

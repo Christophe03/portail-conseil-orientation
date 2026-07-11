@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { 
   CodeBracketIcon,
@@ -84,7 +85,7 @@ const useCases = [
 
 export function IntegrationSection() {
   return (
-    <section className="section-padding bg-white dark:bg-neutral-900">
+    <section id="integration" className="section-padding bg-white dark:bg-neutral-900">
       <div className="container-custom">
         {/* Header */}
         <motion.div
@@ -291,12 +292,12 @@ export function IntegrationSection() {
               et notre équipe de support technique dédiée.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <button className="px-8 py-4 bg-secondary-600 hover:bg-secondary-700 text-white rounded-xl font-semibold transition-colors duration-200">
+              <Link href="/docs#api" className="px-8 py-4 bg-secondary-600 hover:bg-secondary-700 text-white rounded-xl font-semibold transition-colors duration-200">
                 Voir la Documentation
-              </button>
-              <button className="px-8 py-4 border-2 border-secondary-600 text-secondary-600 hover:bg-secondary-600 hover:text-white rounded-xl font-semibold transition-all duration-200">
+              </Link>
+              <a href="mailto:conseilorientationinfo@gmail.com?subject=Contact%20equipe%20technique" className="px-8 py-4 border-2 border-secondary-600 text-secondary-600 hover:bg-secondary-600 hover:text-white rounded-xl font-semibold transition-all duration-200">
                 Contacter l'Équipe Technique
-              </button>
+              </a>
             </div>
           </div>
         </motion.div>

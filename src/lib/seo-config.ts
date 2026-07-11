@@ -4,7 +4,7 @@ export const seoConfig = {
   // Configuration de base
   site: {
     name: 'Conseil d\'Orientation Mali',
-    url: 'https://conseil-orientation-mali.com',
+    url: 'https://www.conseil-orientation-mali.com',
     description: 'Application mobile d\'orientation scolaire au Mali avec IA avancée. Conseils personnalisés et accompagnement pour votre réussite académique en Afrique.',
     logo: '/logo_full.png',
     icon: '/app_icon.png',
@@ -202,7 +202,7 @@ export const seoConfig = {
     userAgent: '*',
     allow: '/',
     disallow: ['/api/', '/admin/', '/_next/', '/private/', '/temp/'],
-    sitemap: 'https://conseil-orientation-mali.com/sitemap.xml',
+    sitemap: 'https://www.conseil-orientation-mali.com/sitemap.xml',
     crawlDelay: 1
   },
 
