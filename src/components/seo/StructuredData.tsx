@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { APP_DOWNLOAD_URL } from '@/lib/app-links';
 
 interface StructuredDataProps {
   type?: 'website' | 'organization' | 'mobileApplication' | 'softwareApplication';
@@ -117,10 +118,7 @@ export function StructuredData({ type = 'website', data }: StructuredDataProps) 
       bestRating: '5',
       worstRating: '1'
     },
-    downloadUrl: [
-      'https://play.google.com/store/apps/details?id=com.tcd.conseil_orientation',
-      'https://apps.apple.com/app/conseil-orientation/id1234567890'
-    ]
+    downloadUrl: APP_DOWNLOAD_URL
   };
 
   const softwareAppData = {

@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
+import { APP_DOWNLOAD_URL } from '@/lib/app-links';
 import { 
   RocketLaunchIcon,
   ArrowRightIcon,
@@ -122,10 +123,13 @@ export function CTASection() {
             <Button
               size="lg"
               className="bg-gradient-to-r from-accent-500 to-yellow-500 hover:from-accent-600 hover:to-yellow-600 text-neutral-900 font-bold text-lg px-8 py-4 shadow-glow-lg hover:shadow-glow transform hover:scale-105 transition-all duration-200"
+              asChild
             >
-              <RocketLaunchIcon className="h-6 w-6 mr-2" />
-              Télécharger Maintenant
-              <ArrowRightIcon className="h-5 w-5 ml-2" />
+              <a href={APP_DOWNLOAD_URL} target="_blank" rel="noopener noreferrer">
+                <RocketLaunchIcon className="h-6 w-6 mr-2" />
+                Télécharger Maintenant
+                <ArrowRightIcon className="h-5 w-5 ml-2" />
+              </a>
             </Button>
             <Button
               variant="outline"

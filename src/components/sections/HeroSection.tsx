@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
+import { APP_DOWNLOAD_URL } from '@/lib/app-links';
 import { 
   SparklesIcon,
   DevicePhoneMobileIcon,
@@ -111,9 +112,12 @@ export function HeroSection() {
             <Button
               size="lg"
               className="bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white shadow-soft hover:shadow-medium transform hover:scale-105 transition-all duration-200"
+              asChild
             >
-              <DevicePhoneMobileIcon className="h-5 w-5 mr-2" />
-              Télécharger l'App
+              <a href={APP_DOWNLOAD_URL} target="_blank" rel="noopener noreferrer">
+                <DevicePhoneMobileIcon className="h-5 w-5 mr-2" />
+                Télécharger l'App
+              </a>
             </Button>
             <Button
               variant="outline"

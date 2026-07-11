@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
+import { APP_DOWNLOAD_URL } from '@/lib/app-links';
 import { 
   DevicePhoneMobileIcon,
   PlayIcon,
@@ -20,7 +21,7 @@ const platforms = [
     description: 'Installation Android via APK (APKPure)',
     buttonText: 'Télécharger via APKPure',
     buttonVariant: 'primary' as const,
-    link: 'https://apkpure.com/p/com.tcd.conseil_orientation',
+    link: APP_DOWNLOAD_URL,
     features: ['Source fiable', 'Version à jour', 'Installation hors store'],
     delay: 0.1,
   },
@@ -105,7 +106,7 @@ export function DownloadSection() {
                 className="bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white font-bold text-lg px-8 py-4 shadow-soft hover:shadow-medium transform hover:scale-105 transition-all duration-200 mb-8"
                 asChild
               >
-                <a href="https://apkpure.com/p/com.tcd.conseil_orientation" target="_blank" rel="noopener noreferrer">
+                <a href={APP_DOWNLOAD_URL} target="_blank" rel="noopener noreferrer">
                   <ArrowDownTrayIcon className="h-6 w-6 mr-2" />
                   Télécharger via APKPure
                 </a>

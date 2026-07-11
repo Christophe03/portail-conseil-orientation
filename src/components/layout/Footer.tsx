@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { APP_DOWNLOAD_URL } from '@/lib/app-links';
 import {
   HeartIcon,
   EnvelopeIcon,
@@ -109,12 +110,14 @@ export function Footer() {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
-              <Link
-                href="/download"
+              <a
+                href={APP_DOWNLOAD_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-primary-600 to-secondary-600 px-5 py-3 text-sm font-semibold text-white shadow-soft hover:from-primary-700 hover:to-secondary-700 transition-colors"
               >
                 Telecharger l'app
-              </Link>
+              </a>
               <Link
                 href="/universites"
                 className="inline-flex items-center justify-center rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white/90 hover:bg-white/10 transition-colors"

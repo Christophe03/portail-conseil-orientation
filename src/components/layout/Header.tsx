@@ -14,6 +14,7 @@ import {
 import { useTheme } from '@/components/providers/ThemeProvider';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { Button } from '@/components/ui/Button';
+import { APP_DOWNLOAD_URL } from '@/lib/app-links';
 import Image from 'next/image';
 
 const navigation = [
@@ -99,7 +100,7 @@ export function Header() {
               size="sm"
               className="bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white"
             >
-              <Link href="#download">Télécharger</Link>
+              <a href={APP_DOWNLOAD_URL} target="_blank" rel="noopener noreferrer">Télécharger</a>
             </Button>
           </div>
 
@@ -177,7 +178,14 @@ export function Header() {
                       asChild
                       className="w-full bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white"
                     >
-                      <Link href="#download">Télécharger l'App</Link>
+                      <a
+                        href={APP_DOWNLOAD_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        Télécharger l'App
+                      </a>
                     </Button>
                   </div>
                 </div>
