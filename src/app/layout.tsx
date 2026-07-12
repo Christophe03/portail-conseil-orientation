@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { Analytics } from '@/components/analytics/Analytics';
+import { Analytics as VercelAnalytics } from '@vercel/analytics/next';
 import { CookieBanner } from '@/components/ui/CookieBanner';
 import { CookiePreferences } from '@/components/ui/CookiePreferences';
 import { StructuredData } from '@/components/seo/StructuredData';
@@ -155,6 +156,7 @@ export default function RootLayout({
             <Footer />
           </div>
           <Analytics />
+          <VercelAnalytics />
           <CookieBanner />
           <CookiePreferences />
           {/* <PerformanceOptimizer />

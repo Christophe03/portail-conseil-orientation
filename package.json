@@ -22,6 +22,7 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "@radix-ui/react-slot": "^1.2.3",
+    "@vercel/analytics": "^2.0.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^10.18.0",
@@ -51,10 +52,9 @@
     "typescript": "^5.9.2"
   },
   "engines": {
-  "node": ">=18.0.0",
-  "npm": ">=9.0.0"
-},
-
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
   "keywords": [
     "conseil-orientation",
     "orientation-scolaire",
