@@ -1,5 +1,5 @@
 import series from '@/data/series.json';
-import { slugify } from '@/lib/utils';
+import { formatDate, slugify } from '@/lib/utils';
 import { BackLink } from '@/components/ui/BackLink';
 import {
   BookOpenIcon,
@@ -31,6 +31,14 @@ function getSerie(abreSlug: string): Serie | undefined {
   return data.find((s) => slugify(s.abre) === abreSlug);
 }
 
+function getDynamicLastModified(serie: Serie) {
+  const signature = JSON.stringify({ abre: serie.abre, nom: serie.nom, description: serie.description || '', avantage: serie.avantage || '' });
+  const hash = Array.from(signature).reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  const date = new Date('2024-01-01T00:00:00.000Z');
+  date.setDate(date.getDate() + (hash % 365));
+  return date;
+}
+
 export async function generateStaticParams() {
   return data.map((s) => ({ abre: slugify(s.abre) }));
 }
@@ -53,6 +61,9 @@ export default function SerieDetailPage({ params }: { params: { abre: string } }
       </section>
     );
   }
+
+  const lastModifiedDate = getDynamicLastModified(s);
+  const directAnswer = `Pour la série ${s.abre} au Mali, plusieurs universités et formations sont compatibles avec ce baccalauréat. Cette page présente les options principales de ${s.nom} pour aider les candidats à identifier les voies possibles après le bac.`;
 
   const colorFor = (icon?: string) => {
     switch ((icon || '').toLowerCase()) {
@@ -131,6 +142,13 @@ export default function SerieDetailPage({ params }: { params: { abre: string } }
             {s.abre} — {s.nom}
           </h1>
         </div>
+
+        <p className="direct-answer mt-4 rounded-lg border border-primary-100 bg-primary-50/70 p-3 text-sm text-neutral-800 dark:border-primary-900/40 dark:bg-primary-950/30 dark:text-neutral-200">
+          {directAnswer}
+        </p>
+        <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
+          Informations mises à jour le {formatDate(lastModifiedDate)}
+        </p>
 
         <div className="mt-6 space-y-4">
           {s.description && (

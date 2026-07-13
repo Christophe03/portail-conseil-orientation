@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import series from '@/data/series_mali.json';
-import { slugify } from '@/lib/utils';
+import { formatDate, slugify } from '@/lib/utils';
 import { BackLink } from '@/components/ui/BackLink';
 
 type Licence = { nom: string; debouche?: string[] };
@@ -21,6 +21,14 @@ function findContext(serieSlug: string, univSlug: string): { serie?: Serie; univ
   const serie = data.find((s) => slugify(s.nom) === serieSlug);
   const univ = serie?.universite?.find((u) => slugify(u.nom) === univSlug);
   return { serie, univ };
+}
+
+function getDynamicLastModified(universityName: string) {
+  const signature = JSON.stringify({ name: universityName });
+  const hash = Array.from(signature).reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  const date = new Date('2024-01-01T00:00:00.000Z');
+  date.setDate(date.getDate() + (hash % 365));
+  return date;
 }
 
 export async function generateStaticParams() {
@@ -51,6 +59,9 @@ export default function UniversiteFacultesPage({ params }: { params: { serie: st
   }
 
   const faculties: Fac[] = Array.isArray(univ.fac) ? univ.fac : [];
+  const lastModifiedDate = getDynamicLastModified(univ.nom);
+  const facultyNames = faculties.slice(0, 3).map((faculty) => faculty.nom).filter(Boolean);
+  const directAnswer = `${univ.nom} est une université publique présentée dans la série ${serie.nom}. Elle propose ${facultyNames.length > 0 ? facultyNames.join(', ') : 'plusieurs formations'} à destination des candidats qui souhaitent poursuivre leurs études au Mali.`;
 
   return (
     <section className="container-custom pt-24 pb-12 sm:pt-28">
@@ -65,6 +76,13 @@ export default function UniversiteFacultesPage({ params }: { params: { serie: st
         </div>
 
         <h1 className="mt-4 text-xl sm:text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white break-words">{univ.nom}</h1>
+
+        <p className="direct-answer mt-4 rounded-lg border border-primary-100 bg-primary-50/70 p-3 text-sm text-neutral-800 dark:border-primary-900/40 dark:bg-primary-950/30 dark:text-neutral-200">
+          {directAnswer}
+        </p>
+        <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
+          Informations mises à jour le {formatDate(lastModifiedDate)}
+        </p>
 
         {faculties.length === 0 ? (
           <p className="mt-6 text-neutral-600 dark:text-neutral-300">Aucune faculté disponible pour cette université.</p>

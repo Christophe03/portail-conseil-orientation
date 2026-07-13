@@ -54,33 +54,10 @@ const socialLinks = [
       </svg>
     ),
   },
-  {
-    name: 'Twitter',
-    href: 'https://twitter.com/conseilorient',
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
-        <path
-          fill="currentColor"
-          d="M18.3 2H21l-5.9 6.7L22 22h-6.2l-4.8-6.3L5 22H2.3l6.3-7.2L2 2h6.3l4.3 5.7L18.3 2Zm-1.1 18h1.7L7.8 4H6.1l11.1 16Z"
-        />
-      </svg>
-    ),
-  },
-  {
-    name: 'Instagram',
-    href: 'https://instagram.com/conseilorientation',
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
-        <path
-          fill="currentColor"
-          d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5Zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5Zm5.25-3.25a1.25 1.25 0 1 1-1.25 1.25A1.25 1.25 0 0 1 17.25 6.25Z"
-        />
-      </svg>
-    ),
-  },
+  
   {
     name: 'LinkedIn',
-    href: 'https://linkedin.com/company/conseil-orientation',
+    href: 'https://www.linkedin.com/company/conseil-d-orientation-mali/?viewAsMember=true',
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
         <path

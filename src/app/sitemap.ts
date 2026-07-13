@@ -56,6 +56,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     staticEntry('/docs', 0.7),
     staticEntry('/support', 0.7),
     staticEntry('/privacy', 0.5, 'monthly'),
+    staticEntry('/llms.txt', 0.7, 'weekly'),
     staticEntry('/universites', 0.9),
     staticEntry('/universites/privees', 0.9),
     staticEntry('/universites/publiques', 0.9),

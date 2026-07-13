@@ -7,7 +7,7 @@ interface StructuredDataProps {
 }
 
 export function StructuredData({ type = 'website', data }: StructuredDataProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://conseil-orientation-mali.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.conseil-orientation-mali.com';
   
   const defaultData = {
     '@context': 'https://schema.org',
@@ -46,8 +46,17 @@ export function StructuredData({ type = 'website', data }: StructuredDataProps) 
       'https://facebook.com/conseilorientation',
       'https://twitter.com/conseilorient',
       'https://instagram.com/conseilorientation',
-      'https://linkedin.com/company/conseil-orientation'
+      'https://linkedin.com/company/conseil-orientation',
+      'https://wa.me/22392722564'
     ],
+    founder: {
+      '@type': 'Organization',
+      name: 'Golden Innovation Tech'
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'Mali'
+    },
     applicationCategory: 'EducationApplication',
     operatingSystem: ['Android', 'iOS'],
     offers: {
