@@ -65,13 +65,6 @@ export function StructuredData({ type = 'website', data }: StructuredDataProps) 
       priceCurrency: 'XOF',
       availability: 'https://schema.org/InStock'
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      ratingCount: '10000',
-      bestRating: '5',
-      worstRating: '1'
-    },
     keywords: 'orientation scolaire Mali, conseil orientation Afrique, bourses études Mali, IA orientation scolaire, application mobile éducation'
   };
 
@@ -120,13 +113,6 @@ export function StructuredData({ type = 'website', data }: StructuredDataProps) 
       priceCurrency: 'XOF',
       availability: 'https://schema.org/InStock'
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      ratingCount: '10000',
-      bestRating: '5',
-      worstRating: '1'
-    },
     downloadUrl: APP_DOWNLOAD_URL
   };
 
@@ -151,13 +137,6 @@ export function StructuredData({ type = 'website', data }: StructuredDataProps) 
       price: '0',
       priceCurrency: 'XOF',
       availability: 'https://schema.org/InStock'
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      ratingCount: '10000',
-      bestRating: '5',
-      worstRating: '1'
     },
     featureList: [
       'Assistant IA pour orientation scolaire',

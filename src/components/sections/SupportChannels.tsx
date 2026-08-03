@@ -5,18 +5,14 @@ import {
   ChatBubbleLeftRightIcon,
   EnvelopeIcon,
   PhoneIcon,
-  VideoCameraIcon,
-  ClockIcon,
-  GlobeAltIcon
+  VideoCameraIcon
 } from '@heroicons/react/24/outline';
 
 const supportChannels = [
   {
     icon: ChatBubbleLeftRightIcon,
     title: 'Chat en Direct',
-    description: 'Obtenez une réponse immédiate de nos experts',
-    availability: '24/7',
-    responseTime: '< 2 minutes',
+    description: 'Échangez avec notre équipe via WhatsApp',
     href: 'https://wa.me/22392722564',
     color: 'from-green-500 to-emerald-600',
     bgColor: 'from-green-50 to-emerald-50',
@@ -26,8 +22,6 @@ const supportChannels = [
     icon: EnvelopeIcon,
     title: 'Email Support',
     description: 'Support détaillé par email pour les questions complexes',
-    availability: 'Lun-Ven 9h-18h',
-    responseTime: '< 4 heures',
     href: 'mailto:conseilorientationinfo@gmail.com?subject=Support%20Conseil%20d%27Orientation',
     color: 'from-blue-500 to-indigo-600',
     bgColor: 'from-blue-50 to-indigo-50',
@@ -37,8 +31,6 @@ const supportChannels = [
     icon: PhoneIcon,
     title: 'Support Téléphonique',
     description: 'Assistance vocale personnalisée',
-    availability: 'Lun-Ven 9h-17h',
-    responseTime: 'Immédiat',
     href: 'tel:+22392722564',
     color: 'from-purple-500 to-violet-600',
     bgColor: 'from-purple-50 to-violet-50',
@@ -48,8 +40,6 @@ const supportChannels = [
     icon: VideoCameraIcon,
     title: 'Visioconférence',
     description: 'Sessions de support en visioconférence',
-    availability: 'Sur RDV',
-    responseTime: '< 24h',
     href: 'mailto:conseilorientationinfo@gmail.com?subject=Demande%20de%20visioconference%20support',
     color: 'from-orange-500 to-red-600',
     bgColor: 'from-orange-50 to-red-50',
@@ -115,23 +105,6 @@ export function SupportChannels() {
                 </div>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                <div className="flex items-center space-x-2">
-                  <ClockIcon className="h-5 w-5 text-neutral-500" />
-                  <div>
-                    <p className="text-sm text-neutral-500 dark:text-neutral-400">Disponibilité</p>
-                    <p className="font-semibold text-neutral-900 dark:text-white">{channel.availability}</p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <GlobeAltIcon className="h-5 w-5 text-neutral-500" />
-                  <div>
-                    <p className="text-sm text-neutral-500 dark:text-neutral-400">Temps de réponse</p>
-                    <p className="font-semibold text-neutral-900 dark:text-white">{channel.responseTime}</p>
-                  </div>
-                </div>
-              </div>
-
               <a
                 href={channel.href}
                 target={channel.href.startsWith('http') ? '_blank' : undefined}

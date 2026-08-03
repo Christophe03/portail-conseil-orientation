@@ -32,12 +32,6 @@ const requirements = [
   { platform: 'Android (APK)', minVersion: '6.0 (API 23)', ram: '2 GB', storage: '80 MB', connection: 'Internet' },
 ];
 
-const stats = [
-  { label: 'Téléchargements', value: '50K+', color: 'text-primary-600' },
-  { label: 'Note Moyenne', value: '4.8★', color: 'text-accent-600' },
-  { label: 'Utilisateurs Actifs', value: '25K+', color: 'text-secondary-600' },
-];
-
 export function DownloadSection() {
   return (
     <section id="download" className="section-padding bg-gradient-to-br from-neutral-50 to-primary-50 dark:from-neutral-800 dark:to-neutral-900">

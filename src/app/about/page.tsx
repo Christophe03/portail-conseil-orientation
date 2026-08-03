@@ -3,7 +3,6 @@ import { HeroAbout } from '@/components/sections/HeroAbout';
 import { MissionSection } from '@/components/sections/MissionSection';
 import { StorySection } from '@/components/sections/StorySection';
 import { ValuesSection } from '@/components/sections/ValuesSection';
-import { StatsAbout } from '@/components/sections/StatsAbout';
 
 export const metadata: Metadata = {
   title: "À Propos - Conseil d'Orientation Mali | Notre Histoire & Mission",
@@ -55,7 +54,6 @@ export default function AboutPage() {
       <MissionSection />
       <StorySection />
       <ValuesSection />
-      <StatsAbout />
     </main>
   );
 }

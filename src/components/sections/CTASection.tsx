@@ -15,13 +15,10 @@ const benefits = [
   'Assistant IA intelligent et personnalisé',
   'Ressources éducatives complètes',
   'Interface moderne et intuitive',
-  'Support technique 24/7',
   'Gratuit et sans publicité',
 ];
 
 const socialProof = [
-  { icon: '⭐', text: '4.8/5 sur les stores' },
-  { icon: '👥', text: '50K+ utilisateurs actifs' },
   { icon: '🌍', text: '150+ pays couverts' },
   { icon: '🏆', text: 'Prix de l\'innovation 2024' },
 ];

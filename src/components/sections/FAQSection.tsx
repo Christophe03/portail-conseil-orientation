@@ -27,7 +27,7 @@ const faqs = [
   },
   {
     question: "Comment puis-je contacter le support ?",
-    answer: "Notre équipe de support est disponible 24/7 via le chat intégré dans l'application, par email à conseilorientationinfo@gmail.com, ou par téléphone au +223 92 72 25 64. Vous pouvez aussi nous contacter via WhatsApp."
+    answer: "Notre équipe de support est joignable via le chat intégré dans l'application, par email à conseilorientationinfo@gmail.com, ou par téléphone au +223 92 72 25 64. Vous pouvez aussi nous contacter via WhatsApp."
   },
   {
     question: "Mes données sont-elles sécurisées ?",

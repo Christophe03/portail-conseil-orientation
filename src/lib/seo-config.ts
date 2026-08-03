@@ -63,7 +63,7 @@ export const seoConfig = {
     },
     about: {
       title: 'À Propos - Conseil d\'Orientation Mali | Notre Histoire & Mission',
-      description: 'Découvrez l\'histoire de Conseil d\'Orientation Mali, créé en 2023. Notre mission : démocratiser l\'orientation scolaire en Afrique avec l\'IA et 1000+ bourses d\'études.',
+      description: 'Découvrez l\'histoire de Conseil d\'Orientation Mali et sa mission : faciliter l\'orientation scolaire et post-bac des élèves au Mali.',
       keywords: [
         'à propos conseil orientation Mali', 'histoire entreprise Mali', 'mission orientation scolaire Afrique',
         'équipe conseil orientation', 'fondation 2023 Mali', 'innovation éducation Afrique',
@@ -74,7 +74,7 @@ export const seoConfig = {
     },
     features: {
       title: 'Fonctionnalités - Conseil d\'Orientation Mali | IA & Bourses d\'Études',
-      description: 'Découvrez toutes les fonctionnalités de Conseil d\'Orientation Mali : assistant IA avancé, 1000+ bourses d\'études, conseils personnalisés, recherche de formations et analyse de marché du travail.',
+      description: 'Découvrez les fonctionnalités de Conseil d\'Orientation Mali : assistant IA, conseils personnalisés, recherche de formations et aide à l\'orientation.',
       keywords: [
         'fonctionnalités conseil orientation Mali', 'assistant IA orientation scolaire',
         'conseils personnalisés orientation', 'recherche formations Mali', 'analyse marché travail Mali',
@@ -86,7 +86,7 @@ export const seoConfig = {
     },
     download: {
       title: 'Télécharger - Conseil d\'Orientation Mali | App Mobile Gratuite',
-      description: 'Téléchargez gratuitement l\'application Conseil d\'Orientation Mali sur Android et iOS. IA avancée, 1000+ bourses d\'études, conseils personnalisés pour votre orientation scolaire.',
+      description: 'Téléchargez gratuitement l\'application Conseil d\'Orientation Mali sur Android pour préparer votre orientation scolaire et post-bac.',
       keywords: [
         'télécharger conseil orientation Mali', 'app mobile orientation scolaire', 'application gratuite éducation Mali',
         'télécharger app Android iOS', 'conseil orientation mobile Mali', 'application orientation scolaire gratuite',

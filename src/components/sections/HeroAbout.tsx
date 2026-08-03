@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import { 
-  UsersIcon,
   FlagIcon
 } from '@heroicons/react/24/outline';
 
@@ -50,12 +49,6 @@ export function HeroAbout() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="flex flex-wrap justify-center gap-4 mb-10"
           >
-            <div className="flex items-center space-x-2 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm border border-neutral-200 dark:border-neutral-700 rounded-full px-4 py-2">
-              <UsersIcon className="h-4 w-4 text-primary-500" />
-              <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                50K+ Utilisateurs
-              </span>
-            </div>
             <div className="flex items-center space-x-2 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm border border-neutral-200 dark:border-neutral-700 rounded-full px-4 py-2">
               <FlagIcon className="h-4 w-4 text-primary-500" />
               <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">

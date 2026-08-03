@@ -178,60 +178,6 @@ export function FeaturesSection() {
           </div>
         </motion.div>
 
-        {/* Feature Highlights */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="bg-gradient-to-r from-primary-50 to-brand-50 dark:from-primary-900/20 dark:to-brand-900/20 rounded-2xl p-8 border border-primary-200 dark:border-primary-700"
-        >
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">
-              🚀 Pourquoi Choisir Conseil d'Orientation ?
-            </h3>
-            <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
-              Notre application combine technologie de pointe et expertise humaine 
-              pour vous offrir une expérience d'orientation inégalée.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-primary-500 to-primary-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-white">95%</span>
-              </div>
-              <h4 className="font-semibold text-neutral-900 dark:text-white mb-2">
-                Taux de Satisfaction
-              </h4>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                Des utilisateurs satisfaits de nos recommandations
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-brand-500 to-brand-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-white">50k+</span>
-              </div>
-              <h4 className="font-semibold text-neutral-900 dark:text-white mb-2">
-                Formations Répertoriées
-              </h4>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                Dans plus de 100 pays à travers le monde
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-secondary-500 to-secondary-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-white">24/7</span>
-              </div>
-              <h4 className="font-semibold text-neutral-900 dark:text-white mb-2">
-                Support Disponible
-              </h4>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                Assistance technique et conseils personnalisés
-              </p>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

@@ -6,7 +6,7 @@ import { IntegrationSection } from '@/components/sections/IntegrationSection';
 
 export const metadata: Metadata = {
   title: 'Fonctionnalités - Conseil d\'Orientation Mali | IA & Bourses d\'Études',
-  description: 'Découvrez toutes les fonctionnalités de Conseil d\'Orientation Mali : assistant IA avancé, 1000+ bourses d\'études, conseils personnalisés, recherche de formations et analyse de marché du travail.',
+  description: 'Découvrez les fonctionnalités de Conseil d\'Orientation Mali : assistant IA, conseils personnalisés, recherche de formations et aide à l\'orientation.',
   keywords: [
     'fonctionnalités conseil orientation Mali', 'assistant IA orientation scolaire', 'bourses études Mali',
     'conseils personnalisés orientation', 'recherche formations Mali', 'analyse marché travail Mali',
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Fonctionnalités - Conseil d\'Orientation Mali | IA & Bourses d\'Études',
-    description: 'Découvrez toutes les fonctionnalités de Conseil d\'Orientation Mali : assistant IA avancé, 1000+ bourses d\'études, conseils personnalisés, recherche de formations et analyse de marché du travail.',
+    description: 'Découvrez les fonctionnalités de Conseil d\'Orientation Mali : assistant IA, conseils personnalisés, recherche de formations et aide à l\'orientation.',
     url: '/features',
     siteName: 'Conseil d\'Orientation Mali',
     images: [
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Fonctionnalités - Conseil d\'Orientation Mali | IA & Bourses d\'Études',
-    description: 'Découvrez toutes les fonctionnalités de Conseil d\'Orientation Mali : assistant IA avancé, 1000+ bourses d\'études, conseils personnalisés, recherche de formations et analyse de marché du travail.',
+    description: 'Découvrez les fonctionnalités de Conseil d\'Orientation Mali : assistant IA, conseils personnalisés, recherche de formations et aide à l\'orientation.',
     images: ['/app_icon.png'],
   },
   alternates: {

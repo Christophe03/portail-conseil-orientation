@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Conseil d\'Orientation Mali - IA pour Orientation Scolaire & Bourses d\'Études',
-    description: 'Application mobile d\'orientation scolaire au Mali avec IA avancée. Découvrez 1000+ bourses d\'études, conseils personnalisés et accompagnement pour votre réussite académique en Afrique.',
+    description: 'Application mobile d\'orientation scolaire au Mali avec IA avancée, pour découvrir les universités, séries et parcours post-bac au Mali.',
     images: ['/app_icon.png'],
   },
   alternates: {

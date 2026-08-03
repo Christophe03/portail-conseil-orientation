@@ -130,38 +130,6 @@ export function HeroSection() {
             </Button>
           </motion.div>
 
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.0 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-2xl mx-auto"
-          >
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-primary-600 dark:text-primary-400 mb-2">
-                50K+
-              </div>
-              <div className="text-neutral-600 dark:text-neutral-400">
-                Utilisateurs Actifs
-              </div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-secondary-600 dark:text-secondary-400 mb-2">
-                1000+
-              </div>
-              <div className="text-neutral-600 dark:text-neutral-400">
-                Formations Découvertes
-              </div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-accent-600 dark:text-accent-400 mb-2">
-                4.8★
-              </div>
-              <div className="text-neutral-600 dark:text-neutral-400">
-                Note Moyenne
-              </div>
-            </div>
-          </motion.div>
         </div>
       </div>
 

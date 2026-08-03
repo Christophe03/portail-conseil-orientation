@@ -19,19 +19,6 @@ export function HeroSupport() {
 
       <div className="container-custom relative z-10">
         <div className="text-center max-w-4xl mx-auto">
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center space-x-2 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm border border-neutral-200 dark:border-neutral-700 rounded-full px-4 py-2 mb-6"
-          >
-            <ExclamationTriangleIcon className="h-4 w-4 text-accent-500" />
-            <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
-              🆘 Support 24/7
-            </span>
-          </motion.div>
-
           {/* Main Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -55,33 +42,6 @@ export function HeroSupport() {
             Notre équipe de support est là pour vous accompagner. 
             FAQ, guides de dépannage et contact direct pour résoudre tous vos problèmes.
           </motion.p>
-
-          {/* Support Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-wrap justify-center gap-6 mb-12"
-          >
-            <div className="flex items-center space-x-2 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm border border-neutral-200 dark:border-neutral-700 rounded-full px-4 py-2">
-              <ChatBubbleLeftRightIcon className="h-4 w-4 text-accent-500" />
-              <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                Réponse &lt; 2h
-              </span>
-            </div>
-            <div className="flex items-center space-x-2 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm border border-neutral-200 dark:border-neutral-700 rounded-full px-4 py-2">
-              <QuestionMarkCircleIcon className="h-4 w-4 text-accent-500" />
-              <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                95% Résolus
-              </span>
-            </div>
-            <div className="flex items-center space-x-2 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm border border-neutral-200 dark:border-neutral-700 rounded-full px-4 py-2">
-              <ExclamationTriangleIcon className="h-4 w-4 text-accent-500" />
-              <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                Support 24/7
-              </span>
-            </div>
-          </motion.div>
 
           {/* CTA Buttons */}
           <motion.div

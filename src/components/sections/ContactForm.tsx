@@ -129,7 +129,7 @@ export function ContactForm() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-neutral-900 dark:text-white mb-1">Horaires</h3>
-                  <p className="text-neutral-600 dark:text-neutral-400">Support 24/7 via l'application</p>
+                  <p className="text-neutral-600 dark:text-neutral-400">Support via l'application</p>
                   <p className="text-sm text-neutral-500 dark:text-neutral-500">Équipe humaine 9h-18h (GMT)</p>
                 </div>
               </div>

@@ -5,8 +5,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import { 
   ArrowDownTrayIcon, 
-  DevicePhoneMobileIcon,
-  CheckCircleIcon
+  DevicePhoneMobileIcon
 } from '@heroicons/react/24/outline';
 
 export function HeroDownload() {
@@ -68,33 +67,6 @@ export function HeroDownload() {
               <DevicePhoneMobileIcon className="h-5 w-5 text-brand-600" />
               <span className="font-medium">Version Android : APKPure</span>
             </span>
-          </motion.div>
-
-          {/* Quick Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-wrap justify-center gap-6 mb-12"
-          >
-            <div className="flex items-center space-x-2 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm border border-neutral-200 dark:border-neutral-700 rounded-full px-4 py-2">
-              <CheckCircleIcon className="h-4 w-4 text-brand-500" />
-              <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                50K+ Téléchargements
-              </span>
-            </div>
-            <div className="flex items-center space-x-2 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm border border-neutral-200 dark:border-neutral-700 rounded-full px-4 py-2">
-              <CheckCircleIcon className="h-4 w-4 text-brand-500" />
-              <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                4.8★ Note Moyenne
-              </span>
-            </div>
-            <div className="flex items-center space-x-2 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm border border-neutral-200 dark:border-neutral-700 rounded-full px-4 py-2">
-              <CheckCircleIcon className="h-4 w-4 text-brand-500" />
-              <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                Gratuit à 100%
-              </span>
-            </div>
           </motion.div>
 
           {/* App Preview */}
