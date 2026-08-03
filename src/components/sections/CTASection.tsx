@@ -7,7 +7,8 @@ import { APP_DOWNLOAD_URL } from '@/lib/app-links';
 import { 
   RocketLaunchIcon,
   ArrowRightIcon,
-  CheckCircleIcon
+  CheckCircleIcon,
+  StarIcon
 } from '@heroicons/react/24/outline';
 
 const benefits = [
