@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import type { Metadata } from 'next';
 import data from '@/data/universites_privees.json';
 import { formatDate, slugify } from '@/lib/utils';
 import { BackLink } from '@/components/ui/BackLink';
@@ -53,6 +54,28 @@ export async function generateStaticParams() {
     .map((u) => ({
       slug: `${u.Sigle ? slugify(u.Sigle) : slugify(u.Nom)}-${slugify(u.ID || u.Nom)}`,
     }));
+}
+
+export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+  const university = matchUniversity(params.slug);
+  if (!university) {
+    return { title: 'Université introuvable', robots: { index: false, follow: false } };
+  }
+
+  const name = university.Nom;
+  const acronym = university.Sigle ? ` (${university.Sigle})` : '';
+  const location = university.Localisation || 'au Mali';
+  const title = `${name}${acronym} — Adresse et contact`;
+  const description = `${name}${acronym}, université privée située à ${location}. Retrouvez son adresse, ses contacts, son site web et sa page Facebook.`;
+  const path = `/universites/privees/${params.slug}`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: path },
+    openGraph: { title, description, url: path, type: 'website' },
+    twitter: { card: 'summary_large_image', title, description },
+  };
 }
 
 export default function PriveeDetailPage({ params }: { params: { slug: string } }) {

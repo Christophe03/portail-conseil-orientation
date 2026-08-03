@@ -10,6 +10,17 @@ type SeriePub = { universite: { nom: string }[] };
 export const metadata: Metadata = {
   title: 'Universités',
   description: 'Explorez les universités au Mali : privées et publiques, avec détails complets.',
+  alternates: { canonical: '/universites' },
+  openGraph: {
+    title: 'Universités au Mali',
+    description: 'Explorez les universités privées et publiques au Mali, avec leurs formations et informations utiles.',
+    url: '/universites',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Universités au Mali',
+    description: 'Explorez les universités privées et publiques au Mali, avec leurs formations et informations utiles.',
+  },
 };
 
 export default function UniversitesPage() {

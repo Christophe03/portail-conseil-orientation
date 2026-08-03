@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import series from '@/data/series_mali.json';
 import { slugify } from '@/lib/utils';
 import { BackLink } from '@/components/ui/BackLink';
@@ -23,6 +24,25 @@ function getSerie(serieSlug: string): Serie | undefined {
 
 export async function generateStaticParams() {
   return (data || []).map((s) => ({ serie: slugify(s.nom) }));
+}
+
+export function generateMetadata({ params }: { params: { serie: string } }): Metadata {
+  const serie = getSerie(params.serie);
+  if (!serie) {
+    return { title: 'Série introuvable', robots: { index: false, follow: false } };
+  }
+
+  const title = `${serie.nom} — Universités publiques`;
+  const description = `Découvrez les universités publiques et les formations accessibles avec la série ${serie.nom} au Mali.`;
+  const path = `/universites/publiques/${params.serie}`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: path },
+    openGraph: { title, description, url: path, type: 'website' },
+    twitter: { card: 'summary_large_image', title, description },
+  };
 }
 
 export default function SerieUniversitesPage({ params }: { params: { serie: string } }) {

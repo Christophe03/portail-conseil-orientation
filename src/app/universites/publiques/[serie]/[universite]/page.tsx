@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import series from '@/data/series_mali.json';
 import { formatDate, slugify } from '@/lib/utils';
 import { BackLink } from '@/components/ui/BackLink';
@@ -41,6 +42,25 @@ export async function generateStaticParams() {
     }
   }
   return params;
+}
+
+export function generateMetadata({ params }: { params: { serie: string; universite: string } }): Metadata {
+  const { serie, univ } = findContext(params.serie, params.universite);
+  if (!serie || !univ) {
+    return { title: 'Université introuvable', robots: { index: false, follow: false } };
+  }
+
+  const title = `${univ.nom} — Formations et facultés`;
+  const description = `${univ.nom}, université publique accessible pour la série ${serie.nom}. Consultez ses facultés, licences et conditions d'admission.`;
+  const path = `/universites/publiques/${params.serie}/${params.universite}`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: path },
+    openGraph: { title, description, url: path, type: 'website' },
+    twitter: { card: 'summary_large_image', title, description },
+  };
 }
 
 export default function UniversiteFacultesPage({ params }: { params: { serie: string; universite: string } }) {

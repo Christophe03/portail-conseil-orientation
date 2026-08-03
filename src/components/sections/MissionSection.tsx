@@ -12,13 +12,13 @@ const missions = [
   {
     icon: FlagIcon,
     title: 'Notre Mission',
-    description: 'Révolutionner l\'orientation scolaire et professionnelle en rendant l\'accès à l\'éducation accessible à tous, partout dans le monde.',
+    description: 'Faciliter l\'orientation scolaire et post-bac des élèves et étudiants au Mali.',
     color: 'text-primary-600'
   },
   {
     icon: LightBulbIcon,
     title: 'Notre Vision',
-    description: 'Un monde où chaque étudiant peut réaliser son plein potentiel grâce à des conseils personnalisés et des opportunités éducatives adaptées.',
+    description: 'Permettre à chaque élève au Mali de préparer son avenir grâce à des informations utiles et accessibles.',
     color: 'text-accent-600'
   },
   {
@@ -29,8 +29,8 @@ const missions = [
   },
   {
     icon: GlobeAltIcon,
-    title: 'Notre Impact',
-    description: 'Plus de 25 000 étudiants aidés, 15 pays couverts et des milliers de parcours transformés grâce à notre technologie.',
+    title: 'Notre Engagement',
+    description: 'Mettre à disposition des informations utiles pour préparer l’orientation post-bac au Mali.',
     color: 'text-secondary-600'
   }
 ];
@@ -54,8 +54,8 @@ export function MissionSection() {
             </span>
           </h2>
           <p className="text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
-            Depuis notre création en 2020, nous nous engageons à démocratiser l'accès 
-            à l'orientation scolaire et professionnelle de qualité.
+            Depuis le lancement de l'application en 2023, nous facilitons l'accès 
+            à l'information pour l'orientation scolaire et post-bac au Mali.
           </p>
         </motion.div>
 
@@ -97,16 +97,14 @@ export function MissionSection() {
             </h3>
             <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed mb-8">
               Tout a commencé en 2023, quand notre équipe de passionnés d'éducation au Mali a constaté 
-              que l'orientation scolaire était souvent un parcours du combattant pour les étudiants africains. 
+              que l'orientation scolaire était souvent un parcours du combattant pour les élèves et étudiants. 
               Nous avons décidé de créer une solution qui combine l'intelligence artificielle, 
               l'expertise pédagogique et la technologie mobile pour démocratiser l'accès à 
-              des conseils d'orientation de qualité en Afrique.
+              des conseils d'orientation utiles au Mali.
             </p>
             <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              Aujourd'hui, Conseil d'Orientation aide des milliers d'étudiants africains 
-              à trouver leur voie, à découvrir des opportunités qu'ils n'auraient jamais imaginées, 
-              et à construire un avenir qui correspond à leurs rêves et à leur potentiel. 
-              En 2025, notre IA de nouvelle génération révolutionnera encore plus l'orientation scolaire.
+              Aujourd'hui, Conseil d'Orientation rassemble des informations sur les universités, les séries 
+              du baccalauréat et les parcours post-bac afin d'aider les candidats à préparer leur avenir.
             </p>
           </div>
         </motion.div>

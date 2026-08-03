@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import series from '@/data/series.json';
 import { slugify } from '@/lib/utils';
 import {
@@ -27,9 +28,20 @@ type Serie = {
 
 const data = series as unknown as Serie[];
 
-export const metadata = {
-  title: 'Séries du baccalauréat',
-  description: 'Liste des séries avec abréviation et noms complets.',
+export const metadata: Metadata = {
+  title: 'Séries du baccalauréat au Mali',
+  description: 'Découvrez les séries du baccalauréat au Mali, leurs abréviations et des pistes pour préparer votre orientation post-bac.',
+  alternates: { canonical: '/universites/series' },
+  openGraph: {
+    title: 'Séries du baccalauréat au Mali',
+    description: 'Liste des séries du baccalauréat et informations utiles pour préparer son orientation post-bac.',
+    url: '/universites/series',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Séries du baccalauréat au Mali',
+    description: 'Liste des séries du baccalauréat et informations utiles pour préparer son orientation post-bac.',
+  },
 };
 
 export default function SeriesListPage() {

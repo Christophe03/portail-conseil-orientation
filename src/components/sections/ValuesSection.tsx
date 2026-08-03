@@ -35,7 +35,7 @@ const values = [
   {
     icon: GlobeAltIcon,
     title: 'Accessibilité',
-    description: 'Nous croyons que l\'éducation de qualité doit être accessible à tous, partout dans le monde.',
+    description: 'Nous voulons rendre les informations d’orientation plus accessibles aux élèves et étudiants au Mali.',
     color: 'text-blue-600',
     bgColor: 'bg-blue-100 dark:bg-blue-900/30'
   },
@@ -137,7 +137,7 @@ export function ValuesSection() {
               <div className="flex items-center space-x-2 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm border border-neutral-200 dark:border-neutral-700 rounded-full px-4 py-2">
                 <GlobeAltIcon className="h-4 w-4 text-blue-500" />
                 <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                  Impact Mondial
+                  Orientation au Mali
                 </span>
               </div>
             </div>

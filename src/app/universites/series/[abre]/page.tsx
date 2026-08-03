@@ -1,4 +1,5 @@
 import series from '@/data/series.json';
+import type { Metadata } from 'next';
 import { formatDate, slugify } from '@/lib/utils';
 import { BackLink } from '@/components/ui/BackLink';
 import {
@@ -43,9 +44,24 @@ export async function generateStaticParams() {
   return data.map((s) => ({ abre: slugify(s.abre) }));
 }
 
-export const metadata = {
-  title: 'Détails série',
-};
+export function generateMetadata({ params }: { params: { abre: string } }): Metadata {
+  const serie = getSerie(params.abre);
+  if (!serie) {
+    return { title: 'Série introuvable', robots: { index: false, follow: false } };
+  }
+
+  const title = `${serie.abre} — ${serie.nom}`;
+  const description = `Découvrez la série ${serie.abre} (${serie.nom}) au Mali, ses caractéristiques et les possibilités d'orientation après le baccalauréat.`;
+  const path = `/universites/series/${params.abre}`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: path },
+    openGraph: { title, description, url: path, type: 'website' },
+    twitter: { card: 'summary_large_image', title, description },
+  };
+}
 
 export default function SerieDetailPage({ params }: { params: { abre: string } }) {
   const s = getSerie(params.abre);

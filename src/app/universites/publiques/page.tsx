@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import series from '@/data/series_mali.json';
 import { slugify } from '@/lib/utils';
 
@@ -9,9 +10,20 @@ type Serie = {
 
 const data = series as unknown as Serie[];
 
-export const metadata = {
-  title: 'Universités publiques — Séries',
-  description: 'Choisissez une série pour voir les universités, facultés et licences.',
+export const metadata: Metadata = {
+  title: 'Universités publiques au Mali',
+  description: 'Choisissez votre série du baccalauréat pour découvrir les universités publiques, facultés et licences disponibles au Mali.',
+  alternates: { canonical: '/universites/publiques' },
+  openGraph: {
+    title: 'Universités publiques au Mali',
+    description: 'Explorez les universités publiques et leurs formations selon votre série du baccalauréat.',
+    url: '/universites/publiques',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Universités publiques au Mali',
+    description: 'Explorez les universités publiques et leurs formations selon votre série du baccalauréat.',
+  },
 };
 
 export default function PubliquesSeriesPage() {

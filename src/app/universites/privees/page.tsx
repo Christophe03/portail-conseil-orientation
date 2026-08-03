@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import data from '@/data/universites_privees.json';
 import { PriveesList } from '@/components/sections/PriveesList';
 
@@ -21,9 +22,20 @@ type Privee = {
 
 const universites: Privee[] = data as unknown as Privee[];
 
-export const metadata = {
-  title: 'Universités privées',
-  description: 'Liste des universités privées au Mali avec sigle et nom.',
+export const metadata: Metadata = {
+  title: 'Universités privées au Mali',
+  description: 'Consultez la liste des universités privées au Mali et accédez à leurs fiches : adresse, contacts, site web et Facebook.',
+  alternates: { canonical: '/universites/privees' },
+  openGraph: {
+    title: 'Universités privées au Mali',
+    description: 'Liste des universités privées au Mali avec des fiches détaillées pour trouver leurs coordonnées.',
+    url: '/universites/privees',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Universités privées au Mali',
+    description: 'Liste des universités privées au Mali avec des fiches détaillées pour trouver leurs coordonnées.',
+  },
 };
 
 export default function PriveesPage() {

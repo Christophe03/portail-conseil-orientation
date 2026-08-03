@@ -239,7 +239,7 @@ export function Footer() {
           <p className="text-neutral-500 text-xs sm:text-sm">
             Fait avec{' '}
             <HeartIcon className="inline h-4 w-4 text-red-500 mx-1" />
-            {' '}au Mali pour les etudiants du monde entier
+            {' '}au Mali pour les élèves et étudiants
           </p>
         </div>
       </div>
