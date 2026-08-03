@@ -7,8 +7,7 @@ import { APP_DOWNLOAD_URL } from '@/lib/app-links';
 import { 
   RocketLaunchIcon,
   ArrowRightIcon,
-  CheckCircleIcon,
-  StarIcon
+  CheckCircleIcon
 } from '@heroicons/react/24/outline';
 
 const benefits = [
@@ -16,11 +15,6 @@ const benefits = [
   'Ressources éducatives complètes',
   'Interface moderne et intuitive',
   'Gratuit et sans publicité',
-];
-
-const socialProof = [
-  { icon: '🌍', text: '150+ pays couverts' },
-  { icon: '🏆', text: 'Prix de l\'innovation 2024' },
 ];
 
 export function CTASection() {
@@ -59,8 +53,8 @@ export function CTASection() {
             </h2>
 
             <p className="text-xl md:text-2xl text-primary-100 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Rejoignez des milliers d'étudiants qui ont déjà transformé leur parcours 
-              grâce à notre application innovante de conseil d'orientation.
+              Préparez votre orientation post-bac au Mali grâce à notre application 
+              de conseil d'orientation.
             </p>
           </motion.div>
 
@@ -83,29 +77,6 @@ export function CTASection() {
               >
                 <CheckCircleIcon className="h-6 w-6 text-accent-400 flex-shrink-0" />
                 <span className="text-primary-100">{benefit}</span>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* Social Proof */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex flex-wrap justify-center gap-6 mb-12"
-          >
-            {socialProof.map((proof, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2"
-              >
-                <span className="text-lg">{proof.icon}</span>
-                <span className="text-sm font-medium text-primary-100">{proof.text}</span>
               </motion.div>
             ))}
           </motion.div>
