@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { FeaturesSection } from '@/components/sections/FeaturesSection';
 import { DownloadSection } from '@/components/sections/DownloadSection';
-import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { CTASection } from '@/components/sections/CTASection';
 import { StructuredData } from '@/components/seo/StructuredData';
 
@@ -50,7 +49,6 @@ export default function HomePage() {
       <HeroSection />
       <FeaturesSection />
       <DownloadSection />
-      <TestimonialsSection />
       <CTASection />
     </>
   );
