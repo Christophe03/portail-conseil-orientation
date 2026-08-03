@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { APP_DOWNLOAD_URL } from '@/lib/app-links';
+import { CONTACT_EMAIL } from '@/lib/contact';
 
 interface StructuredDataProps {
   type?: 'website' | 'organization' | 'mobileApplication' | 'softwareApplication';
@@ -37,7 +38,7 @@ export function StructuredData({ type = 'website', data }: StructuredDataProps) 
       },
       {
         '@type': 'ContactPoint',
-        email: 'conseilorientationinfo@gmail.com',
+        email: CONTACT_EMAIL,
         contactType: 'customer service',
         availableLanguage: ['French', 'English']
       }
