@@ -50,8 +50,8 @@ export function generateMetadata({ params }: { params: { serie: string; universi
     return { title: 'Université introuvable', robots: { index: false, follow: false } };
   }
 
-  const title = `${univ.nom} — Formations et facultés`;
-  const description = `${univ.nom}, université publique accessible pour la série ${serie.nom}. Consultez ses facultés, licences et conditions d'admission.`;
+  const title = `${univ.nom} — Adresse, contact | Conseil d'Orientation Mali`;
+  const description = `${univ.nom}, université publique accessible pour la série ${serie.nom} au Mali. Adresse, contact, site web.`;
   const path = `/universites/publiques/${params.serie}/${params.universite}`;
 
   return {

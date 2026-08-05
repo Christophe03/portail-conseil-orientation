@@ -65,8 +65,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const name = university.Nom;
   const acronym = university.Sigle ? ` (${university.Sigle})` : '';
   const location = university.Localisation || 'au Mali';
-  const title = `${name}${acronym} — Adresse et contact`;
-  const description = `${name}${acronym}, université privée située à ${location}. Retrouvez son adresse, ses contacts, son site web et sa page Facebook.`;
+  const title = `${name}${acronym} — Adresse, contact | Conseil d'Orientation Mali`;
+  const description = `${name}${acronym}, université privée située à ${location}, Mali. Adresse, contact, site web.`;
   const path = `/universites/privees/${params.slug}`;
 
   return {
