@@ -59,45 +59,49 @@ export async function POST(req: NextRequest) {
 
     const ai = new GoogleGenAI({ apiKey });
 
-    // Timeout de 15 secondes
-    const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('TIMEOUT')), 15000)
-    );
-
-    const apiCallPromise = ai.models.generateContent({
-      model: 'gemini-2.0-flash',
-      contents,
-      config: {
-        systemInstruction: fullSystemInstruction,
-        temperature: 0.6,
-      }
-    });
-
+    const modelsToTry = ['gemini-2.0-flash-lite', 'gemini-2.0-flash'];
     let response: any = null;
-    try {
-      response = await Promise.race([apiCallPromise, timeoutPromise]);
-    } catch (err: any) {
-      if (err?.message === 'TIMEOUT') {
-        return NextResponse.json(
-          { error: "Le service prend trop de temps à répondre (timeout 15s). Veuillez réessayer." },
-          { status: 504 }
-        );
-      }
+    let lastError: any = null;
 
-      const errMsg = err?.message || String(err);
-      if (err?.status === 429 || errMsg.includes('429') || errMsg.includes('Quota exceeded') || errMsg.includes('RESOURCE_EXHAUSTED')) {
+    for (const modelName of modelsToTry) {
+      try {
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('TIMEOUT')), 15000)
+        );
+
+        const apiCallPromise = ai.models.generateContent({
+          model: modelName,
+          contents,
+          config: {
+            systemInstruction: fullSystemInstruction,
+            temperature: 0.6,
+          }
+        });
+
+        response = await Promise.race([apiCallPromise, timeoutPromise]);
+        if (response?.text) {
+          break; // Succès !
+        }
+      } catch (err: any) {
+        lastError = err;
+        if (err?.message === 'TIMEOUT') throw err;
+      }
+    }
+
+    if (!response?.text) {
+      const errMsg = lastError?.message || String(lastError);
+      if (lastError?.status === 429 || errMsg.includes('429') || errMsg.includes('Quota exceeded') || errMsg.includes('RESOURCE_EXHAUSTED')) {
         return NextResponse.json(
           { 
-            error: "Quota API Gemini dépassé (Erreur 429). Votre clé API Google AI Studio n'a pas de quota gratuit actif sur le modèle gemini-2.0-flash. Veuillez créer une nouvelle clé API sur https://aistudio.google.com/." 
+            error: "Quota API Gemini dépassé (Erreur 429). Votre clé API Google AI Studio n'a pas de quota gratuit disponible sur gemini-2.0-flash-lite / gemini-2.0-flash. Veuillez créer une nouvelle clé gratuite sur https://aistudio.google.com/." 
           },
           { status: 429 }
         );
       }
-
-      throw err;
+      throw lastError || new Error("Impossible d'obtenir une réponse de Gemini.");
     }
 
-    const replyText = response?.text || "Désolé, je n'ai pas pu obtenir une réponse d'orientation.";
+    const replyText = response.text;
     return NextResponse.json({ reply: replyText });
   } catch (error: any) {
     console.error('[COS Chat API Error]:', error);
