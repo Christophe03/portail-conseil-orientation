@@ -183,8 +183,20 @@ export async function POST(req: NextRequest) {
       case 'question_orientation':
       default:
         const isIndecisive = /je (ne )?sais pas|aucune id[eé]e|pas d'id[eé]e|ind[eé]cis|quoi choisir/i.test(norm);
+        const isComparison = /compar|diff[eé]ren/i.test(norm);
 
-        if (isIndecisive) {
+        if (isComparison) {
+          fallbackReply = "Voici les repères essentiels pour comparer les établissements au Mali :\n\n" +
+            "🏛️ **Universités Publiques** :\n" +
+            "• Frais de scolarité très réduits et subventionnés par l'État.\n" +
+            "• Orientation nationale via CampusMali et concours officiels.\n" +
+            "• Diplômes d'État reconnus.\n\n" +
+            "🏢 **Universités Privées** :\n" +
+            "• Frais de scolarité payants (mensuels ou annuels).\n" +
+            "• Admissions directes sur dossier et flexibilité des rentrées.\n" +
+            "• Encadrement souvent plus restreint.\n\n" +
+            "💡 *Note* : Je ne publie aucun classement subjectif de réputation entre établissements. Vous pouvez consulter directement les fiches des [Universités Privées](/universites/privees) ou [Universités Publiques](/universites/publiques).";
+        } else if (isIndecisive) {
           fallbackReply = "Pas de panique ! C'est tout à fait normal d'hésiter pour son orientation 😊.\n\nPour t'aider à y voir plus clair : **tu te vois plutôt dans un métier de bureau (Gestion, Droit), un métier scientifique & santé, ou un métier technique sur le terrain ?**";
         } else if (relevantUniversities.length > 0) {
           fallbackReply = isParent
