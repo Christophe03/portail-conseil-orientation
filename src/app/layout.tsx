@@ -4,6 +4,7 @@ import '@/styles/globals.css';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { ChatWidget } from '@/components/chat/ChatWidget';
 import { Analytics } from '@/components/analytics/Analytics';
 import { Analytics as VercelAnalytics } from '@vercel/analytics/next';
 import { CookieBanner } from '@/components/ui/CookieBanner';
@@ -156,15 +157,11 @@ export default function RootLayout({
             <main className="flex-1">{children}</main>
             <Footer />
           </div>
+          <ChatWidget />
           <Analytics />
           <VercelAnalytics />
           <CookieBanner />
           <CookiePreferences />
-          {/* <PerformanceOptimizer />
-          <CoreWebVitalsOptimizer />
-          <PerformanceMonitor />
-          <ImagePerformanceMonitor />
-          <PerformanceMetricsDisplay /> */}
         </ThemeProvider>
       </body>
     </html>
