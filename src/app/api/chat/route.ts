@@ -164,7 +164,13 @@ export async function POST(req: NextRequest) {
         } else if (isParent) {
           fallbackReply = "Bonjour et bienvenue ! 🤝 En tant que parent d'élève, vous faites le meilleur choix pour l'avenir de votre enfant.\n\nJe suis **COS**, Conseiller d'Orientation au Mali. Quelle est la série du BAC de votre enfant ou son domaine d'intérêt (Santé, Informatique, Gestion, Droit) ?";
         } else {
-          fallbackReply = "Bonjour et bienvenue ! 👋 Je suis **COS**, ton Conseiller d'Orientation Virtuel au Mali 🎓.\n\nQuelle est ta série du BAC ou quel domaine d'études t'intéresse (Santé, Informatique, Gestion, Droit, Agronomie) ?";
+          const greetings = [
+            "Bonjour et bienvenue ! 👋 Je suis **COS**, ton Conseiller d'Orientation Virtuel au Mali 🎓.\n\nQuelle est ta série du BAC ou quel domaine d'études t'intéresse le plus ?",
+            "Salut ! 👋 Ravi de t'accueillir sur Conseil d'Orientation Mali. Tu cherches une université privée, publique ou des infos sur ta série ?",
+            "Bonjour ! 🎓 Je suis **COS**, ton assistant d'orientation. Dis-moi : dans quelle ville ou quelle filière tu souhaites étudier ?"
+          ];
+          const hash = userPrompt.length % greetings.length;
+          fallbackReply = greetings[hash];
         }
         break;
 
