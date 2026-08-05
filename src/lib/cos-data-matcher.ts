@@ -41,11 +41,56 @@ const privees = priveesData as unknown as PriveeJSON[];
 const seriesMali = seriesMaliData as unknown as SerieMaliJSON[];
 
 /**
+ * Normalise la requête utilisateur pour étendre les abréviations SMS et les noms complets des séries du BAC
+ */
+export function normalizeUserQuery(userMessage: string): string {
+  let q = userMessage.toLowerCase().trim();
+
+  // Dictionnaire d'extensions des séries et filières
+  const seriesExpansions: [RegExp, string][] = [
+    [/\b(terminale?\s+)?sciences?\s+exp[eé]rimentales?\b/gi, 'tse tsexp'],
+    [/\b(terminale?\s+)?langues?\s+et\s+lettres?\b/gi, 'tll'],
+    [/\b(terminale?\s+)?arts?\s+et\s+lettres?\b/gi, 'tal'],
+    [/\b(terminale?\s+)?sciences?\s+sociales?\b/gi, 'tss'],
+    [/\b(terminale?\s+)?sciences?\s+[eé]conomiques?\b/gi, 'tseco'],
+    [/\b(gestion\s+et\s+comptabilit[eé]|comptabilit[eé]\s+finance)\b/gi, 'gco cf'],
+    [/\bg[eé]nie\s+informatique\b/gi, 'gmi informatique'],
+    [/\bg[eé]nie\s+civil\b/gi, 'gc génie civil'],
+    [/\bg[eé]nie\s+m[eé]canique\b/gi, 'gm génie mécanique'],
+    [/\bg[eé]nie\s+[eé]lectronique\b/gi, 'geln génie électronique'],
+    [/\bg[eé]nie\s+[eé]nerg[eé]tique\b/gi, 'gen génie énergétique']
+  ];
+
+  // Dictionnaire d'abréviations SMS
+  const smsMap: [RegExp, string][] = [
+    [/\bslt\b/gi, 'salut'],
+    [/\bbjr\b/gi, 'bonjour'],
+    [/\bbsr\b/gi, 'bonsoir'],
+    [/\bmrc\b/gi, 'merci'],
+    [/\b(cv|sva)\b/gi, 'ça va'],
+    [/\bunivs?\b/gi, 'université'],
+    [/\bfacs?\b/gi, 'faculté'],
+    [/\bstp\b/gi, "s'il te plaît"],
+    [/\bsvp\b/gi, "s'il vous plaît"]
+  ];
+
+  seriesExpansions.forEach(([regex, val]) => {
+    q = q.replace(regex, `$1${val}`);
+  });
+
+  smsMap.forEach(([regex, val]) => {
+    q = q.replace(regex, val);
+  });
+
+  return q;
+}
+
+/**
  * Recherche les universités (privées et publiques) correspondant au message utilisateur.
  * Retourne entre 0 et 12 résultats pertinents avec leurs métadonnées et URL internes.
  */
 export function findRelevantUniversities(userMessage: string): GroundingUniversity[] {
-  const query = userMessage.toLowerCase().trim();
+  const query = normalizeUserQuery(userMessage);
   if (!query) return [];
 
   // Mots-clés de localisation

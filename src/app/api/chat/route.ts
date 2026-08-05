@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenAI } from '@google/genai';
 import { COS_SYSTEM_PROMPT } from '@/lib/cos-system-prompt';
-import { findRelevantUniversities, formatGroundingContext } from '@/lib/cos-data-matcher';
+import { findRelevantUniversities, formatGroundingContext, normalizeUserQuery } from '@/lib/cos-data-matcher';
 
 export const runtime = 'nodejs';
 
@@ -90,7 +90,7 @@ export async function POST(req: NextRequest) {
 
     if (!response?.text) {
       // Générer une réponse conversationnelle et conseillère basée sur les vraies données
-      const lower = userPrompt.toLowerCase();
+      const lower = normalizeUserQuery(userPrompt);
       let fallbackReply = '';
 
       const isGreeting = /^(bonjour|salut|bonsoir|kowé|kowe|coucou|hello|bonjour!|salut!)\b/i.test(lower) || lower.length < 15;
