@@ -41,12 +41,61 @@ const privees = priveesData as unknown as PriveeJSON[];
 const seriesMali = seriesMaliData as unknown as SerieMaliJSON[];
 
 /**
- * Normalise la requête utilisateur pour étendre les abréviations SMS et les noms complets des séries du BAC
+ * Table de correspondance Métier -> Domaines de recherche
+ */
+export const CAREER_DOMAIN_MAP: Record<string, string[]> = {
+  comptable: ['gestion', 'comptabilité', 'finance', 'commerce', 'management', 'entreprise', 'banque'],
+  gestionnaire: ['gestion', 'commerce', 'management', 'finance', 'entreprise'],
+  banquier: ['finance', 'banque', 'gestion', 'commerce'],
+  marketeur: ['marketing', 'commerce', 'communication'],
+  médecin: ['santé', 'médecine', 'biologie', 'pharmacie', 'médical'],
+  docteur: ['santé', 'médecine', 'biologie'],
+  infirmier: ['santé', 'infirmier', 'médical'],
+  'sage-femme': ['santé', 'sage-femme', 'médical'],
+  pharmacien: ['santé', 'pharmacie', 'biologie'],
+  avocat: ['droit', 'juridique', 'justice'],
+  juriste: ['droit', 'juridique'],
+  magistrat: ['droit', 'justice'],
+  informaticien: ['informatique', 'technologie', 'génie logiciel', 'réseau', 'cyber'],
+  développeur: ['informatique', 'génie logiciel', 'code', 'programmeur'],
+  programmeur: ['informatique', 'génie logiciel', 'code'],
+  ingénieur: ['génie', 'technologie', 'ingénierie', 'informatique', 'mines'],
+  enseignant: ['enseignement', 'éducation', 'lettres', 'sciences'],
+  professeur: ['enseignement', 'éducation'],
+  agronome: ['agronomie', 'agriculture', 'élevage', 'environnement']
+};
+
+/**
+ * Normalise la requête utilisateur :
+ * - Corrige les fautes de frappe courantes (Bamacko -> Bamako, universite -> université, etc.)
+ * - Traite les séries du BAC avec numéros (tse2 -> tse, tss1 -> tss)
+ * - Étend les métiers en leurs domaines d'études correspondants
+ * - Décodes les abréviations SMS
  */
 export function normalizeUserQuery(userMessage: string): string {
   let q = userMessage.toLowerCase().trim();
 
-  // Dictionnaire d'extensions des séries et filières
+  // 1. Correction des fautes et orthographes courantes
+  const typoFixes: [RegExp, string][] = [
+    [/\bbamacko\b/gi, 'bamako'],
+    [/\bsebou\b/gi, 'ségou'],
+    [/\buniversite\b/gi, 'université'],
+    [/\bcomptabilite\b/gi, 'comptabilité'],
+    [/\bmedecin\b/gi, 'médecin'],
+    [/\bingenieur\b/gi, 'ingénieur'],
+    [/\bdeveloppeur\b/gi, 'développeur'],
+    [/\bpharmacien\b/gi, 'pharmacien'],
+    [/\binfirmiere?\b/gi, 'infirmier']
+  ];
+
+  typoFixes.forEach(([regex, val]) => {
+    q = q.replace(regex, val);
+  });
+
+  // 2. Traitement des séries avec chiffres (ex: TSS2 -> TSS, TSE1 -> TSE, TLL2 -> TLL)
+  q = q.replace(/\b(tss|tse|tll|tal|tseco|tsexp|gco|cf|gmi|gc|gm|geln|gen)\d+\b/gi, '$1');
+
+  // 3. Extension des séries complètes
   const seriesExpansions: [RegExp, string][] = [
     [/\b(terminale?\s+)?sciences?\s+exp[eé]rimentales?\b/gi, 'tse tsexp'],
     [/\b(terminale?\s+)?langues?\s+et\s+lettres?\b/gi, 'tll'],
@@ -61,7 +110,19 @@ export function normalizeUserQuery(userMessage: string): string {
     [/\bg[eé]nie\s+[eé]nerg[eé]tique\b/gi, 'gen génie énergétique']
   ];
 
-  // Dictionnaire d'abréviations SMS
+  seriesExpansions.forEach(([regex, val]) => {
+    q = q.replace(regex, `$1${val}`);
+  });
+
+  // 4. Mapping des métiers vers les domaines
+  Object.keys(CAREER_DOMAIN_MAP).forEach((career) => {
+    if (new RegExp(`\\b${career}s?\\b`, 'i').test(q)) {
+      const domains = CAREER_DOMAIN_MAP[career].join(' ');
+      q += ` ${domains}`;
+    }
+  });
+
+  // 5. Dictionnaire d'abréviations SMS
   const smsMap: [RegExp, string][] = [
     [/\bslt\b/gi, 'salut'],
     [/\bbjr\b/gi, 'bonjour'],
@@ -74,10 +135,6 @@ export function normalizeUserQuery(userMessage: string): string {
     [/\bsvp\b/gi, "s'il vous plaît"]
   ];
 
-  seriesExpansions.forEach(([regex, val]) => {
-    q = q.replace(regex, `$1${val}`);
-  });
-
   smsMap.forEach(([regex, val]) => {
     q = q.replace(regex, val);
   });
@@ -87,10 +144,24 @@ export function normalizeUserQuery(userMessage: string): string {
 
 /**
  * Recherche les universités (privées et publiques) correspondant au message utilisateur.
- * Retourne entre 0 et 12 résultats pertinents avec leurs métadonnées et URL internes.
+ * Prend en compte l'historique récent de la conversation pour le contexte (ex: "et à Kayes ?").
  */
-export function findRelevantUniversities(userMessage: string): GroundingUniversity[] {
-  const query = normalizeUserQuery(userMessage);
+export function findRelevantUniversities(
+  userMessage: string,
+  historyMessages: any[] = []
+): GroundingUniversity[] {
+  let combinedQuery = userMessage;
+
+  // Si le message utilisateur est très court (ex: "et à Kayes ?"), on y ajoute le contexte des messages précédents
+  if (userMessage.trim().length < 25 && historyMessages.length > 1) {
+    const previousUserMessages = historyMessages
+      .filter((m: any) => m.role === 'user' || m.role === 'human')
+      .map((m: any) => String(m.content || ''))
+      .join(' ');
+    combinedQuery = `${previousUserMessages} ${userMessage}`;
+  }
+
+  const query = normalizeUserQuery(combinedQuery);
   if (!query) return [];
 
   // Mots-clés de localisation
@@ -112,7 +183,7 @@ export function findRelevantUniversities(userMessage: string): GroundingUniversi
   const domainKeywords: Record<string, string[]> = {
     santé: ['santé', 'sante', 'médecine', 'medecine', 'pharmacie', 'infirmier', 'sage-femme', 'biologie', 'médical'],
     informatique: ['informatique', 'technologie', 'génie logiciel', 'reseau', 'réseau', 'cyber', 'code', 'programmeur', 'développeur', 'data', 'ia'],
-    gestion: ['gestion', 'commerce', 'finance', 'comptabilité', 'comptabilite', 'management', 'business', 'marketing', 'banque', 'entreprise'],
+    gestion: ['gestion', 'commerce', 'finance', 'comptabilité', 'comptabilite', 'management', 'business', 'marketing', 'banque', 'entreprise', 'comptable'],
     droit: ['droit', 'juridique', 'justice', 'avocat'],
     journalisme: ['journalisme', 'communication', 'presse', 'média', 'media'],
     agronomie: ['agronomie', 'agriculture', 'élevage', 'environnement'],
@@ -123,10 +194,15 @@ export function findRelevantUniversities(userMessage: string): GroundingUniversi
   const seriesKeywords = ['tse', 'tsexp', 'tss', 'tal', 'tll', 'tseco', 'gco', 'cf', 'gc', 'gm', 'gmi', 'geln', 'gen'];
   const matchedSeries = seriesKeywords.filter(s => new RegExp(`\\b${s}\\b`, 'i').test(query));
 
-  // Détection des villes ou domaines dans la requête
-  const detectedCities = Object.keys(cityKeywords).filter(city => 
-    cityKeywords[city].some(kw => query.includes(kw))
+  // Détection des villes ou domaines dans la requête (on privilégie la dernière ville mentionnée si présent)
+  const rawLastMessageQuery = normalizeUserQuery(userMessage);
+  const citiesInLastMessage = Object.keys(cityKeywords).filter(city => 
+    cityKeywords[city].some(kw => rawLastMessageQuery.includes(kw))
   );
+
+  const detectedCities = citiesInLastMessage.length > 0 
+    ? citiesInLastMessage 
+    : Object.keys(cityKeywords).filter(city => cityKeywords[city].some(kw => query.includes(kw)));
 
   const detectedDomains = Object.keys(domainKeywords).filter(dom =>
     domainKeywords[dom].some(kw => query.includes(kw))
@@ -235,10 +311,10 @@ export function findRelevantUniversities(userMessage: string): GroundingUniversi
  */
 export function formatGroundingContext(universities: GroundingUniversity[]): string {
   if (universities.length === 0) {
-    return "Aucune université spécifique sélectionnée pour cette requête. Réponds de façon générale avec tact et invite à explorer la rubrique /universites.";
+    return "Aucune université spécifique sélectionnée pour cette requête. Si la question porte sur l'orientation, réponds de façon générale avec tact et invite à préciser la ville ou la filière.";
   }
 
-  let text = "### DONNÉES REELLES DU SITE SUR LES UNIVERSITÉS PERTINENTES :\n";
+  let text = "### DONNÉES RÉELLES DU SITE SUR LES UNIVERSITÉS PERTINENTES :\n";
   text += "RAPPEL STRICT : Ne recommande QUE des établissements de cette liste ci-dessous. Utilise EXACTEMENT leurs liens Markdown fournis.\n\n";
 
   universities.forEach((u, i) => {

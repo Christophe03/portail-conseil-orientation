@@ -5,15 +5,53 @@ import { findRelevantUniversities, formatGroundingContext, normalizeUserQuery } 
 
 export const runtime = 'nodejs';
 
+/**
+ * Classificateur local de secours (utilisé quand l'API Gemini n'est pas disponible ou en quota 429)
+ */
+function classifyLocalIntent(
+  userPrompt: string,
+  historyMessages: any[] = []
+): 'salutation' | 'question_orientation' | 'question_navigation' | 'hors_sujet' {
+  const norm = normalizeUserQuery(userPrompt);
+  const rawLower = userPrompt.toLowerCase().trim();
+
+  // 1. Navigation du site
+  const navKeywords = ['télécharger', 'telecharger', 'application', 'appli', 'mobile', 'site', 'support', 'contacter', 'naviguer'];
+  if (navKeywords.some(kw => norm.includes(kw))) {
+    return 'question_navigation';
+  }
+
+  // 2. Hors sujet évident
+  const offTopicKeywords = ['météo', 'meteo', 'temps', 'pluie', 'cuisine', 'recette', 'football', 'match', 'politique', 'président', 'president'];
+  if (offTopicKeywords.some(kw => norm.includes(kw))) {
+    return 'hors_sujet';
+  }
+
+  // 3. Question orientation (séries BAC, métiers, villes, universités, ou suivi de contexte)
+  const orientationKeywords = [
+    'université', 'universite', 'filière', 'filiere', 'bac', 'tse', 'tss', 'tll', 'tal', 'tseco', 'gco', 'cf', 'gmi', 'gc', 'gm', 'geln', 'gen',
+    'santé', 'sante', 'médecin', 'medecin', 'infirmier', 'comptable', 'gestion', 'droit', 'avocat', 'informatique', 'ingénieur', 'ingenieur',
+    'bamako', 'sélégou', 'segou', 'kayes', 'sikasso', 'mopti', 'koutiala', 'étudier', 'etudier', 'école', 'ecole', 'formation'
+  ];
+
+  const isContextualFollowUp = (rawLower.startsWith('et ') || rawLower.startsWith('ou ') || rawLower.length < 20) && historyMessages.length > 1;
+
+  if (orientationKeywords.some(kw => norm.includes(kw)) || isContextualFollowUp) {
+    return 'question_orientation';
+  }
+
+  // 4. Salutation ou politesse de fermeture pure
+  const isPureGreeting = /^(bonjour|salut|slt|bjr|bsr|cc|yo|wesh|kowé|kowe|merci|mrc|au revoir|à bientôt|a bien tot|ça va|ca va)\b/i.test(rawLower) || rawLower.length <= 15;
+  if (isPureGreeting) {
+    return 'salutation';
+  }
+
+  return 'question_orientation';
+}
+
 export async function POST(req: NextRequest) {
   try {
     const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey || apiKey.trim() === '') {
-      return NextResponse.json(
-        { error: "La clé API Gemini n'est pas configurée sur le serveur. Veuillez renseigner GEMINI_API_KEY." },
-        { status: 500 }
-      );
-    }
 
     const body = await req.json();
     const { messages } = body;
@@ -43,11 +81,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Troncature des 10 derniers messages pour réduire coûts & latence
+    // Troncature des 10 derniers messages
     const recentMessages = messages.slice(-10);
 
-    // Extraction et ancrage dans les données du site
-    const relevantUniversities = findRelevantUniversities(userPrompt);
+    // Recherche d'universités ancrées avec contexte de l'historique
+    const relevantUniversities = findRelevantUniversities(userPrompt, recentMessages);
     const groundingContext = formatGroundingContext(relevantUniversities);
 
     const fullSystemInstruction = `${COS_SYSTEM_PROMPT}\n\n${groundingContext}`;
@@ -57,76 +95,112 @@ export async function POST(req: NextRequest) {
       parts: [{ text: String(m.content || '') }]
     }));
 
-    const ai = new GoogleGenAI({ apiKey });
-
-    const modelsToTry = ['gemini-2.0-flash-lite', 'gemini-2.0-flash'];
-    let response: any = null;
+    let jsonResponseText = '';
     let lastError: any = null;
 
-    for (const modelName of modelsToTry) {
-      try {
-        const timeoutPromise = new Promise((_, reject) =>
-          setTimeout(() => reject(new Error('TIMEOUT')), 15000)
-        );
+    if (apiKey && apiKey.trim() !== '') {
+      const ai = new GoogleGenAI({ apiKey });
+      const modelsToTry = ['gemini-2.0-flash-lite', 'gemini-2.0-flash'];
 
-        const apiCallPromise = ai.models.generateContent({
-          model: modelName,
-          contents,
-          config: {
-            systemInstruction: fullSystemInstruction,
-            temperature: 0.6,
+      for (const modelName of modelsToTry) {
+        try {
+          const timeoutPromise = new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('TIMEOUT')), 15000)
+          );
+
+          const apiCallPromise = ai.models.generateContent({
+            model: modelName,
+            contents,
+            config: {
+              systemInstruction: fullSystemInstruction,
+              temperature: 0.2, // Température basse pour une classification fiable
+              responseMimeType: 'application/json'
+            }
+          });
+
+          const response: any = await Promise.race([apiCallPromise, timeoutPromise]);
+          if (response?.text) {
+            jsonResponseText = response.text;
+            break; // Succès !
           }
-        });
-
-        response = await Promise.race([apiCallPromise, timeoutPromise]);
-        if (response?.text) {
-          break; // Succès !
+        } catch (err: any) {
+          lastError = err;
+          if (err?.message === 'TIMEOUT') throw err;
         }
-      } catch (err: any) {
-        lastError = err;
-        if (err?.message === 'TIMEOUT') throw err;
       }
     }
 
-    if (!response?.text) {
-      // Générer une réponse conversationnelle et conseillère basée sur les vraies données
-      const lower = normalizeUserQuery(userPrompt);
-      let fallbackReply = '';
+    // Traitement de la réponse JSON de Gemini
+    if (jsonResponseText) {
+      try {
+        let cleaned = jsonResponseText.trim();
+        if (cleaned.startsWith('```')) {
+          cleaned = cleaned.replace(/^```(json)?\n?/, '').replace(/\n?```$/, '').trim();
+        }
+        const parsed = JSON.parse(cleaned);
+        const replyText = parsed.reponse || parsed.reply || jsonResponseText;
+        const intention = parsed.intention || 'question_orientation';
 
-      const isGreeting = /^(bonjour|salut|bonsoir|kowé|kowe|coucou|hello|bonjour!|salut!)\b/i.test(lower) || lower.length < 15;
-      const isParent = lower.includes('parent') || lower.includes('mon fils') || lower.includes('ma fille') || lower.includes('enfant');
+        return NextResponse.json({ reply: replyText, intention });
+      } catch (e) {
+        return NextResponse.json({ reply: jsonResponseText, intention: 'question_orientation' });
+      }
+    }
 
-      if (isGreeting) {
-        if (isParent) {
-          fallbackReply = "Bonjour et bienvenue ! 🤝 En tant que parent d'élève, vous faites le meilleur choix en vous informant tôt pour l'avenir de votre enfant.\n\nJe suis **COS**, Conseiller d'Orientation au Mali. Pour vous aider à trouver l'établissement et la formation idéale :\n\n• Dans quelle **ville** recherchez-vous une université ?\n• Quelle est la **série du BAC** de votre enfant (TSE, TSS, TAL, TSECO...) ou son domaine d'intérêt (Santé, Informatique, Gestion, Droit) ?\n\nVous pouvez aussi consulter directement le répertoire des [Universités Privées](/universites/privees) ou des [Universités Publiques](/universites/publiques).";
+    // Fallback moteur local si pas de clé API Gemini ou quota 429
+    const intention = classifyLocalIntent(userPrompt, recentMessages);
+    let fallbackReply = '';
+    const norm = normalizeUserQuery(userPrompt);
+    const isParent = norm.includes('parent') || norm.includes('mon fils') || norm.includes('ma fille') || norm.includes('enfant');
+    const isClosing = /^(merci|mrc|au revoir|à bientôt|a bien tot)/i.test(userPrompt.trim());
+
+    switch (intention) {
+      case 'salutation':
+        if (isClosing) {
+          fallbackReply = "Je vous en prie ! 🎓 N'hésitez pas si vous avez d'autres questions sur votre orientation au Mali. À bientôt et bonne continuation !";
+        } else if (isParent) {
+          fallbackReply = "Bonjour et bienvenue ! 🤝 En tant que parent d'élève, vous faites le meilleur choix pour l'avenir de votre enfant.\n\nJe suis **COS**, Conseiller d'Orientation au Mali. Quelle est la série du BAC de votre enfant ou son domaine d'intérêt (Santé, Informatique, Gestion, Droit) ?";
         } else {
-          fallbackReply = "Bonjour et bienvenue ! 👋 Je suis **COS**, ton Conseiller d'Orientation Virtuel au Mali 🎓.\n\nMon rôle est de t'aider à choisir ta série du BAC, découvrir les formations universitaires et trouver les meilleures universités privées ou publiques pour ta réussite.\n\nDis-moi : **quelle est ta série du BAC** ou **quel domaine d'études t'intéresse** (ex: Santé, Informatique, Gestion, Droit, Agronomie) ?";
+          fallbackReply = "Bonjour et bienvenue ! 👋 Je suis **COS**, ton Conseiller d'Orientation Virtuel au Mali 🎓.\n\nQuelle est ta série du BAC ou quel domaine d'études t'intéresse (Santé, Informatique, Gestion, Droit, Agronomie) ?";
         }
-      } else if (relevantUniversities.length > 0) {
-        fallbackReply = isParent 
-          ? "Voici les établissements homologués et vérifiés au Mali qui correspondent à ces critères :\n\n"
-          : "Super choix ! Voici les établissements réels du site qui proposent des formations dans ce domaine :\n\n";
+        break;
 
-        relevantUniversities.forEach(u => {
-          fallbackReply += `• **[${u.nom}](${u.url})** (${u.type === 'privée' ? 'Privée' : 'Publique'})\n  📍 *Localisation* : ${u.localisation}\n`;
-          if (u.contact) fallbackReply += `  📞 *Contact direct* : ${u.contact}\n`;
-        });
+      case 'question_navigation':
+        fallbackReply = "Pour utiliser le portail **Conseil d'Orientation Mali**, voici les liens directs vers nos rubriques principales :\n\n" +
+          "📱 **Télécharger l'application mobile** : [/download](/download)\n" +
+          "🏢 **Universités Privées** : [/universites/privees](/universites/privees)\n" +
+          "🏛️ **Universités Publiques** : [/universites/publiques](/universites/publiques)\n" +
+          "📚 **Guide des Séries du BAC** : [/universites/series](/universites/series)";
+        break;
 
-        fallbackReply += "\n💡 **Mon conseil d'orientation** : Cliquez sur les liens des établissements pour consulter l'adresse exacte et contacter directement l'administration.\n\nSouhaitez-vous des détails sur d'autres filières ou une autre ville ?";
-      } else {
-        fallbackReply = "Merci pour votre question ! En tant que conseiller d'orientation, je peux vous guider vers plusieurs opportunités d'études supérieures au Mali.\n\nPour affiner ma recommandation, précisez-moi :\n1. Le domaine souhaité (Santé, Informatique, Management, Droit, Technique...)\n2. La ville préférée (Bamako, Kati, Ségou, Sikasso...)\n\nVous pouvez également explorer nos rubriques :\n- [Toutes les Universités Privées](/universites/privees)\n- [Les Universités Publiques du Mali](/universites/publiques)\n- [Guide des Séries du BAC](/universites/series)";
-      }
+      case 'hors_sujet':
+        fallbackReply = "Je suis **COS**, votre Conseiller d'Orientation Scolaire et Universitaire au Mali 🎓. Ma mission est de vous guider sur les séries du BAC, les universités réelles et les filières d'études au Mali.\n\nAvez-vous une question concernant votre orientation ou une université ?";
+        break;
 
-      return NextResponse.json({ reply: fallbackReply });
+      case 'question_orientation':
+      default:
+        if (relevantUniversities.length > 0) {
+          fallbackReply = isParent
+            ? "Voici les établissements homologués au Mali qui correspondent à vos critères :\n\n"
+            : "Voici les établissements réels qui proposent des formations dans ce domaine :\n\n";
+
+          relevantUniversities.forEach(u => {
+            fallbackReply += `• **[${u.nom}](${u.url})** (${u.type === 'privée' ? 'Privée' : 'Publique'})\n  📍 *Localisation* : ${u.localisation}\n`;
+            if (u.contact) fallbackReply += `  📞 *Contact direct* : ${u.contact}\n`;
+          });
+          fallbackReply += "\n💡 Cliquez sur le nom de l'université pour voir sa fiche complète et ses coordonnées.";
+        } else {
+          fallbackReply = "En tant que conseiller d'orientation, je n'ai pas trouvé d'établissement correspondant exactement à ce mot-clé précis.\n\nPour m'aider à vous guider, précisez :\n1. Le domaine (Santé, Informatique, Gestion, Droit...)\n2. La ville (Bamako, Ségou, Sikasso, Kayes...)\n\nVous pouvez aussi parcourir les [Universités Privées](/universites/privees) ou les [Universités Publiques](/universites/publiques).";
+        }
+        break;
     }
 
-    const replyText = response.text;
-    return NextResponse.json({ reply: replyText });
+    return NextResponse.json({ reply: fallbackReply, intention });
   } catch (error: any) {
     console.error('[COS Chat API Error]:', error);
-    
-    let fallbackReply = "Bonjour ! 👋 Je suis **COS**, ton Conseiller d'Orientation au Mali 🎓.\n\nJe suis là pour t'aider, toi ou tes parents, à trouver la meilleure formation et université au Mali.\n\nExplore directement nos rubriques :\n- [Universités Privées](/universites/privees)\n- [Universités Publiques](/universites/publiques)\n- [Séries du BAC & Débouchés](/universites/series)";
-
-    return NextResponse.json({ reply: fallbackReply });
+    return NextResponse.json({
+      reply: "Bonjour ! 👋 Je suis **COS**, ton Conseiller d'Orientation au Mali 🎓. N'hésite pas à me poser tes questions sur les universités et séries du BAC !",
+      intention: 'salutation'
+    });
   }
 }
