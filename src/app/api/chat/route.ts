@@ -182,7 +182,11 @@ export async function POST(req: NextRequest) {
 
       case 'question_orientation':
       default:
-        if (relevantUniversities.length > 0) {
+        const isIndecisive = /je (ne )?sais pas|aucune id[eé]e|pas d'id[eé]e|ind[eé]cis|quoi choisir/i.test(norm);
+
+        if (isIndecisive) {
+          fallbackReply = "Pas de panique ! C'est tout à fait normal d'hésiter pour son orientation 😊.\n\nPour t'aider à y voir plus clair : **tu te vois plutôt dans un métier de bureau (Gestion, Droit), un métier scientifique & santé, ou un métier technique sur le terrain ?**";
+        } else if (relevantUniversities.length > 0) {
           fallbackReply = isParent
             ? "Voici les établissements homologués au Mali qui correspondent à vos critères :\n\n"
             : "Voici les établissements réels qui proposent des formations dans ce domaine :\n\n";
@@ -210,8 +214,14 @@ export async function POST(req: NextRequest) {
 }
 
 function getContextualSuggestions(userPrompt: string, intention: string): string[] {
-  if (intention !== 'question_orientation') return [];
   const norm = normalizeUserQuery(userPrompt);
+
+  const isIndecisive = /je (ne )?sais pas|aucune id[eé]e|pas d'id[eé]e|ind[eé]cis|quoi choisir/i.test(norm);
+  if (isIndecisive) {
+    return ['Métier de bureau (Gestion, Droit)', 'Scientifique & Santé', 'Terrain & Technique'];
+  }
+
+  if (intention !== 'question_orientation') return [];
 
   if (norm.includes('bamako') || norm.includes('ségou') || norm.includes('kayes') || norm.includes('sikasso')) {
     return ['Voir dans une autre ville', 'Voir un autre domaine'];
