@@ -17,13 +17,22 @@ export interface ChatMessage {
   role: 'user' | 'assistant';
   content: string;
   timestamp: string;
+  suggestions?: string[];
 }
+
+const INITIAL_SUGGESTIONS = [
+  'Trouver ma série',
+  'Universités à Bamako',
+  "Comment télécharger l'app ?",
+  'Je ne sais pas quoi choisir'
+];
 
 const WELCOME_MESSAGE: ChatMessage = {
   id: 'welcome',
   role: 'assistant',
   content: "Salut ! Je suis **COS** 🎓, ton assistant virtuel d'orientation scolaire au Mali.\n\nJe peux t'aider à trouver une université (privée ou publique) correspondant à ta série ou ta ville, et te guider sur le site. Pose-moi ta question !",
-  timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+  timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+  suggestions: INITIAL_SUGGESTIONS
 };
 
 export function ChatWidget() {
@@ -62,8 +71,8 @@ export function ChatWidget() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen]);
 
-  const handleSend = async () => {
-    const trimmedInput = input.trim();
+  const handleSend = async (customText?: string) => {
+    const trimmedInput = (customText || input).trim();
     if (!trimmedInput || isLoading) return;
 
     // 1. Limite de longueur
@@ -97,7 +106,7 @@ export function ChatWidget() {
     setIsLoading(true);
 
     try {
-      // Préparation de la requête serveur (historique adapté)
+      // Préparation de la requête serveur
       const payloadMessages = newHistory.map(m => ({
         role: m.role,
         content: m.content
@@ -119,7 +128,8 @@ export function ChatWidget() {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
         content: data.reply || "Je n'ai pas pu générer de réponse.",
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        suggestions: data.suggestions || undefined
       };
 
       setMessages(prev => [...prev, assistantMsg]);
@@ -262,29 +272,53 @@ export function ChatWidget() {
 
             {/* Messages Scroll Area */}
             <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-neutral-50/50 dark:bg-neutral-950/40">
-              {messages.map((msg) => (
-                <div
-                  key={msg.id}
-                  className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
-                >
+              {messages.map((msg, index) => {
+                const isLastMsg = index === messages.length - 1;
+                const showSuggestions = msg.role === 'assistant' && msg.suggestions && msg.suggestions.length > 0 && (
+                  msg.id === 'welcome' ? messages.length === 1 : (isLastMsg && !isLoading)
+                );
+
+                return (
                   <div
-                    className={`max-w-[85%] rounded-2xl p-3.5 shadow-sm ${
-                      msg.role === 'user'
-                        ? 'bg-primary-600 text-white rounded-br-none'
-                        : 'bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white border border-neutral-200 dark:border-neutral-700/60 rounded-bl-none'
-                    }`}
+                    key={msg.id}
+                    className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
                   >
-                    {msg.role === 'assistant' ? (
-                      renderFormattedContent(msg.content)
-                    ) : (
-                      <p className="text-sm leading-relaxed">{msg.content}</p>
+                    <div
+                      className={`max-w-[85%] rounded-2xl p-3.5 shadow-sm ${
+                        msg.role === 'user'
+                          ? 'bg-primary-600 text-white rounded-br-none'
+                          : 'bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white border border-neutral-200 dark:border-neutral-700/60 rounded-bl-none'
+                      }`}
+                    >
+                      {msg.role === 'assistant' ? (
+                        renderFormattedContent(msg.content)
+                      ) : (
+                        <p className="text-sm leading-relaxed">{msg.content}</p>
+                      )}
+                    </div>
+
+                    {showSuggestions && (
+                      <div className="mt-2.5 flex flex-wrap gap-1.5 max-w-[90%]">
+                        {msg.suggestions!.map((sug, i) => (
+                          <button
+                            key={i}
+                            type="button"
+                            onClick={() => handleSend(sug)}
+                            disabled={isLoading}
+                            className="rounded-xl border border-primary-200 dark:border-primary-800 bg-primary-50/80 dark:bg-primary-950/50 px-3 py-1.5 text-xs text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/60 transition font-medium text-left"
+                          >
+                            {sug}
+                          </button>
+                        ))}
+                      </div>
                     )}
+
+                    <span className="text-[10px] text-neutral-400 mt-1 px-1">
+                      {msg.timestamp}
+                    </span>
                   </div>
-                  <span className="text-[10px] text-neutral-400 mt-1 px-1">
-                    {msg.timestamp}
-                  </span>
-                </div>
-              ))}
+                );
+              })}
 
               {isLoading && (
                 <div className="flex flex-col items-start">

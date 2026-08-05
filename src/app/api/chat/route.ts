@@ -140,10 +140,12 @@ export async function POST(req: NextRequest) {
         const parsed = JSON.parse(cleaned);
         const replyText = parsed.reponse || parsed.reply || jsonResponseText;
         const intention = parsed.intention || 'question_orientation';
+        const suggestions = parsed.suggestions || getContextualSuggestions(userPrompt, intention);
 
-        return NextResponse.json({ reply: replyText, intention });
+        return NextResponse.json({ reply: replyText, intention, suggestions });
       } catch (e) {
-        return NextResponse.json({ reply: jsonResponseText, intention: 'question_orientation' });
+        const suggestions = getContextualSuggestions(userPrompt, 'question_orientation');
+        return NextResponse.json({ reply: jsonResponseText, intention: 'question_orientation', suggestions });
       }
     }
 
@@ -153,6 +155,7 @@ export async function POST(req: NextRequest) {
     const norm = normalizeUserQuery(userPrompt);
     const isParent = norm.includes('parent') || norm.includes('mon fils') || norm.includes('ma fille') || norm.includes('enfant');
     const isClosing = /^(merci|mrc|au revoir|à bientôt|a bien tot)/i.test(userPrompt.trim());
+    const suggestions = getContextualSuggestions(userPrompt, intention);
 
     switch (intention) {
       case 'salutation':
@@ -195,12 +198,26 @@ export async function POST(req: NextRequest) {
         break;
     }
 
-    return NextResponse.json({ reply: fallbackReply, intention });
+    return NextResponse.json({ reply: fallbackReply, intention, suggestions });
   } catch (error: any) {
     console.error('[COS Chat API Error]:', error);
     return NextResponse.json({
       reply: "Bonjour ! 👋 Je suis **COS**, ton Conseiller d'Orientation au Mali 🎓. N'hésite pas à me poser tes questions sur les universités et séries du BAC !",
-      intention: 'salutation'
+      intention: 'salutation',
+      suggestions: ['Trouver ma série', 'Universités à Bamako']
     });
   }
+}
+
+function getContextualSuggestions(userPrompt: string, intention: string): string[] {
+  if (intention !== 'question_orientation') return [];
+  const norm = normalizeUserQuery(userPrompt);
+
+  if (norm.includes('bamako') || norm.includes('ségou') || norm.includes('kayes') || norm.includes('sikasso')) {
+    return ['Voir dans une autre ville', 'Voir un autre domaine'];
+  }
+  if (norm.includes('tse') || norm.includes('tss') || norm.includes('tll') || norm.includes('tseco')) {
+    return ['Voir un autre domaine', 'Universités à Bamako'];
+  }
+  return ['Universités à Bamako', 'Trouver ma série', 'Santé & Médecine', 'Informatique & Tech'];
 }
