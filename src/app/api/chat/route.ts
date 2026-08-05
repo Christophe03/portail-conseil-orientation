@@ -89,25 +89,35 @@ export async function POST(req: NextRequest) {
     }
 
     if (!response?.text) {
-      // Si la clé API est en quota dépassé (429), générer une réponse intelligente locale basée sur les vraies données
-      if (lastError?.status === 429 || lastError?.message?.includes('429') || lastError?.message?.includes('Quota exceeded') || lastError?.message?.includes('RESOURCE_EXHAUSTED')) {
-        let fallbackReply = "Bonjour ! Je suis **COS**, ton assistant d'orientation au Mali 🎓.\n\n";
-        
-        if (relevantUniversities.length > 0) {
-          fallbackReply += "Voici les établissements réels du site qui correspondent à ta demande :\n\n";
-          relevantUniversities.forEach(u => {
-            fallbackReply += `• **[${u.nom}](${u.url})** (${u.type === 'privée' ? 'Privée' : 'Publique'})\n  📍 Localisation : ${u.localisation}\n`;
-            if (u.contact) fallbackReply += `  📞 Contact : ${u.contact}\n`;
-          });
-          fallbackReply += "\nTu peux cliquer sur leurs liens pour consulter leurs fiches complètes avec toutes leurs coordonnées !";
-        } else {
-          fallbackReply += "Je n'ai pas trouvé d'université correspondant exactement à tes mots-clés dans les critères actuels.\n\nJe t'invite à explorer directement :\n- La liste des [Universités Privées](/universites/privees)\n- La liste des [Universités Publiques](/universites/publiques)\n- Le guide des [Séries du BAC](/universites/series)";
-        }
+      // Générer une réponse conversationnelle et conseillère basée sur les vraies données
+      const lower = userPrompt.toLowerCase();
+      let fallbackReply = '';
 
-        return NextResponse.json({ reply: fallbackReply });
+      const isGreeting = /^(bonjour|salut|bonsoir|kowé|kowe|coucou|hello|bonjour!|salut!)\b/i.test(lower) || lower.length < 15;
+      const isParent = lower.includes('parent') || lower.includes('mon fils') || lower.includes('ma fille') || lower.includes('enfant');
+
+      if (isGreeting) {
+        if (isParent) {
+          fallbackReply = "Bonjour et bienvenue ! 🤝 En tant que parent d'élève, vous faites le meilleur choix en vous informant tôt pour l'avenir de votre enfant.\n\nJe suis **COS**, Conseiller d'Orientation au Mali. Pour vous aider à trouver l'établissement et la formation idéale :\n\n• Dans quelle **ville** recherchez-vous une université ?\n• Quelle est la **série du BAC** de votre enfant (TSE, TSS, TAL, TSECO...) ou son domaine d'intérêt (Santé, Informatique, Gestion, Droit) ?\n\nVous pouvez aussi consulter directement le répertoire des [Universités Privées](/universites/privees) ou des [Universités Publiques](/universites/publiques).";
+        } else {
+          fallbackReply = "Bonjour et bienvenue ! 👋 Je suis **COS**, ton Conseiller d'Orientation Virtuel au Mali 🎓.\n\nMon rôle est de t'aider à choisir ta série du BAC, découvrir les formations universitaires et trouver les meilleures universités privées ou publiques pour ta réussite.\n\nDis-moi : **quelle est ta série du BAC** ou **quel domaine d'études t'intéresse** (ex: Santé, Informatique, Gestion, Droit, Agronomie) ?";
+        }
+      } else if (relevantUniversities.length > 0) {
+        fallbackReply = isParent 
+          ? "Voici les établissements homologués et vérifiés au Mali qui correspondent à ces critères :\n\n"
+          : "Super choix ! Voici les établissements réels du site qui proposent des formations dans ce domaine :\n\n";
+
+        relevantUniversities.forEach(u => {
+          fallbackReply += `• **[${u.nom}](${u.url})** (${u.type === 'privée' ? 'Privée' : 'Publique'})\n  📍 *Localisation* : ${u.localisation}\n`;
+          if (u.contact) fallbackReply += `  📞 *Contact direct* : ${u.contact}\n`;
+        });
+
+        fallbackReply += "\n💡 **Mon conseil d'orientation** : Cliquez sur les liens des établissements pour consulter l'adresse exacte et contacter directement l'administration.\n\nSouhaitez-vous des détails sur d'autres filières ou une autre ville ?";
+      } else {
+        fallbackReply = "Merci pour votre question ! En tant que conseiller d'orientation, je peux vous guider vers plusieurs opportunités d'études supérieures au Mali.\n\nPour affiner ma recommandation, précisez-moi :\n1. Le domaine souhaité (Santé, Informatique, Management, Droit, Technique...)\n2. La ville préférée (Bamako, Kati, Ségou, Sikasso...)\n\nVous pouvez également explorer nos rubriques :\n- [Toutes les Universités Privées](/universites/privees)\n- [Les Universités Publiques du Mali](/universites/publiques)\n- [Guide des Séries du BAC](/universites/series)";
       }
 
-      throw lastError || new Error("Impossible d'obtenir une réponse de Gemini.");
+      return NextResponse.json({ reply: fallbackReply });
     }
 
     const replyText = response.text;
@@ -115,13 +125,7 @@ export async function POST(req: NextRequest) {
   } catch (error: any) {
     console.error('[COS Chat API Error]:', error);
     
-    // Fallback de secours ultime
-    let fallbackReply = "Bonjour ! Je suis **COS**, ton assistant d'orientation au Mali 🎓.\n\n";
-    const relevantUniversities = findRelevantUniversities('');
-    fallbackReply += "Tu peux consulter la liste complète des établissements et des séries sur le site :\n";
-    fallbackReply += "- [Universités Privées](/universites/privees)\n";
-    fallbackReply += "- [Universités Publiques](/universites/publiques)\n";
-    fallbackReply += "- [Séries du BAC](/universites/series)";
+    let fallbackReply = "Bonjour ! 👋 Je suis **COS**, ton Conseiller d'Orientation au Mali 🎓.\n\nJe suis là pour t'aider, toi ou tes parents, à trouver la meilleure formation et université au Mali.\n\nExplore directement nos rubriques :\n- [Universités Privées](/universites/privees)\n- [Universités Publiques](/universites/publiques)\n- [Séries du BAC & Débouchés](/universites/series)";
 
     return NextResponse.json({ reply: fallbackReply });
   }
