@@ -193,7 +193,7 @@ export async function POST(req: NextRequest) {
           });
           fallbackReply += "\n💡 Cliquez sur le nom de l'université pour voir sa fiche complète et ses coordonnées.";
         } else {
-          fallbackReply = "En tant que conseiller d'orientation, je n'ai pas trouvé d'établissement correspondant exactement à ce mot-clé précis.\n\nPour m'aider à vous guider, précisez :\n1. Le domaine (Santé, Informatique, Gestion, Droit...)\n2. La ville (Bamako, Ségou, Sikasso, Kayes...)\n\nVous pouvez aussi parcourir les [Universités Privées](/universites/privees) ou les [Universités Publiques](/universites/publiques).";
+          fallbackReply = "Avec plaisir ! Pour te proposer les meilleures universités correspondant exactement à ton profil, **quel domaine d'études t'intéresse en priorité** (Santé, Informatique, Gestion, Droit, Agronomie) ou quelle est **ta série du BAC** ?";
         }
         break;
     }
