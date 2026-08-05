@@ -240,6 +240,15 @@ export async function POST(req: NextRequest) {
         break;
     }
 
+    // Heuristique d'impasse : Si 2 réponses consécutives ont échoué à donner un résultat précis, proposer l'aide humaine
+    const unresolvedCount = recentMessages.filter((m: any) => 
+      m.role === 'model' && (String(m.content).includes('n\'ai pas trouvé') || String(m.content).includes('Pour te proposer') || String(m.content).includes('précisez'))
+    ).length;
+
+    if (unresolvedCount >= 2 && relevantUniversities.length === 0) {
+      fallbackReply += "\n\n💬 **Besoin d'un accompagnement personnalisé ?** Si tu ne trouves pas l'information recherchée, tu peux directement [Contacter l'équipe de support](/about) de Conseil d'Orientation Mali.";
+    }
+
     return NextResponse.json({ reply: fallbackReply, intention, suggestions });
   } catch (error: any) {
     console.error('[COS Chat API Error]:', error);
