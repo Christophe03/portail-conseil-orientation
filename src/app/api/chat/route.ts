@@ -15,6 +15,21 @@ function classifyLocalIntent(
   const norm = normalizeUserQuery(userPrompt);
   const rawLower = userPrompt.toLowerCase().trim();
 
+  // 0. Détection d'injection de prompt ou tentative de jailbreak
+  const injectionPatterns = [
+    /ignore (toutes )?(tes|vos) instructions/i,
+    /tu es maintenant/i,
+    /mode d[eé]veloppeur/i,
+    /system prompt/i,
+    /r[eé]v[eè]le (tes|vos) consignes/i,
+    /act as a/i,
+    /you are now/i,
+    /jailbreak/i
+  ];
+  if (injectionPatterns.some(p => p.test(rawLower))) {
+    return 'hors_sujet';
+  }
+
   // 1. Navigation du site
   const navKeywords = ['télécharger', 'telecharger', 'application', 'appli', 'mobile', 'site', 'support', 'contacter', 'naviguer'];
   if (navKeywords.some(kw => norm.includes(kw))) {
@@ -183,7 +198,12 @@ export async function POST(req: NextRequest) {
         break;
 
       case 'hors_sujet':
-        fallbackReply = "Je suis **COS**, votre Conseiller d'Orientation Scolaire et Universitaire au Mali 🎓. Ma mission est de vous guider sur les séries du BAC, les universités réelles et les filières d'études au Mali.\n\nAvez-vous une question concernant votre orientation ou une université ?";
+        const isInjection = /ignore|maintenant|d[eé]veloppeur|prompt|consigne|jailbreak/i.test(userPrompt);
+        if (isInjection) {
+          fallbackReply = "En tant que Conseiller d'Orientation Virtuel au Mali, je ne peux pas modifier mon rôle ni mes consignes. Comment puis-je vous aider aujourd'hui concernant votre orientation ou les universités ?";
+        } else {
+          fallbackReply = "Je suis **COS**, votre Conseiller d'Orientation Scolaire et Universitaire au Mali 🎓. Ma mission est de vous guider sur les séries du BAC, les universités réelles et les filières d'études au Mali.\n\nAvez-vous une question concernant votre orientation ou une université ?";
+        }
         break;
 
       case 'question_orientation':
