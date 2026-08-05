@@ -52,30 +52,57 @@ export async function POST(req: NextRequest) {
 
     const fullSystemInstruction = `${COS_SYSTEM_PROMPT}\n\n${groundingContext}`;
 
-    const ai = new GoogleGenAI({ apiKey });
-
     const contents = recentMessages.map((m: any) => ({
       role: m.role === 'user' ? 'user' : 'model',
       parts: [{ text: String(m.content || '') }]
     }));
 
-    // Timeout de 15 secondes
-    const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('TIMEOUT')), 15000)
-    );
+    const modelsToTry = ['gemini-2.0-flash', 'gemini-1.5-flash'];
+    let response: any = null;
+    let lastError: any = null;
 
-    const apiCallPromise = ai.models.generateContent({
-      model: 'gemini-2.0-flash',
-      contents,
-      config: {
-        systemInstruction: fullSystemInstruction,
-        temperature: 0.6,
+    const ai = new GoogleGenAI({ apiKey });
+
+    for (const modelName of modelsToTry) {
+      try {
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('TIMEOUT')), 15000)
+        );
+
+        const apiCallPromise = ai.models.generateContent({
+          model: modelName,
+          contents,
+          config: {
+            systemInstruction: fullSystemInstruction,
+            temperature: 0.6,
+          }
+        });
+
+        response = await Promise.race([apiCallPromise, timeoutPromise]);
+        if (response?.text) {
+          break; // Succès !
+        }
+      } catch (err: any) {
+        lastError = err;
+        console.warn(`[COS Chat API] Modèle ${modelName} indisponible/quota dépassé:`, err?.status || err?.message);
+        // Si c'est un timeout, inutile de tenter les autres
+        if (err?.message === 'TIMEOUT') throw err;
       }
-    });
+    }
 
-    const response: any = await Promise.race([apiCallPromise, timeoutPromise]);
-    const replyText = response?.text || "Désolé, je n'ai pas pu obtenir une réponse claire.";
+    if (!response?.text) {
+      if (lastError?.status === 429 || lastError?.message?.includes('429') || lastError?.message?.includes('quota')) {
+        return NextResponse.json(
+          { 
+            error: "Le quota de votre clé API Gemini est épuisé (Erreur 429 RESOURCE_EXHAUSTED). Veuillez vérifier que la clé API créée sur Google AI Studio (https://aistudio.google.com/) a le plan gratuit actif et du quota disponible." 
+          },
+          { status: 429 }
+        );
+      }
+      throw lastError || new Error("Impossible d'obtenir une réponse de Gemini.");
+    }
 
+    const replyText = response.text;
     return NextResponse.json({ reply: replyText });
   } catch (error: any) {
     if (error?.message === 'TIMEOUT') {
@@ -87,7 +114,7 @@ export async function POST(req: NextRequest) {
 
     console.error('[COS Chat API Error]:', error);
     return NextResponse.json(
-      { error: "Un problème technique est survenu avec l'assistant COS. Veuillez réessayer dans quelques instants." },
+      { error: error?.message || "Un problème technique est survenu avec l'assistant COS." },
       { status: 500 }
     );
   }
