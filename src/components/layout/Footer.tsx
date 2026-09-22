@@ -5,27 +5,44 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { APP_DOWNLOAD_URL } from '@/lib/app-links';
 import {
-  HeartIcon,
   EnvelopeIcon,
   PhoneIcon,
   MapPinIcon,
-  ArrowRightIcon
+  ArrowRightIcon,
+  ArrowDownTrayIcon,
+  AcademicCapIcon,
+  SparklesIcon,
+  ChatBubbleLeftRightIcon,
+  ShieldCheckIcon
 } from '@heroicons/react/24/outline';
 
-const footerLinks = {
-  produit: [
-    { name: 'Universites', href: '/universites' },
-    { name: 'Universites Privees', href: '/universites/privees' },
-    { name: 'Universites Publiques', href: '/universites/publiques' },
-    { name: 'Series', href: '/universites/series' },
-    { name: 'Telecharger', href: '/download' },
+const footerNav = {
+  orientation: [
+    { name: 'Universités Publiques', href: '/universites/publiques' },
+    { name: 'Universités Privées', href: '/universites/privees' },
+    { name: 'Séries du Baccalauréat', href: '/universites/series' },
+    { name: 'Catalogue Général', href: '/universites' },
+    { name: 'Simulateur de Séries', href: '/universites/series' },
+  ],
+  application: [
+    { name: 'Télécharger l\'APK Android', href: '/download' },
+    { name: 'Guide d\'installation', href: '/download#installation' },
+    { name: 'Fonctionnalités Clés', href: '/features' },
+    { name: 'Compatibilité & Prérequis', href: '/download#requirements' },
+    { name: 'Formules & Accès Gratuit', href: '/features#formules' },
   ],
   ressources: [
-    { name: 'Documentation', href: '/docs' },
+    { name: 'Centre de Documentation', href: '/docs' },
+    { name: 'Guide de Démarrage', href: '/docs#first-steps' },
+    { name: 'Foire aux Questions (FAQ)', href: '/support#faq' },
+    { name: 'Dépannage & Problèmes', href: '/support#common-issues' },
+    { name: 'Référentiel Données & API', href: '/docs#api' },
   ],
-  entreprise: [
-    { name: 'A propos', href: '/about' },
-    { name: 'Politique de confidentialite', href: '/privacy' },
+  aPropos: [
+    { name: 'Notre Mission & Histoire', href: '/about' },
+    { name: 'Contact & Support', href: '/support#contact' },
+    { name: 'Partenariats Établissements', href: '/features#integration' },
+    { name: 'Politique de Confidentialité', href: '/privacy' },
   ],
 };
 
@@ -54,7 +71,6 @@ const socialLinks = [
       </svg>
     ),
   },
-  
   {
     name: 'LinkedIn',
     href: 'https://www.linkedin.com/company/conseil-d-orientation-mali/?viewAsMember=true',
@@ -71,137 +87,187 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-[#071324] border-t border-slate-800/80 text-slate-200">
+    <footer className="relative overflow-hidden bg-[#071324] border-t border-slate-800 text-slate-300">
+      {/* Subtle brand glow textures */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-32 right-0 h-64 w-64 rounded-full bg-[#13508f]/20 blur-3xl"></div>
-        <div className="absolute -bottom-32 left-0 h-64 w-64 rounded-full bg-[#3b9df8]/10 blur-3xl"></div>
+        <div className="absolute -top-40 right-1/4 h-80 w-80 rounded-full bg-[#13508F]/15 blur-3xl" />
+        <div className="absolute -bottom-40 left-1/4 h-80 w-80 rounded-full bg-[#3B9DF8]/10 blur-3xl" />
       </div>
 
-      <div className="container-custom py-16 relative">
-        <div className="mb-14 rounded-2xl border border-white/10 bg-gradient-to-r from-white/5 to-white/0 p-6 sm:p-8">
-          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-            <div>
-              <h3 className="text-2xl font-bold text-white">Prêt à construire votre orientation ?</h3>
-              <p className="mt-2 text-sm sm:text-base text-slate-300">
-                Explorez les universités, les séries et les parcours post-BAC en quelques minutes.
+      <div className="container-custom relative pt-16 pb-12">
+        {/* Pre-footer Callout Banner */}
+        <div className="mb-16 rounded-3xl border border-slate-700/80 bg-gradient-to-r from-[#0e274a] via-[#0b1c36] to-[#071324] p-8 sm:p-10 shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-[#3B9DF8]/10 blur-2xl pointer-events-none" />
+
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 relative z-10">
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#3B9DF8]/15 border border-[#3B9DF8]/30 text-[#3B9DF8] text-xs font-bold uppercase tracking-wider mb-3">
+                <SparklesIcon className="w-3.5 h-3.5" />
+                <span>Application 100% Gratuite • Android & Web</span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                Prêt à construire votre avenir universitaire ?
+              </h3>
+              <p className="mt-2 text-sm sm:text-base text-slate-300 leading-relaxed">
+                Rejoignez des milliers de lycéens et étudiants maliens. Explorez toutes les facultés d'État, les instituts privés et les séries du Bac en un clic.
               </p>
             </div>
-            <div className="flex flex-col sm:flex-row gap-3">
+
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 flex-shrink-0">
               <a
                 href={APP_DOWNLOAD_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-xl bg-[#3b9df8] hover:bg-[#2589ec] px-5 py-3 text-sm font-semibold text-white shadow-md transition-all"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#13508F] hover:bg-[#0e3a6a] text-white font-semibold text-sm shadow-lg shadow-[#13508F]/30 hover:shadow-xl transition-all duration-200 min-h-[48px]"
               >
-                Télécharger l'app
+                <ArrowDownTrayIcon className="w-4 h-4" />
+                <span>Télécharger l'APK</span>
+                <span className="text-xs bg-white/20 px-2 py-0.5 rounded-md font-normal">~15 Mo</span>
               </a>
+
               <Link
                 href="/universites"
-                className="inline-flex items-center justify-center rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white/90 hover:bg-white/10 transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-semibold text-sm border border-white/20 hover:border-white/30 transition-all duration-200 min-h-[48px]"
               >
-                Explorer les universites
+                <AcademicCapIcon className="w-4 h-4 text-[#3B9DF8]" />
+                <span>Explorer les universités</span>
               </Link>
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-          <div className="lg:col-span-5">
-            <Link href="/" className="flex items-center space-x-3 mb-5">
-              <div className="relative w-14 h-14">
+        {/* Main Footer Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16">
+          {/* Brand & Organization Column (5 cols) */}
+          <div className="lg:col-span-4">
+            <Link href="/" className="inline-flex items-center gap-3.5 mb-5 group">
+              <div className="relative w-12 h-12 rounded-2xl overflow-hidden shadow-md bg-white border border-slate-700/60 p-1 flex-shrink-0">
                 <Image
-                  src="/app_icon_blanc.png"
-                  alt="Conseil d'Orientation"
+                  src="/app_icon.png"
+                  alt="Conseil d'Orientation Mali"
                   fill
-                  className="object-contain"
-                  priority
+                  className="object-contain p-0.5"
                 />
               </div>
-              <span className="text-xl sm:text-2xl font-bold text-white">
-                Conseil d'Orientation
-              </span>
+              <div className="flex flex-col">
+                <span className="text-lg font-black text-white leading-tight tracking-tight">
+                  Conseil d'<span className="text-[#3B9DF8]">Orientation</span>
+                </span>
+                <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+                  Portail Officiel • Mali
+                </span>
+              </div>
             </Link>
-            <p className="text-neutral-300 mb-6 max-w-md text-sm sm:text-base">
-              Application et site d'orientation au Mali : universites privees et publiques,
-              recherche par serie et parcours post-BAC.
+
+            <p className="text-slate-400 text-xs sm:text-sm leading-relaxed mb-6">
+              La plateforme d'orientation scolaire et universitaire de référence en République du Mali. Conçue pour aider chaque apprenant à choisir sa filière selon sa série de Baccalauréat.
             </p>
 
-            <div className="space-y-3 text-sm sm:text-base">
-              <div className="flex items-start space-x-3 text-neutral-300">
-                <EnvelopeIcon className="h-5 w-5 text-primary-400 mt-0.5" />
-                <div className="flex flex-col">
-                  <a href="mailto:goldeninnovationtech@gmail.com" className="hover:text-primary-300 transition-colors">
-                    goldeninnovationtech@gmail.com
-                  </a>
-                  <a href="mailto:conseilorientationinfo@gmail.com" className="hover:text-primary-300 transition-colors">
-                    conseilorientationinfo@gmail.com
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-start space-x-3 text-neutral-300">
-                <PhoneIcon className="h-5 w-5 text-primary-400 mt-0.5" />
-                <div className="flex flex-col">
-                  <a href="tel:+22396855282" className="hover:text-primary-300 transition-colors">
+            {/* Direct Contact Cards */}
+            <div className="space-y-2.5 text-xs text-slate-300">
+              <div className="flex items-center gap-2.5 p-2.5 rounded-xl bg-white/5 border border-white/5">
+                <PhoneIcon className="h-4 w-4 text-[#3B9DF8] flex-shrink-0" />
+                <div className="flex flex-wrap gap-x-2">
+                  <a href="tel:+22396855282" className="hover:text-white transition-colors">
                     +223 96 85 52 82
                   </a>
-                  <a href="tel:+22392722564" className="hover:text-primary-300 transition-colors">
-                    +223 92 72 25 64
+                  <span className="text-slate-600">•</span>
+                  <a href="https://wa.me/22392722564" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 transition-colors">
+                    WhatsApp : +223 92 72 25 64
                   </a>
                 </div>
               </div>
-              <div className="flex items-start space-x-3 text-neutral-300">
-                <MapPinIcon className="h-5 w-5 text-primary-400 mt-0.5" />
-                <span>Mali, Kati Koko</span>
+
+              <div className="flex items-center gap-2.5 p-2.5 rounded-xl bg-white/5 border border-white/5">
+                <EnvelopeIcon className="h-4 w-4 text-[#3B9DF8] flex-shrink-0" />
+                <a href="mailto:conseilorientationinfo@gmail.com" className="hover:text-white transition-colors truncate">
+                  conseilorientationinfo@gmail.com
+                </a>
+              </div>
+
+              <div className="flex items-center gap-2.5 p-2.5 rounded-xl bg-white/5 border border-white/5">
+                <MapPinIcon className="h-4 w-4 text-[#3B9DF8] flex-shrink-0" />
+                <span>Kati Koko, Région de Koulikoro / Bamako, Mali</span>
               </div>
             </div>
           </div>
 
-          <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-8">
+          {/* Links Columns (8 cols) */}
+          <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-8">
+            {/* Column 1: Orientation */}
             <div>
-              <h3 className="text-sm font-semibold tracking-wide text-white/80 uppercase mb-4">Produit</h3>
-              <ul className="space-y-3">
-                {footerLinks.produit.map((link) => (
-                  <li key={link.name}>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#3B9DF8]" />
+                <span>Universités</span>
+              </h4>
+              <ul className="space-y-2.5 text-xs sm:text-sm">
+                {footerNav.orientation.map((item) => (
+                  <li key={item.name}>
                     <Link
-                      href={link.href}
-                      className="group inline-flex items-center gap-2 text-neutral-300 hover:text-white transition-colors"
+                      href={item.href}
+                      className="text-slate-400 hover:text-white hover:text-[#3B9DF8] transition-colors block py-0.5"
                     >
-                      <span>{link.name}</span>
-                      <ArrowRightIcon className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      {item.name}
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
 
+            {/* Column 2: Application */}
             <div>
-              <h3 className="text-sm font-semibold tracking-wide text-white/80 uppercase mb-4">Ressources</h3>
-              <ul className="space-y-3">
-                {footerLinks.ressources.map((link) => (
-                  <li key={link.name}>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#3B9DF8]" />
+                <span>Application</span>
+              </h4>
+              <ul className="space-y-2.5 text-xs sm:text-sm">
+                {footerNav.application.map((item) => (
+                  <li key={item.name}>
                     <Link
-                      href={link.href}
-                      className="group inline-flex items-center gap-2 text-neutral-300 hover:text-white transition-colors"
+                      href={item.href}
+                      className="text-slate-400 hover:text-white hover:text-[#3B9DF8] transition-colors block py-0.5"
                     >
-                      <span>{link.name}</span>
-                      <ArrowRightIcon className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      {item.name}
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
 
+            {/* Column 3: Ressources */}
             <div>
-              <h3 className="text-sm font-semibold tracking-wide text-white/80 uppercase mb-4">Entreprise</h3>
-              <ul className="space-y-3">
-                {footerLinks.entreprise.map((link) => (
-                  <li key={link.name}>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#3B9DF8]" />
+                <span>Ressources</span>
+              </h4>
+              <ul className="space-y-2.5 text-xs sm:text-sm">
+                {footerNav.ressources.map((item) => (
+                  <li key={item.name}>
                     <Link
-                      href={link.href}
-                      className="group inline-flex items-center gap-2 text-neutral-300 hover:text-white transition-colors"
+                      href={item.href}
+                      className="text-slate-400 hover:text-white hover:text-[#3B9DF8] transition-colors block py-0.5"
                     >
-                      <span>{link.name}</span>
-                      <ArrowRightIcon className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Column 4: Organisation */}
+            <div>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#3B9DF8]" />
+                <span>À Propos</span>
+              </h4>
+              <ul className="space-y-2.5 text-xs sm:text-sm">
+                {footerNav.aPropos.map((item) => (
+                  <li key={item.name}>
+                    <Link
+                      href={item.href}
+                      className="text-slate-400 hover:text-white hover:text-[#3B9DF8] transition-colors block py-0.5"
+                    >
+                      {item.name}
                     </Link>
                   </li>
                 ))}
@@ -210,37 +276,43 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white/10 my-10"></div>
+        {/* Separator */}
+        <div className="border-t border-slate-800/80 my-8" />
 
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="text-neutral-400 text-xs sm:text-sm">
-            © {new Date().getFullYear()} Conseil d'Orientation. Tous droits reserves.
+        {/* Bottom Bar: Copyright, Socials & Made in Mali */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+            <span>© {new Date().getFullYear()} Conseil d'Orientation Mali.</span>
+            <span className="hidden sm:inline">•</span>
+            <span>Tous droits réservés.</span>
+            <span className="hidden sm:inline">•</span>
+            <Link href="/privacy" className="hover:text-slate-300 underline underline-offset-2">
+              Confidentialité
+            </Link>
           </div>
 
-          <div className="flex items-center gap-3">
+          {/* Social Links */}
+          <div className="flex items-center gap-2.5">
             {socialLinks.map((social) => (
               <motion.a
                 key={social.name}
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center h-9 w-9 rounded-full border border-white/10 bg-white/5 text-white/80 hover:text-white hover:border-white/30 transition-colors"
+                className="inline-flex items-center justify-center h-8 w-8 rounded-lg bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:border-[#3B9DF8]/50 hover:bg-[#13508F]/30 transition-all duration-200"
                 whileHover={{ scale: 1.08 }}
                 whileTap={{ scale: 0.95 }}
+                aria-label={social.name}
               >
                 {social.icon}
-                <span className="sr-only">{social.name}</span>
               </motion.a>
             ))}
           </div>
-        </div>
 
-        <div className="text-center mt-8 pt-6 border-t border-white/10">
-          <p className="text-neutral-500 text-xs sm:text-sm">
-            Fait avec{' '}
-            <HeartIcon className="inline h-4 w-4 text-red-500 mx-1" />
-            {' '}au Mali pour les élèves et étudiants
-          </p>
+          <div className="flex items-center gap-1.5 text-slate-400">
+            <span>Fièrement conçu pour la jeunesse malienne</span>
+            <span>🇲🇱</span>
+          </div>
         </div>
       </div>
     </footer>
