@@ -57,17 +57,17 @@ const etudiantsBenefits = [
 
 const stats = [
   { label: 'Universités & Écoles', value: '190+' },
-  { label: 'Séries du BAC covered', value: '10+' },
+  { label: 'Séries du BAC au Mali', value: '10+' },
   { label: 'Accès application', value: '100% Gratuit' },
   { label: 'Orientation personnalisée', value: 'Propulsée par l\'IA' }
 ];
 
 export function StudentBenefitsSection() {
   return (
-    <section className="relative py-20 overflow-hidden bg-neutral-50 dark:bg-neutral-900/50">
-      {/* Glow Effects */}
-      <div className="absolute top-1/4 -left-20 h-72 w-72 rounded-full bg-primary-500/10 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 -right-20 h-72 w-72 rounded-full bg-secondary-500/10 blur-3xl pointer-events-none" />
+    <section className="relative py-20 overflow-hidden bg-slate-50/50 dark:bg-[#071324]">
+      {/* Glow Effects in Logo Colors */}
+      <div className="absolute top-1/4 -left-20 h-72 w-72 rounded-full bg-[#13508f]/10 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 -right-20 h-72 w-72 rounded-full bg-[#3b9df8]/10 blur-3xl pointer-events-none" />
 
       <div className="container-custom relative z-10">
         {/* Section Header */}
@@ -76,9 +76,9 @@ export function StudentBenefitsSection() {
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 rounded-full bg-primary-100 dark:bg-primary-900/40 px-4 py-1.5 text-xs font-semibold text-primary-700 dark:text-primary-300 mb-4"
+            className="inline-flex items-center gap-2 rounded-full bg-[#13508f]/10 dark:bg-[#112240] border border-[#13508f]/20 dark:border-[#3b9df8]/30 px-4 py-1.5 text-xs font-semibold text-[#13508f] dark:text-[#7cc5fb] mb-4"
           >
-            <SparklesIcon className="h-4 w-4 text-primary-600 dark:text-primary-400" />
+            <SparklesIcon className="h-4 w-4 text-[#3b9df8]" />
             <span>Notre Solution & Vos Avantages</span>
           </motion.div>
 
@@ -87,10 +87,10 @@ export function StudentBenefitsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-4xl font-extrabold tracking-tight text-neutral-900 dark:text-white"
+            className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#13508f] dark:text-white"
           >
             Un accompagnement sur-mesure pour les{' '}
-            <span className="bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
+            <span className="text-[#3b9df8]">
               élèves et étudiants
             </span>
           </motion.h2>
@@ -100,55 +100,55 @@ export function StudentBenefitsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="mt-4 text-base sm:text-lg text-neutral-600 dark:text-neutral-300"
+            className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300"
           >
             Conseil d&apos;Orientation Mali résout le manque d&apos;informations fiables en centralisant toutes les universités, séries du BAC et débouchés professionnels au même endroit.
           </motion.p>
         </div>
 
         {/* Benefits Dual Block */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Card Block 1: For Pupils / Lycéens */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="rounded-3xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-6 sm:p-8 shadow-soft flex flex-col justify-between"
+            className="rounded-3xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-[#112240] p-6 sm:p-8 shadow-card flex flex-col justify-between"
           >
             <div>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="rounded-2xl p-3 bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400">
+              <div className="flex items-center gap-3.5 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
+                <div className="rounded-2xl p-3 bg-[#13508f]/10 dark:bg-[#13508f]/25 text-[#13508f] dark:text-[#3b9df8]">
                   <UserGroupIcon className="h-7 w-7" />
                 </div>
                 <div>
-                  <span className="text-xs uppercase font-bold tracking-wider text-primary-600 dark:text-primary-400">
-                    Pour les Éleves & Lycéens
+                  <span className="text-xs uppercase font-bold tracking-wider text-[#3b9df8]">
+                    Pour les Élèves & Lycéens
                   </span>
-                  <h3 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white">
+                  <h3 className="text-xl sm:text-2xl font-bold text-[#13508f] dark:text-white">
                     Réussir son choix de série & préparer le BAC
                   </h3>
                 </div>
               </div>
 
-              <div className="space-y-5">
+              <div className="space-y-4">
                 {elevesBenefits.map((item, idx) => {
                   const Icon = item.icon;
                   return (
-                    <div key={idx} className="flex items-start gap-4 p-3 rounded-2xl hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition">
-                      <div className="rounded-xl p-2.5 bg-primary-100/60 dark:bg-primary-900/40 text-primary-700 dark:text-primary-300 shrink-0 mt-0.5">
+                    <div key={idx} className="flex items-start gap-4 p-3 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                      <div className="rounded-xl p-2.5 bg-[#13508f]/10 dark:bg-[#13508f]/30 text-[#13508f] dark:text-[#7cc5fb] shrink-0 mt-0.5">
                         <Icon className="h-5 w-5" />
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <h4 className="font-semibold text-neutral-900 dark:text-white text-base">
+                          <h4 className="font-semibold text-slate-900 dark:text-white text-base">
                             {item.title}
                           </h4>
-                          <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">
+                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#13508f]/10 dark:bg-[#13508f]/30 text-[#13508f] dark:text-[#7cc5fb]">
                             {item.tag}
                           </span>
                         </div>
-                        <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1 leading-relaxed">
+                        <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
                           {item.description}
                         </p>
                       </div>
@@ -158,13 +158,13 @@ export function StudentBenefitsSection() {
               </div>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between">
-              <span className="text-xs text-neutral-500 dark:text-neutral-400">
+            <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <span className="text-xs text-slate-500 dark:text-slate-400">
                 Explorez vos séries du BAC dès maintenant
               </span>
               <Link
                 href="/universites/series"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary-600 hover:text-primary-700 dark:text-primary-400 transition"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#13508f] hover:text-[#0e4379] dark:text-[#3b9df8] dark:hover:text-[#7cc5fb] transition-colors"
               >
                 <span>Voir les séries</span>
                 <ArrowRightIcon className="h-4 w-4" />
@@ -178,41 +178,41 @@ export function StudentBenefitsSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="rounded-3xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-6 sm:p-8 shadow-soft flex flex-col justify-between"
+            className="rounded-3xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-[#112240] p-6 sm:p-8 shadow-card flex flex-col justify-between"
           >
             <div>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="rounded-2xl p-3 bg-secondary-50 dark:bg-secondary-900/30 text-secondary-600 dark:text-secondary-400">
-                  <AcademicCapIcon className="h-7 w-7" />
+              <div className="flex items-center gap-3.5 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
+                <div className="rounded-2xl p-3 bg-[#3b9df8]/15 dark:bg-[#3b9df8]/25 text-[#0e4379] dark:text-[#3b9df8]">
+                  <AcademicCapIcon className="h-7 w-7 text-[#3b9df8]" />
                 </div>
                 <div>
-                  <span className="text-xs uppercase font-bold tracking-wider text-secondary-600 dark:text-secondary-400">
+                  <span className="text-xs uppercase font-bold tracking-wider text-[#3b9df8]">
                     Pour les Étudiants & Bacheliers
                   </span>
-                  <h3 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white">
+                  <h3 className="text-xl sm:text-2xl font-bold text-[#13508f] dark:text-white">
                     Trouver son université & sa filière d&apos;avenir
                   </h3>
                 </div>
               </div>
 
-              <div className="space-y-5">
+              <div className="space-y-4">
                 {etudiantsBenefits.map((item, idx) => {
                   const Icon = item.icon;
                   return (
-                    <div key={idx} className="flex items-start gap-4 p-3 rounded-2xl hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition">
-                      <div className="rounded-xl p-2.5 bg-secondary-100/60 dark:bg-secondary-900/40 text-secondary-700 dark:text-secondary-300 shrink-0 mt-0.5">
+                    <div key={idx} className="flex items-start gap-4 p-3 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                      <div className="rounded-xl p-2.5 bg-[#3b9df8]/15 dark:bg-[#3b9df8]/25 text-[#0e4379] dark:text-[#7cc5fb] shrink-0 mt-0.5">
                         <Icon className="h-5 w-5" />
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <h4 className="font-semibold text-neutral-900 dark:text-white text-base">
+                          <h4 className="font-semibold text-slate-900 dark:text-white text-base">
                             {item.title}
                           </h4>
-                          <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">
+                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#3b9df8]/15 dark:bg-[#3b9df8]/25 text-[#0e4379] dark:text-[#7cc5fb]">
                             {item.tag}
                           </span>
                         </div>
-                        <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1 leading-relaxed">
+                        <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
                           {item.description}
                         </p>
                       </div>
@@ -222,13 +222,13 @@ export function StudentBenefitsSection() {
               </div>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between">
-              <span className="text-xs text-neutral-500 dark:text-neutral-400">
+            <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <span className="text-xs text-slate-500 dark:text-slate-400">
                 Trouvez votre établissement privé ou public
               </span>
               <Link
                 href="/universites"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-secondary-600 hover:text-secondary-700 dark:text-secondary-400 transition"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#13508f] hover:text-[#0e4379] dark:text-[#3b9df8] dark:hover:text-[#7cc5fb] transition-colors"
               >
                 <span>Explorer l&apos;annuaire</span>
                 <ArrowRightIcon className="h-4 w-4" />
@@ -237,21 +237,21 @@ export function StudentBenefitsSection() {
           </motion.div>
         </div>
 
-        {/* Key Metrics / Highlights Bar */}
+        {/* Key Metrics / Highlights Bar in Logo Gradient */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
-          className="mt-12 rounded-2xl bg-gradient-to-r from-primary-600 to-secondary-600 p-6 sm:p-8 text-white shadow-medium"
+          className="mt-12 rounded-2xl bg-gradient-to-r from-[#13508f] via-[#104375] to-[#0e3760] p-6 sm:p-8 text-white shadow-card border border-[#3b9df8]/30"
         >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-x-0 md:divide-x divide-white/10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
             {stats.map((stat, i) => (
-              <div key={i} className="px-2">
-                <div className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+              <div key={i} className="px-2 pt-3 md:pt-0">
+                <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
                   {stat.value}
                 </div>
-                <div className="text-xs sm:text-sm text-white/80 mt-1 font-medium">
+                <div className="text-xs sm:text-sm text-[#7cc5fb] mt-1 font-medium">
                   {stat.label}
                 </div>
               </div>

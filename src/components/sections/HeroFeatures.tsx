@@ -3,108 +3,105 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Button } from '@/components/ui/Button';
 import { APP_DOWNLOAD_URL } from '@/lib/app-links';
 import { 
   SparklesIcon, 
-  RocketLaunchIcon,
-  LightBulbIcon
+  ArrowDownTrayIcon,
+  AcademicCapIcon,
+  CheckBadgeIcon
 } from '@heroicons/react/24/outline';
 
 export function HeroFeatures() {
   return (
-    <section className="relative pt-24 pb-16 sm:pt-28 overflow-hidden bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-      </div>
+    <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-20 overflow-hidden bg-slate-50/70 dark:bg-[#0a192f] border-b border-slate-200 dark:border-slate-800">
+      {/* Background Accent Grid */}
+      <div 
+        className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(circle at 1px 1px, #13508f 1px, transparent 0)',
+          backgroundSize: '28px 28px'
+        }}
+      />
 
       <div className="container-custom relative z-10">
         <div className="text-center max-w-4xl mx-auto">
           {/* Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center space-x-2 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm border border-neutral-200 dark:border-neutral-700 rounded-full px-4 py-2 mb-6"
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#112240] border border-[#13508f]/20 dark:border-[#3b9df8]/30 shadow-xs mb-6"
           >
-            <SparklesIcon className="h-4 w-4 text-accent-500" />
-            <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
-              🚀 Fonctionnalités Révolutionnaires
+            <SparklesIcon className="h-4 w-4 text-[#3B9DF8]" />
+            <span className="text-xs sm:text-sm font-semibold text-[#13508f] dark:text-[#3b9df8]">
+              Fonctionnalités Clés & Outils Intelligents
             </span>
           </motion.div>
 
           {/* Main Heading */}
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-neutral-900 dark:text-white mb-5 leading-tight text-balance"
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 dark:text-white mb-6 leading-[1.15]"
           >
-            Découvrez nos{' '}
-            <span className="bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-500 bg-clip-text text-transparent">
-              Fonctionnalités
+            Tous les outils pour choisir votre{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#13508F] to-[#3B9DF8]">
+              avenir universitaire au Mali
             </span>
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg sm:text-xl md:text-2xl text-neutral-600 dark:text-neutral-400 mb-6 max-w-3xl mx-auto leading-relaxed"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-base sm:text-lg md:text-xl text-slate-600 dark:text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed"
           >
-            Une suite complète d'outils intelligents conçus pour révolutionner votre parcours 
-            d'orientation scolaire et professionnelle.
+            Du choix de votre série de Baccalauréat jusqu’à votre inscription universitaire, explorez une suite d'outils digitaux conçus pour les élèves, bacheliers et étudiants maliens.
           </motion.p>
 
           {/* CTA Buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex flex-col sm:flex-row gap-3.5 justify-center items-center mb-10"
           >
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white px-8 py-4 text-lg"
-              asChild
+            <a
+              href={APP_DOWNLOAD_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-[#13508F] hover:bg-[#0e3a6a] text-white font-semibold shadow-md shadow-[#13508F]/20 hover:shadow-lg transition-all duration-200 min-h-[48px] w-full sm:w-auto"
             >
-              <a href={APP_DOWNLOAD_URL} target="_blank" rel="noopener noreferrer">
-                <RocketLaunchIcon className="h-5 w-5 mr-2" />
-                Commencer Maintenant
-              </a>
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white px-8 py-4 text-lg"
-              asChild
+              <ArrowDownTrayIcon className="h-5 w-5" />
+              <span>Télécharger l'Application</span>
+            </a>
+            <Link
+              href="/universites"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white dark:bg-[#112240] hover:bg-slate-100 dark:hover:bg-[#1b345f] text-slate-800 dark:text-slate-200 font-semibold border border-slate-200 dark:border-slate-700 transition-all duration-200 min-h-[48px] w-full sm:w-auto"
             >
-              <Link href="/universites">
-                <LightBulbIcon className="h-5 w-5 mr-2" />
-                Voir la Démo
-              </Link>
-            </Button>
+              <AcademicCapIcon className="h-5 w-5 text-[#3B9DF8]" />
+              <span>Explorer les universités</span>
+            </Link>
           </motion.div>
 
-          {/* App Preview */}
+          {/* Trust stats pill */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="mt-12 flex justify-center"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="inline-flex flex-wrap items-center justify-center gap-6 text-xs sm:text-sm text-slate-500 dark:text-slate-400 py-2 px-6 rounded-full bg-slate-100/80 dark:bg-[#112240]/60 border border-slate-200/60 dark:border-slate-700/60"
           >
-            <div className="relative w-40 h-40 sm:w-56 sm:h-56 md:w-80 md:h-80">
-              <Image
-                src="/app_icon.png"
-                alt="Conseil d'Orientation App"
-                fill
-                className="object-contain drop-shadow-2xl"
-                priority
-              />
-            </div>
+            <span className="flex items-center gap-1.5 font-medium">
+              <CheckBadgeIcon className="w-4 h-4 text-[#3B9DF8]" /> 100% Données Officielles
+            </span>
+            <span className="flex items-center gap-1.5 font-medium">
+              <CheckBadgeIcon className="w-4 h-4 text-[#3B9DF8]" /> Universités Publiques & Privées
+            </span>
+            <span className="flex items-center gap-1.5 font-medium">
+              <CheckBadgeIcon className="w-4 h-4 text-[#3B9DF8]" /> Toutes Séries de Bac
+            </span>
           </motion.div>
         </div>
       </div>

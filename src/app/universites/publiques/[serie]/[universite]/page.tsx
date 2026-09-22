@@ -3,6 +3,13 @@ import type { Metadata } from 'next';
 import series from '@/data/series_mali.json';
 import { formatDate, slugify } from '@/lib/utils';
 import { BackLink } from '@/components/ui/BackLink';
+import { 
+  BuildingLibraryIcon, 
+  AcademicCapIcon, 
+  ClipboardDocumentCheckIcon, 
+  BanknotesIcon,
+  BriefcaseIcon 
+} from '@heroicons/react/24/outline';
 
 type Licence = { nom: string; debouche?: string[] };
 type Fac = {
@@ -50,8 +57,8 @@ export function generateMetadata({ params }: { params: { serie: string; universi
     return { title: 'Université introuvable', robots: { index: false, follow: false } };
   }
 
-  const title = `${univ.nom} — Adresse, contact | Conseil d'Orientation Mali`;
-  const description = `${univ.nom}, université publique accessible pour la série ${serie.nom} au Mali. Adresse, contact, site web.`;
+  const title = `${univ.nom} (${serie.nom}) — Facultés & Licences | Conseil d'Orientation`;
+  const description = `${univ.nom}, université publique accessible pour la série ${serie.nom} au Mali. Conditions d'admission, frais et licences.`;
   const path = `/universites/publiques/${params.serie}/${params.universite}`;
 
   return {
@@ -67,75 +74,138 @@ export default function UniversiteFacultesPage({ params }: { params: { serie: st
   const { serie, univ } = findContext(params.serie, params.universite);
   if (!serie || !univ) {
     return (
-      <section className="container-custom pt-24 pb-12 sm:pt-28">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-neutral-600 dark:text-neutral-300">Université introuvable.</p>
-          <BackLink fallbackHref={`/universites/publiques/${params.serie}`} className="mt-4 inline-flex text-sm text-primary-600 hover:underline">
-            Retour
+      <div className="min-h-screen bg-slate-50/70 dark:bg-[#0a192f] pt-28 pb-16 sm:pt-36">
+        <div className="container-custom max-w-4xl text-center">
+          <p className="text-slate-600 dark:text-slate-300">Université introuvable.</p>
+          <BackLink fallbackHref={`/universites/publiques/${params.serie}`} className="mt-4 inline-flex text-sm text-[#13508F] dark:text-[#3B9DF8] hover:underline font-semibold">
+            Retour à la série
           </BackLink>
         </div>
-      </section>
+      </div>
     );
   }
 
   const faculties: Fac[] = Array.isArray(univ.fac) ? univ.fac : [];
   const lastModifiedDate = getDynamicLastModified(univ.nom);
-  const facultyNames = faculties.slice(0, 3).map((faculty) => faculty.nom).filter(Boolean);
-  const directAnswer = `${univ.nom} est une université publique présentée dans la série ${serie.nom}. Elle propose ${facultyNames.length > 0 ? facultyNames.join(', ') : 'plusieurs formations'} à destination des candidats qui souhaitent poursuivre leurs études au Mali.`;
+  const directAnswer = `${univ.nom} est une université publique malienne accessible aux bacheliers de la série ${serie.nom}. Retrouvez ci-dessous l'ensemble de ses facultés, instituts, conditions d'admission et débouchés professionnels répertoriés.`;
 
   return (
-    <section className="container-custom pt-24 pb-12 sm:pt-28">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-          <div className="space-x-2 text-sm">
-            <Link href="/universites/publiques" className="text-primary-600 hover:underline">Séries</Link>
-            <span className="text-neutral-500">/</span>
-            <Link href={`/universites/publiques/${params.serie}`} className="text-primary-600 hover:underline">{serie.nom}</Link>
-          </div>
-          <BackLink fallbackHref={`/universites/publiques/${params.serie}`} className="text-sm text-primary-600 hover:underline">← Retour</BackLink>
+    <div className="min-h-screen bg-slate-50/70 dark:bg-[#0a192f] pt-28 pb-16 sm:pt-36 sm:pb-24">
+      <div className="container-custom max-w-4xl">
+        {/* Breadcrumb & Back */}
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+          <nav className="flex items-center text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+            <Link href="/" className="hover:text-[#13508F] dark:hover:text-[#3B9DF8]">Accueil</Link>
+            <span className="mx-2">/</span>
+            <Link href="/universites/publiques" className="hover:text-[#13508F] dark:hover:text-[#3B9DF8]">Publiques</Link>
+            <span className="mx-2">/</span>
+            <Link href={`/universites/publiques/${params.serie}`} className="hover:text-[#13508F] dark:hover:text-[#3B9DF8]">{serie.nom}</Link>
+            <span className="mx-2">/</span>
+            <span className="text-slate-900 dark:text-white font-medium truncate">{univ.nom}</span>
+          </nav>
+          <BackLink fallbackHref={`/universites/publiques/${params.serie}`} className="text-xs sm:text-sm font-semibold text-[#13508F] dark:text-[#3B9DF8] hover:underline">
+            ← Retour à la série
+          </BackLink>
         </div>
 
-        <h1 className="mt-4 text-xl sm:text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white break-words">{univ.nom}</h1>
+        {/* University Header */}
+        <div className="rounded-3xl p-6 sm:p-8 bg-white dark:bg-[#112240] border border-slate-200 dark:border-slate-800 shadow-card mb-8">
+          <div className="flex items-start gap-4 mb-4">
+            <div className="w-12 h-12 rounded-2xl bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] flex items-center justify-center flex-shrink-0">
+              <BuildingLibraryIcon className="w-7 h-7" />
+            </div>
+            <div>
+              <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#13508F]/10 text-[#13508F] dark:bg-[#3B9DF8]/10 dark:text-[#3B9DF8] mb-2">
+                Université Publique d'État
+              </span>
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 dark:text-white leading-snug">
+                {univ.nom}
+              </h1>
+              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+                Filières ouvertes pour le Baccalauréat <span className="font-semibold text-slate-700 dark:text-slate-300">{serie.nom}</span>
+              </p>
+            </div>
+          </div>
 
-        <p className="direct-answer mt-4 rounded-lg border border-primary-100 bg-primary-50/70 p-3 text-sm text-neutral-800 dark:border-primary-900/40 dark:bg-primary-950/30 dark:text-neutral-200">
-          {directAnswer}
-        </p>
-        <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
-          Informations mises à jour le {formatDate(lastModifiedDate)}
-        </p>
+          <p className="p-4 rounded-xl bg-slate-50 dark:bg-[#0a192f] border border-slate-100 dark:border-slate-800 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-3">
+            {directAnswer}
+          </p>
+          <p className="text-[11px] text-slate-400">
+            Données actualisées le {formatDate(lastModifiedDate)}
+          </p>
+        </div>
+
+        {/* Faculties List */}
+        <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-4">
+          Facultés et formations disponibles ({faculties.length})
+        </h2>
 
         {faculties.length === 0 ? (
-          <p className="mt-6 text-neutral-600 dark:text-neutral-300">Aucune faculté disponible pour cette université.</p>
+          <div className="p-8 text-center rounded-2xl bg-white dark:bg-[#112240] border border-slate-200 dark:border-slate-800 text-slate-500">
+            Aucune faculté spécifiée pour cette combinaison.
+          </div>
         ) : (
-          <div className="mt-6 space-y-6">
-            {faculties.map((f) => (
-              <div key={f.nom} className="rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4 sm:p-5 shadow-soft">
-                <div className="flex items-start justify-between gap-4">
+          <div className="space-y-6">
+            {faculties.map((f, idx) => (
+              <div
+                key={idx}
+                className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#112240] p-6 shadow-card"
+              >
+                <div className="flex items-start justify-between gap-4 mb-4 pb-4 border-b border-slate-100 dark:border-slate-800">
                   <div>
-                    <h2 className="text-lg font-semibold text-neutral-900 dark:text-white">{f.nom} {f.abre ? `(${f.abre})` : ''}</h2>
-                    {f.condition && (
-                      <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-300">Condition: {f.condition}</p>
-                    )}
-                    {f.frais && (
-                      <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-300">Frais: {f.frais}</p>
-                    )}
+                    <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+                      {f.nom} {f.abre ? `(${f.abre})` : ''}
+                    </h3>
                   </div>
                 </div>
 
+                {/* Requirements & Fees pills */}
+                <div className="flex flex-wrap gap-3 mb-5">
+                  {f.condition && (
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-[#0a192f] border border-slate-200 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-300">
+                      <ClipboardDocumentCheckIcon className="w-4 h-4 text-[#13508F] dark:text-[#3B9DF8]" />
+                      <span><strong>Condition :</strong> {f.condition}</span>
+                    </div>
+                  )}
+                  {f.frais && (
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-[#0a192f] border border-slate-200 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-300">
+                      <BanknotesIcon className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                      <span><strong>Frais :</strong> {f.frais}</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Licences & Débouchés */}
                 {f.licence && f.licence.length > 0 && (
-                  <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                    {f.licence.map((l) => (
-                      <div key={l.nom} className="rounded-lg border border-neutral-200 dark:border-neutral-700 p-3 sm:p-4">
-                        <h3 className="font-medium text-neutral-900 dark:text-white">{l.nom}</h3>
-                        {l.debouche && l.debouche.length > 0 && (
-                          <ul className="mt-2 list-disc list-inside text-sm text-neutral-700 dark:text-neutral-300 space-y-1">
-                            {l.debouche.map((d) => (
-                              <li key={d}>{d}</li>
-                            ))}
-                          </ul>
-                        )}
-                      </div>
-                    ))}
+                  <div>
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
+                      <AcademicCapIcon className="w-4 h-4 text-[#3B9DF8]" />
+                      <span>Licences proposées & Débouchés</span>
+                    </h4>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      {f.licence.map((l, lIdx) => (
+                        <div
+                          key={lIdx}
+                          className="rounded-xl border border-slate-100 dark:border-slate-800/80 bg-slate-50/70 dark:bg-[#0a192f] p-4"
+                        >
+                          <h5 className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white mb-2">
+                            {l.nom}
+                          </h5>
+                          {l.debouche && l.debouche.length > 0 && (
+                            <div className="space-y-1">
+                              <span className="text-[11px] font-semibold text-slate-400 flex items-center gap-1">
+                                <BriefcaseIcon className="w-3 h-3 text-[#3B9DF8]" /> Débouchés :
+                              </span>
+                              <ul className="text-xs text-slate-600 dark:text-slate-300 space-y-0.5 pl-4 list-disc marker:text-[#3B9DF8]">
+                                {l.debouche.map((d, dIdx) => (
+                                  <li key={dIdx}>{d}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
@@ -143,9 +213,6 @@ export default function UniversiteFacultesPage({ params }: { params: { serie: st
           </div>
         )}
       </div>
-    </section>
+    </div>
   );
 }
-
-
-

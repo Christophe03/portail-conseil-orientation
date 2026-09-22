@@ -2,13 +2,13 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/Button';
 import { 
   EnvelopeIcon,
   PhoneIcon,
   MapPinIcon,
   ClockIcon,
-  ChatBubbleLeftRightIcon
+  ChatBubbleLeftRightIcon,
+  PaperAirplaneIcon
 } from '@heroicons/react/24/outline';
 
 export function ContactForm() {
@@ -23,7 +23,7 @@ export function ContactForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const subject = encodeURIComponent(`Contact site - ${formData.subject}`);
+    const subject = encodeURIComponent(`Contact Conseil d'Orientation - ${formData.subject}`);
     const body = encodeURIComponent(
       `Nom: ${formData.name}\nEmail: ${formData.email}\nSujet: ${formData.subject}\n\nMessage:\n${formData.message}`
     );
@@ -40,119 +40,90 @@ export function ContactForm() {
   };
 
   return (
-    <section id="contact" className="section-padding bg-gradient-to-br from-neutral-50 to-primary-50 dark:from-neutral-800 dark:to-neutral-900">
+    <section id="contact" className="py-16 sm:py-24 bg-slate-50/70 dark:bg-[#0a192f]">
       <div className="container-custom">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          {/* Contact Information */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          {/* Contact Information (Left: 5 cols) */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-5"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-8">
-              Contactez{' '}
-              <span className="bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
-                Notre Équipe
-              </span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] text-xs font-bold uppercase tracking-wider mb-4">
+              Formulaire de Contact
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
+              Transmettez-nous votre{' '}
+              <span className="text-[#13508F] dark:text-[#3B9DF8]">message</span>
             </h2>
-            
-            <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-8">
-              Notre équipe de support est là pour vous accompagner. 
-              N'hésitez pas à nous contacter pour toute question ou assistance.
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-8">
+              Que vous soyez élève, parent, enseignant ou proviseur de lycée, nous répondons à toutes vos questions d'orientation avec soin.
             </p>
 
-            {/* Contact Details */}
-            <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center">
-                  <EnvelopeIcon className="h-6 w-6 text-primary-600" />
+            <div className="space-y-5">
+              <div className="flex items-start gap-4 p-4 rounded-2xl bg-white dark:bg-[#112240] border border-slate-200 dark:border-slate-800 shadow-xs">
+                <div className="w-10 h-10 rounded-xl bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] flex items-center justify-center flex-shrink-0">
+                  <EnvelopeIcon className="h-5 w-5" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-neutral-900 dark:text-white mb-1">Email</h3>
-                  <div className="space-y-1">
-                    <a href="mailto:goldeninnovationtech@gmail.com" className="block text-neutral-600 dark:text-neutral-400 hover:text-primary-600 transition-colors">
-                      goldeninnovationtech@gmail.com
-                    </a>
-                    <a href="mailto:conseilorientationinfo@gmail.com" className="block text-neutral-600 dark:text-neutral-400 hover:text-primary-600 transition-colors">
-                      conseilorientationinfo@gmail.com
-                    </a>
-                  </div>
-                  <p className="text-sm text-neutral-500 dark:text-neutral-500">Réponse sous 2h</p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center">
-                  <PhoneIcon className="h-6 w-6 text-primary-600" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-neutral-900 dark:text-white mb-1">Téléphone</h3>
-                  <div className="space-y-1">
-                    <a href="tel:+22396855282" className="block text-neutral-600 dark:text-neutral-400 hover:text-primary-600 transition-colors">
-                      +223 96 85 52 82
-                    </a>
-                    <a href="tel:+22392722564" className="block text-neutral-600 dark:text-neutral-400 hover:text-primary-600 transition-colors">
-                      +223 92 72 25 64
-                    </a>
-                  </div>
-                  <p className="text-sm text-neutral-500 dark:text-neutral-500">Lun-Ven 9h-18h</p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center">
-                  <ChatBubbleLeftRightIcon className="h-6 w-6 text-primary-600" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-neutral-900 dark:text-white mb-1">WhatsApp</h3>
-                  <a href="https://wa.me/22392722564" target="_blank" rel="noopener noreferrer" className="text-neutral-600 dark:text-neutral-400 hover:text-primary-600 transition-colors">
-                    +223 92 72 25 64
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-0.5">Email direct</h4>
+                  <a href="mailto:conseilorientationinfo@gmail.com" className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-[#13508F] dark:hover:text-[#3B9DF8] transition-colors block">
+                    conseilorientationinfo@gmail.com
                   </a>
-                  <p className="text-sm text-neutral-500 dark:text-neutral-500">Support instantané</p>
+                  <a href="mailto:goldeninnovationtech@gmail.com" className="text-xs text-slate-500 hover:text-[#13508F] dark:hover:text-[#3B9DF8] transition-colors block mt-0.5">
+                    goldeninnovationtech@gmail.com
+                  </a>
                 </div>
               </div>
 
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center">
-                  <MapPinIcon className="h-6 w-6 text-primary-600" />
+              <div className="flex items-start gap-4 p-4 rounded-2xl bg-white dark:bg-[#112240] border border-slate-200 dark:border-slate-800 shadow-xs">
+                <div className="w-10 h-10 rounded-xl bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] flex items-center justify-center flex-shrink-0">
+                  <PhoneIcon className="h-5 w-5" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-neutral-900 dark:text-white mb-1">Adresse</h3>
-                  <p className="text-neutral-600 dark:text-neutral-400">Mali, Kati Koko</p>
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-0.5">Ligne Téléphonique & WhatsApp</h4>
+                  <a href="tel:+22396855282" className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-[#13508F] dark:hover:text-[#3B9DF8] transition-colors block">
+                    +223 96 85 52 82
+                  </a>
+                  <a href="https://wa.me/22392722564" target="_blank" rel="noopener noreferrer" className="text-xs text-emerald-600 dark:text-emerald-400 font-medium block mt-0.5">
+                    WhatsApp : +223 92 72 25 64
+                  </a>
                 </div>
               </div>
 
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center">
-                  <ClockIcon className="h-6 w-6 text-primary-600" />
+              <div className="flex items-start gap-4 p-4 rounded-2xl bg-white dark:bg-[#112240] border border-slate-200 dark:border-slate-800 shadow-xs">
+                <div className="w-10 h-10 rounded-xl bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] flex items-center justify-center flex-shrink-0">
+                  <MapPinIcon className="h-5 w-5" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-neutral-900 dark:text-white mb-1">Horaires</h3>
-                  <p className="text-neutral-600 dark:text-neutral-400">Support via l'application</p>
-                  <p className="text-sm text-neutral-500 dark:text-neutral-500">Équipe humaine 9h-18h (GMT)</p>
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-0.5">Localisation</h4>
+                  <p className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200">
+                    Kati Koko, Région de Koulikoro / Bamako, Mali
+                  </p>
                 </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Contact Form */}
+          {/* Contact Form (Right: 7 cols) */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="bg-white dark:bg-neutral-800 rounded-2xl p-8 shadow-soft border border-neutral-200 dark:border-neutral-700"
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-7 bg-white dark:bg-[#112240] rounded-3xl p-6 sm:p-10 border border-slate-200 dark:border-slate-800 shadow-card"
           >
-            <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6">
-              Envoyez-nous un Message
+            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6">
+              Écrivez-nous directement
             </h3>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
-                    Nom complet *
+                  <label htmlFor="name" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                    Nom complet <span className="text-[#3B9DF8]">*</span>
                   </label>
                   <input
                     type="text"
@@ -161,14 +132,14 @@ export function ContactForm() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-neutral-300 dark:border-neutral-600 rounded-xl bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
-                    placeholder="Votre nom"
+                    placeholder="Moussa Traoré"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#0a192f] text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3B9DF8] focus:border-transparent transition-all"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
-                    Email *
+                  <label htmlFor="email" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                    Adresse email <span className="text-[#3B9DF8]">*</span>
                   </label>
                   <input
                     type="email"
@@ -177,15 +148,15 @@ export function ContactForm() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-neutral-300 dark:border-neutral-600 rounded-xl bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
-                    placeholder="votre@email.com"
+                    placeholder="moussa@exemple.ml"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#0a192f] text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3B9DF8] focus:border-transparent transition-all"
                   />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
-                  Sujet *
+                <label htmlFor="subject" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                  Motif de la demande <span className="text-[#3B9DF8]">*</span>
                 </label>
                 <select
                   id="subject"
@@ -193,20 +164,20 @@ export function ContactForm() {
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-neutral-300 dark:border-neutral-600 rounded-xl bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#0a192f] text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#3B9DF8] focus:border-transparent transition-all"
                 >
-                  <option value="">Sélectionnez un sujet</option>
-                  <option value="support">Support technique</option>
-                  <option value="feature">Demande de fonctionnalité</option>
-                  <option value="bug">Signalement de bug</option>
-                  <option value="partnership">Partenariat</option>
-                  <option value="other">Autre</option>
+                  <option value="">Sélectionnez une option</option>
+                  <option value="orientation-bac">Aide orientation après le Bac</option>
+                  <option value="installation-app">Difficulté d'installation de l'application</option>
+                  <option value="partenariat-lycee">Partenariat établissement / lycée</option>
+                  <option value="signalement-info">Correction ou ajout d'une université</option>
+                  <option value="autre">Autre question</option>
                 </select>
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
-                  Message *
+                <label htmlFor="message" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                  Votre message <span className="text-[#3B9DF8]">*</span>
                 </label>
                 <textarea
                   id="message"
@@ -214,22 +185,23 @@ export function ContactForm() {
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  rows={5}
-                  className="w-full px-4 py-3 border border-neutral-300 dark:border-neutral-600 rounded-xl bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 resize-none"
-                  placeholder="Décrivez votre question ou problème..."
+                  rows={4}
+                  placeholder="Décrivez votre situation, votre série du Bac ou votre question..."
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#0a192f] text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3B9DF8] focus:border-transparent transition-all resize-none"
                 />
               </div>
 
-              <Button
+              <button
                 type="submit"
-                size="lg"
-                className="w-full bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white py-4 text-lg"
+                className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-[#13508F] hover:bg-[#0e3a6a] text-white font-semibold text-sm transition-all duration-200 shadow-md shadow-[#13508F]/20 min-h-[48px]"
               >
-                Envoyer le Message
-              </Button>
+                <PaperAirplaneIcon className="w-4 h-4" />
+                <span>Envoyer le message</span>
+              </button>
+
               {submitted && (
-                <p className="text-sm text-green-600 dark:text-green-400">
-                  Votre client email va s'ouvrir avec le message prérempli.
+                <p className="text-xs text-emerald-600 dark:text-emerald-400 text-center font-medium mt-2">
+                  Votre logiciel de messagerie s'ouvre avec votre message pré-rempli. Merci !
                 </p>
               )}
             </form>

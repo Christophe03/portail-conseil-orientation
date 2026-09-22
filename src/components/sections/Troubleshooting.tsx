@@ -4,81 +4,70 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { 
   WrenchScrewdriverIcon,
-  ExclamationTriangleIcon,
+  ExclamationCircleIcon,
   CheckCircleIcon,
-  InformationCircleIcon,
-  MagnifyingGlassIcon
+  ArrowPathIcon,
+  MagnifyingGlassIcon,
+  ChevronDownIcon
 } from '@heroicons/react/24/outline';
 
 const commonIssues = [
   {
-    category: 'Connexion',
+    category: 'Installation & APK',
     issues: [
       {
-        problem: 'Impossible de se connecter à l\'application',
-        solution: 'Vérifiez votre connexion internet et redémarrez l\'application. Si le problème persiste, essayez de vous déconnecter et reconnecter.',
+        problem: 'Avertissement Android : "Fichier potentiellement dangereux"',
+        solution: 'Il s\'agit du message d\'alerte standard d\'Android pour toute application installée en dehors du Play Store. Notre APK est certifié sans virus, sans publicités intrusives et sans risque pour vos données.',
         steps: [
-          'Vérifiez votre connexion internet',
-          'Fermez complètement l\'application',
-          'Rouvrez l\'application',
-          'Essayez de vous reconnecter'
+          'Appuyez sur "Télécharger quand même" ou "Détails"',
+          'Validez l\'installation du fichier',
+          'L\'antivirus interne Play Protect analysera l\'application sans détecter de menace'
         ]
       },
       {
-        problem: 'Erreur "Session expirée"',
-        solution: 'Votre session a expiré. Connectez-vous à nouveau avec vos identifiants.',
+        problem: 'Installation bloquée : "Source inconnue désactivée"',
+        solution: 'Android restreint par défaut les téléchargements depuis le navigateur pour votre sécurité. Vous pouvez débloquer cette option en 5 secondes.',
         steps: [
-          'Tapez votre email',
-          'Tapez votre mot de passe',
-          'Cliquez sur "Se connecter"'
+          'Appuyez sur "Paramètres" dans la boîte de dialogue qui s\'affiche',
+          'Activez le curseur "Autoriser cette source" pour votre navigateur (Chrome)',
+          'Revenez en arrière et appuyez sur "Installer"'
         ]
       }
     ]
   },
   {
-    category: 'Fonctionnalités',
+    category: 'Application & Données',
     issues: [
       {
-        problem: 'Les recommandations ne se chargent pas',
-        solution: 'Assurez-vous d\'avoir complété votre profil et vos préférences. Videz le cache de l\'application si nécessaire.',
+        problem: 'Les fiches d\'universités ne s\'affichent pas',
+        solution: 'Si vous venez d\'installer l\'application, assurez-vous d\'être connecté à Internet au moins une fois pour synchroniser la base de données locale.',
         steps: [
-          'Vérifiez que votre profil est complet',
-          'Vérifiez vos préférences',
-          'Videz le cache de l\'application',
-          'Redémarrez l\'application'
+          'Activez votre connexion de données mobiles ou le Wi-Fi',
+          'Ouvrez l\'application et patientez 5 secondes pendant la synchronisation',
+          'Une fois synchronisée, l\'application fonctionne entièrement hors ligne'
         ]
       },
       {
-        problem: 'Impossible de télécharger des documents',
-        solution: 'Vérifiez l\'espace de stockage de votre appareil et les permissions de l\'application.',
+        problem: 'Erreur lors de la sélection de ma série de Bac',
+        solution: 'Vérifiez que vous utilisez bien la dernière version de l\'application (v1.0.2) qui intègre toutes les séries récentes du Bac malien.',
         steps: [
-          'Vérifiez l\'espace disponible',
-          'Vérifiez les permissions de stockage',
-          'Essayez de télécharger à nouveau'
+          'Consultez la version installée dans les paramètres de votre téléphone',
+          'Téléchargez le fichier APK à jour si votre version est antérieure',
+          'Installez-le par-dessus sans désinstaller l\'ancienne version'
         ]
       }
     ]
   },
   {
-    category: 'Performance',
+    category: 'Performance & Stockage',
     issues: [
       {
-        problem: 'L\'application est lente',
-        solution: 'Fermez les autres applications en arrière-plan et redémarrez votre appareil si nécessaire.',
+        problem: 'Espace de stockage insuffisant sur mon smartphone',
+        solution: 'L\'application est très légère (~15 Mo), mais nécessite un peu d\'espace temporaire pour son installation.',
         steps: [
-          'Fermez les applications inutiles',
-          'Videz le cache de l\'application',
-          'Redémarrez votre appareil',
-          'Vérifiez les mises à jour'
-        ]
-      },
-      {
-        problem: 'L\'application se ferme soudainement',
-        solution: 'Ce problème peut être causé par un manque de mémoire ou une version obsolète. Mettez à jour l\'application.',
-        steps: [
-          'Vérifiez les mises à jour disponibles',
-          'Redémarrez votre appareil',
-          'Réinstallez l\'application si nécessaire'
+          'Supprimez quelques fichiers inutiles ou videz le cache de vos applications',
+          'Vérifiez qu\'il reste au moins 50 Mo d\'espace libre dans les paramètres de stockage',
+          'Relancez le téléchargement du fichier APK'
         ]
       }
     ]
@@ -87,34 +76,26 @@ const commonIssues = [
 
 const quickFixes = [
   {
-    icon: CheckCircleIcon,
     title: 'Redémarrer l\'application',
-    description: 'Fermez complètement l\'application et rouvrez-la',
-    color: 'text-green-600'
+    description: 'Fermez l\'application depuis vos applications récentes puis relancez-la.'
   },
   {
-    icon: CheckCircleIcon,
-    title: 'Vider le cache',
-    description: 'Supprimez les données temporaires de l\'application',
-    color: 'text-blue-600'
+    title: 'Vider le cache temporaire',
+    description: 'Dans Paramètres > Applications > Conseil d\'Orientation > Vider le cache.'
   },
   {
-    icon: CheckCircleIcon,
-    title: 'Vérifier la connexion',
-    description: 'Assurez-vous d\'avoir une connexion internet stable',
-    color: 'text-purple-600'
+    title: 'Synchroniser en ligne',
+    description: 'Connectez-vous quelques secondes à Internet pour actualiser les données.'
   },
   {
-    icon: CheckCircleIcon,
-    title: 'Mettre à jour',
-    description: 'Installez la dernière version de l\'application',
-    color: 'text-orange-600'
+    title: 'Mettre à jour l\'APK',
+    description: 'Téléchargez la dernière version v1.0.2 directement sur notre portail.'
   }
 ];
 
 export function Troubleshooting() {
   const [selectedCategory, setSelectedCategory] = useState(0);
-  const [expandedIssues, setExpandedIssues] = useState<string[]>([]);
+  const [expandedIssues, setExpandedIssues] = useState<string[]>(['0-0']);
   const [searchQuery, setSearchQuery] = useState('');
 
   const toggleIssue = (issueKey: string) => {
@@ -147,219 +128,135 @@ export function Troubleshooting() {
       }));
 
   return (
-    <section id="common-issues" className="section-padding bg-white dark:bg-neutral-900">
+    <section id="common-issues" className="py-16 sm:py-24 bg-slate-50/70 dark:bg-[#0a192f] border-b border-slate-200 dark:border-slate-800">
       <div className="container-custom">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-16"
         >
-          <div className="flex justify-center mb-6">
-            <div className="p-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl">
-              <WrenchScrewdriverIcon className="h-12 w-12 text-white" />
-            </div>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] text-xs font-bold uppercase tracking-wider mb-4">
+            Assistance Technique
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900 dark:text-white mb-6">
-            Résolution de{' '}
-            <span className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
-              Problèmes
-            </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
+            Résolution de <span className="text-[#13508F] dark:text-[#3B9DF8]">problèmes fréquents</span>
           </h2>
-          <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
-            Trouvez rapidement des solutions aux problèmes les plus courants. 
-            Si vous ne trouvez pas de solution, notre équipe de support est là pour vous aider.
+          <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg">
+            Un blocage lors de l'installation ou de l'utilisation ? Trouvez la solution en un instant.
           </p>
         </motion.div>
 
-        {/* Quick Fixes */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="mb-16"
-        >
-          <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-8 text-center">
-            🔧 Solutions Rapides
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {quickFixes.map((fix, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="text-center p-6 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 hover:shadow-lg transition-all duration-200"
-              >
-                <fix.icon className={`h-12 w-12 mx-auto mb-4 ${fix.color}`} />
-                <h4 className="font-semibold text-neutral-900 dark:text-white mb-2">
-                  {fix.title}
-                </h4>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                  {fix.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+        {/* Quick Fixes 4-grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-16">
+          {quickFixes.map((fix, index) => (
+            <div
+              key={index}
+              className="p-5 rounded-2xl bg-white dark:bg-[#112240] border border-slate-200 dark:border-slate-800 shadow-xs"
+            >
+              <div className="w-8 h-8 rounded-lg bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] flex items-center justify-center mb-3">
+                <CheckCircleIcon className="w-5 h-5" />
+              </div>
+              <h4 className="font-bold text-sm text-slate-900 dark:text-white mb-1">
+                {fix.title}
+              </h4>
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                {fix.description}
+              </p>
+            </div>
+          ))}
+        </div>
 
         {/* Search Bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mb-12"
-        >
-          <div className="max-w-2xl mx-auto">
-            <div className="relative">
-              <MagnifyingGlassIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-neutral-400" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(event) => setSearchQuery(event.target.value)}
-                placeholder="Rechercher un problème spécifique..."
-                className="w-full pl-12 pr-4 py-4 bg-white dark:bg-neutral-800 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl focus:border-primary-500 focus:outline-none transition-colors duration-200"
-              />
-            </div>
+        <div className="max-w-2xl mx-auto mb-10">
+          <div className="relative">
+            <MagnifyingGlassIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Rechercher une erreur ou un symptôme..."
+              className="w-full pl-12 pr-4 py-3.5 bg-white dark:bg-[#112240] border border-slate-200 dark:border-slate-800 rounded-xl text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3B9DF8] focus:border-transparent transition-all shadow-xs"
+            />
           </div>
-        </motion.div>
+        </div>
 
         {/* Category Tabs */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mb-8"
-        >
-          <div className="flex flex-wrap justify-center gap-2">
-            {commonIssues.map((category, index) => (
+        {!searchQuery && (
+          <div className="flex flex-wrap justify-center gap-2 mb-8">
+            {commonIssues.map((cat, idx) => (
               <button
-                key={index}
-                onClick={() => setSelectedCategory(index)}
-                className={`px-6 py-3 rounded-xl font-semibold transition-all duration-200 ${
-                  selectedCategory === index
-                    ? 'bg-primary-600 text-white shadow-lg'
-                    : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
+                key={idx}
+                onClick={() => setSelectedCategory(idx)}
+                className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 min-h-[40px] ${
+                  selectedCategory === idx
+                    ? 'bg-[#13508F] text-white shadow-sm'
+                    : 'bg-white dark:bg-[#112240] text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
-                {category.category}
+                {cat.category}
               </button>
             ))}
           </div>
-        </motion.div>
+        )}
 
         {/* Issues List */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="max-w-4xl mx-auto"
-        >
-          <div className="space-y-4">
-            {visibleIssues.map((issue) => (
-              <motion.div
-                key={issue.key}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 overflow-hidden"
+        <div className="max-w-3xl mx-auto space-y-3.5">
+          {visibleIssues.map((issue) => (
+            <div
+              key={issue.key}
+              className="rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden bg-white dark:bg-[#112240] shadow-xs"
+            >
+              <button
+                onClick={() => toggleIssue(issue.key)}
+                className="w-full text-left p-5 sm:p-6 flex items-start justify-between gap-4 transition-colors hover:bg-slate-50 dark:hover:bg-slate-800/50"
               >
-                <button
-                  onClick={() => toggleIssue(issue.key)}
-                  className="w-full p-6 text-left hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors duration-200"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-start space-x-4">
-                      <ExclamationTriangleIcon className="h-6 w-6 text-orange-500 flex-shrink-0 mt-1" />
-                      <div>
-                        <h4 className="font-semibold text-neutral-900 dark:text-white mb-2">
-                          {issue.problem}
-                        </h4>
-                        <p className="text-neutral-600 dark:text-neutral-400">
-                          {issue.solution}
-                        </p>
-                      </div>
-                    </div>
-                    <div className={`transform transition-transform duration-200 ${
-                      expandedIssues.includes(issue.key) ? 'rotate-180' : ''
-                    }`}>
-                      <svg className="h-5 w-5 text-neutral-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </div>
+                <div className="flex items-start gap-3.5">
+                  <ExclamationCircleIcon className="h-5 w-5 text-[#3B9DF8] flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white mb-1">
+                      {issue.problem}
+                    </h4>
+                    <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                      {issue.solution}
+                    </p>
                   </div>
-                </button>
-                
-                {expandedIssues.includes(issue.key) && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="px-6 pb-6 border-t border-neutral-200 dark:border-neutral-700"
-                  >
-                    <div className="pt-4">
-                      <h5 className="font-semibold text-neutral-900 dark:text-white mb-3 flex items-center">
-                        <InformationCircleIcon className="h-5 w-5 text-blue-500 mr-2" />
-                        Étapes de résolution
-                      </h5>
-                      <ol className="space-y-2">
-                        {issue.steps.map((step, stepIndex) => (
-                          <li key={stepIndex} className="flex items-start space-x-3">
-                            <span className="flex-shrink-0 w-6 h-6 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-full flex items-center justify-center text-sm font-semibold">
-                              {stepIndex + 1}
-                            </span>
-                            <span className="text-neutral-700 dark:text-neutral-300">{step}</span>
-                          </li>
-                        ))}
-                      </ol>
-                    </div>
-                  </motion.div>
-                )}
-              </motion.div>
-            ))}
-            {visibleIssues.length === 0 && (
-              <div className="rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-6 text-center text-neutral-600 dark:text-neutral-300">
-                Aucun résultat trouvé. Essayez un autre mot-clé ou contactez le support.
-              </div>
-            )}
-          </div>
-        </motion.div>
+                </div>
+                <ChevronDownIcon
+                  className={`h-5 w-5 text-slate-400 flex-shrink-0 transition-transform duration-200 ${
+                    expandedIssues.includes(issue.key) ? 'rotate-180 text-[#13508F] dark:text-[#3B9DF8]' : ''
+                  }`}
+                />
+              </button>
 
-        {/* Contact Support */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 1.0 }}
-          className="mt-16 text-center"
-        >
-          <div className="bg-gradient-to-r from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20 rounded-2xl p-8 border border-primary-200 dark:border-primary-700">
-            <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">
-              💬 Besoin d'aide supplémentaire ?
-            </h3>
-            <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto mb-6">
-              Si vous n'avez pas trouvé de solution à votre problème, 
-              notre équipe de support est là pour vous aider.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <a href="#contact" className="px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-semibold transition-colors duration-200">
-                Contacter le Support
-              </a>
-              <a href="mailto:conseilorientationinfo@gmail.com?subject=Ticket%20support%20Conseil%20d%27Orientation" className="px-8 py-4 border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white rounded-xl font-semibold transition-all duration-200">
-                Ouvrir un Ticket
-              </a>
+              {expandedIssues.includes(issue.key) && (
+                <div className="px-5 sm:px-6 pb-6 pt-2 border-t border-slate-100 dark:border-slate-800 pl-14">
+                  <h5 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+                    Étapes de résolution recommandées :
+                  </h5>
+                  <ol className="space-y-2">
+                    {issue.steps.map((step, sIdx) => (
+                      <li key={sIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
+                        <span className="w-5 h-5 rounded-full bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
+                          {sIdx + 1}
+                        </span>
+                        <span className="leading-relaxed">{step}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              )}
             </div>
-          </div>
-        </motion.div>
+          ))}
+
+          {visibleIssues.length === 0 && (
+            <div className="text-center p-8 rounded-2xl bg-white dark:bg-[#112240] border border-slate-200 dark:border-slate-800 text-slate-500">
+              Aucun résultat pour cette recherche. Écrivez-nous directement ci-dessous pour une aide personnalisée.
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

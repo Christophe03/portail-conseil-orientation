@@ -5,176 +5,138 @@ import {
   ChatBubbleLeftRightIcon,
   EnvelopeIcon,
   PhoneIcon,
-  VideoCameraIcon
+  MapPinIcon,
+  ClockIcon
 } from '@heroicons/react/24/outline';
 
 const supportChannels = [
   {
     icon: ChatBubbleLeftRightIcon,
-    title: 'Chat en Direct',
-    description: 'Échangez avec notre équipe via WhatsApp',
+    title: 'WhatsApp Support',
+    description: 'Posez vos questions et échangez rapidement avec un membre de notre équipe.',
+    contact: '+223 92 72 25 64',
+    badge: 'Réponse rapide',
     href: 'https://wa.me/22392722564',
-    color: 'from-green-500 to-emerald-600',
-    bgColor: 'from-green-50 to-emerald-50',
-    darkBgColor: 'from-green-900/20 to-emerald-900/20'
+    cta: 'Démarrer une conversation'
   },
   {
     icon: EnvelopeIcon,
-    title: 'Email Support',
-    description: 'Support détaillé par email pour les questions complexes',
+    title: 'Support par Email',
+    description: 'Pour les demandes institutionnelles, partenariats de lycées ou questions détaillées.',
+    contact: 'conseilorientationinfo@gmail.com',
+    badge: 'Réponse sous 24h',
     href: 'mailto:conseilorientationinfo@gmail.com?subject=Support%20Conseil%20d%27Orientation',
-    color: 'from-blue-500 to-indigo-600',
-    bgColor: 'from-blue-50 to-indigo-50',
-    darkBgColor: 'from-blue-900/20 to-indigo-900/20'
+    cta: 'Envoyer un courriel'
   },
   {
     icon: PhoneIcon,
-    title: 'Support Téléphonique',
-    description: 'Assistance vocale personnalisée',
-    href: 'tel:+22392722564',
-    color: 'from-purple-500 to-violet-600',
-    bgColor: 'from-purple-50 to-violet-50',
-    darkBgColor: 'from-purple-900/20 to-violet-900/20'
+    title: 'Ligne Téléphonique',
+    description: 'Joignable du lundi au vendredi de 9h à 18h (GMT) pour vous orienter de vive voix.',
+    contact: '+223 96 85 52 82 / +223 92 72 25 64',
+    badge: 'Lun - Ven : 9h-18h',
+    href: 'tel:+22396855282',
+    cta: 'Appeler notre équipe'
   },
   {
-    icon: VideoCameraIcon,
-    title: 'Visioconférence',
-    description: 'Sessions de support en visioconférence',
-    href: 'mailto:conseilorientationinfo@gmail.com?subject=Demande%20de%20visioconference%20support',
-    color: 'from-orange-500 to-red-600',
-    bgColor: 'from-orange-50 to-red-50',
-    darkBgColor: 'from-orange-900/20 to-red-900/20'
+    icon: MapPinIcon,
+    title: 'Bureau & Présentiel',
+    description: 'Accompagnement d\'établissements et coordination des journées d\'orientation.',
+    contact: 'Kati Koko, Région de Koulikoro / Bamako, Mali',
+    badge: 'Sur rendez-vous',
+    href: '#contact',
+    cta: 'Demander une rencontre'
   }
-];
-
-const languages = [
-  { code: 'fr', name: 'Français', flag: '🇫🇷' },
-  { code: 'en', name: 'English', flag: '🇬🇧' },
-  { code: 'es', name: 'Español', flag: '🇪🇸' },
-  { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-  { code: 'it', name: 'Italiano', flag: '🇮🇹' },
-  { code: 'ar', name: 'العربية', flag: '🇸🇦' }
 ];
 
 export function SupportChannels() {
   return (
-    <section id="channels" className="section-padding bg-gradient-to-br from-neutral-50 to-secondary-50 dark:from-neutral-800 dark:to-neutral-900">
+    <section id="channels" className="py-16 sm:py-24 bg-white dark:bg-[#0a192f] border-b border-slate-200 dark:border-slate-800">
       <div className="container-custom">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900 dark:text-white mb-6">
-            Canaux de{' '}
-            <span className="bg-gradient-to-r from-secondary-600 to-primary-600 bg-clip-text text-transparent">
-              Support
-            </span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] text-xs font-bold uppercase tracking-wider mb-4">
+            Points de Contact
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
+            Nos canaux d'<span className="text-[#13508F] dark:text-[#3B9DF8]">assistance directe</span>
           </h2>
-          <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
-            Nous sommes disponibles sur plusieurs canaux pour vous accompagner 
-            dans votre parcours d'orientation. Choisissez celui qui vous convient le mieux.
+          <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg">
+            Choisissez le moyen de contact qui correspond le mieux à votre situation et votre équipement.
           </p>
         </motion.div>
 
         {/* Support Channels Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mb-16">
           {supportChannels.map((channel, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className={`bg-gradient-to-br ${channel.bgColor} dark:${channel.darkBgColor} rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700 hover:shadow-xl transition-all duration-300`}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="rounded-3xl p-6 sm:p-8 bg-slate-50/70 dark:bg-[#112240] border border-slate-200 dark:border-slate-800 shadow-card hover:border-[#13508F]/40 dark:hover:border-[#3B9DF8]/40 transition-all duration-300 flex flex-col justify-between"
             >
-              <div className="flex items-start space-x-4 mb-6">
-                <div className={`p-3 rounded-xl bg-gradient-to-r ${channel.color} text-white`}>
-                  <channel.icon className="h-8 w-8" />
+              <div>
+                <div className="flex items-start justify-between mb-5">
+                  <div className="w-12 h-12 rounded-2xl bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] flex items-center justify-center">
+                    <channel.icon className="h-6 w-6" />
+                  </div>
+                  <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white dark:bg-[#0a192f] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                    {channel.badge}
+                  </span>
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-2">
-                    {channel.title}
-                  </h3>
-                  <p className="text-neutral-600 dark:text-neutral-400">
-                    {channel.description}
-                  </p>
+
+                <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-2">
+                  {channel.title}
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                  {channel.description}
+                </p>
+                <div className="font-semibold text-xs sm:text-sm text-[#13508F] dark:text-[#3B9DF8] mb-6">
+                  {channel.contact}
                 </div>
               </div>
-              
+
               <a
                 href={channel.href}
                 target={channel.href.startsWith('http') ? '_blank' : undefined}
                 rel={channel.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                className={`block w-full py-3 px-6 text-center bg-gradient-to-r ${channel.color} text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-200 transform hover:scale-105`}
+                className="w-full text-center py-3 px-5 rounded-xl bg-[#13508F] hover:bg-[#0e3a6a] text-white font-semibold text-xs sm:text-sm transition-all duration-200 shadow-sm min-h-[44px] flex items-center justify-center"
               >
-                Utiliser ce canal
+                {channel.cta}
               </a>
             </motion.div>
           ))}
         </div>
 
-        {/* Language Support */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="bg-white dark:bg-neutral-800 rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700"
-        >
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">
-              🌍 Support Multilingue
-            </h3>
-            <p className="text-lg text-neutral-600 dark:text-neutral-400">
-              Notre équipe de support parle votre langue pour une expérience optimale
-            </p>
+        {/* Commitment Banner */}
+        <div className="rounded-3xl p-6 sm:p-8 bg-[#13508F] text-white flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center flex-shrink-0">
+              <ClockIcon className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h4 className="font-bold text-base sm:text-lg">Écoute bienveillante & réactivité garantie</h4>
+              <p className="text-xs sm:text-sm text-slate-200">
+                Échanges en français et bamanankan pour assurer une compréhension parfaite de vos besoins.
+              </p>
+            </div>
           </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {languages.map((language, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
-                className="text-center p-4 rounded-xl bg-neutral-50 dark:bg-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-600 transition-colors duration-200 cursor-pointer"
-              >
-                <div className="text-3xl mb-2">{language.flag}</div>
-                <p className="font-semibold text-neutral-900 dark:text-white">{language.name}</p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Priority Support */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-16 bg-gradient-to-r from-primary-50 to-brand-50 dark:from-primary-900/20 dark:to-brand-900/20 rounded-2xl p-8 border border-primary-200 dark:border-primary-700 text-center"
-        >
-          <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">
-            ⭐ Support Prioritaire
-          </h3>
-          <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto mb-6">
-            Bénéficiez d'un support prioritaire avec des temps de réponse garantis 
-            et un accès direct à nos experts seniors.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a href="/features#formules" className="px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-semibold transition-colors duration-200">
-              Découvrir les Formules
-            </a>
-            <a href="mailto:conseilorientationinfo@gmail.com?subject=Question%20commerciale" className="px-8 py-4 border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white rounded-xl font-semibold transition-all duration-200">
-              Contacter les Ventes
-            </a>
-          </div>
-        </motion.div>
+          <a
+            href="https://wa.me/22392722564"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-6 py-3 rounded-xl bg-[#3B9DF8] hover:bg-[#258bf0] text-white font-semibold text-xs sm:text-sm whitespace-nowrap shadow-sm min-h-[44px] flex items-center justify-center"
+          >
+            Écrire sur WhatsApp
+          </a>
+        </div>
       </div>
     </section>
   );

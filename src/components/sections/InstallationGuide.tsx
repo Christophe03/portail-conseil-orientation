@@ -2,11 +2,12 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import Link from 'next/link';
 import { 
   DevicePhoneMobileIcon,
-  ComputerDesktopIcon,
+  GlobeAltIcon,
   CheckCircleIcon,
-  ExclamationTriangleIcon,
+  ExclamationCircleIcon,
   ArrowRightIcon,
   ArrowDownTrayIcon
 } from '@heroicons/react/24/outline';
@@ -15,164 +16,155 @@ const installationSteps = {
   android: [
     {
       step: 1,
-      title: 'Télécharger l\'APK',
-      description: 'Téléchargez le fichier APK depuis notre site officiel',
-      details: 'Cliquez sur le bouton "Télécharger APK" ci-dessus. Le fichier sera téléchargé dans votre dossier "Téléchargements".'
+      title: 'Télécharger le fichier APK',
+      description: 'Téléchargez l\'installeur sécurisé depuis notre lien officiel',
+      details: 'Cliquez sur le bouton "Télécharger l\'APK" ci-dessus ou via APKPure. Le fichier pèse environ 15 Mo et sera enregistré dans vos Téléchargements.'
     },
     {
       step: 2,
-      title: 'Autoriser l\'installation',
-      description: 'Activez l\'installation depuis des sources inconnues',
-      details: 'Allez dans Paramètres > Sécurité > Sources inconnues et activez cette option pour votre navigateur.'
+      title: 'Autoriser la source',
+      description: 'Activez temporairement l\'installation d\'applications externes',
+      details: 'Lorsque votre téléphone vous le demande, appuyez sur "Paramètres" et cochez "Autoriser cette source" pour votre navigateur (Chrome, etc.).'
     },
     {
       step: 3,
-      title: 'Installer l\'application',
-      description: 'Ouvrez le fichier APK et suivez les instructions',
-      details: 'Tapez sur le fichier APK téléchargé et suivez les instructions d\'installation à l\'écran.'
+      title: 'Confirmer l\'installation',
+      description: 'Appuyez sur Installer et laissez le processus s\'achever',
+      details: 'Ouvrez le fichier téléchargé et validez en cliquant sur "Installer". Le système vérifie automatiquement la sécurité du paquet.'
     },
     {
       step: 4,
-      title: 'Lancer l\'application',
-      description: 'Ouvrez l\'application depuis votre écran d\'accueil',
-      details: 'Une fois installée, l\'application apparaîtra sur votre écran d\'accueil. Tapez dessus pour la lancer.'
+      title: 'Démarrer votre orientation',
+      description: 'Lancez l\'application depuis l\'écran d\'accueil',
+      details: 'L\'icône Conseil d\'Orientation apparaît parmi vos applications. Lancez-la pour explorer instantanément les filières et tester le simulateur de séries.'
     }
   ],
-  ios: [
+  web: [
     {
       step: 1,
-      title: 'Télécharger depuis l\'App Store',
-      description: 'Recherchez l\'application dans l\'App Store',
-      details: 'Ouvrez l\'App Store et recherchez "Conseil d\'Orientation" ou utilisez le lien direct ci-dessus.'
+      title: 'Ouvrir sur votre navigateur',
+      description: 'Accédez directement à la plateforme sans aucun téléchargement',
+      details: 'Ouvrez le site sur Safari (iOS), Google Chrome ou Firefox sur votre smartphone ou ordinateur.'
     },
     {
       step: 2,
-      title: 'Installer l\'application',
-      description: 'Tapez sur "Obtenir" puis "Installer"',
-      details: 'Tapez sur le bouton "Obtenir", puis "Installer" et confirmez avec votre mot de passe ou Touch ID.'
+      title: 'Ajouter à l\'écran d\'accueil',
+      description: 'Installez le raccourci comme une application native (PWA)',
+      details: 'Sur iPhone (Safari) : appuyez sur le bouton Partager puis sur "Sur l\'écran d\'accueil". Sur Android (Chrome) : menu 3 points > "Installer l\'application".'
     },
     {
       step: 3,
-      title: 'Attendre l\'installation',
-      description: 'L\'installation se fait automatiquement',
-      details: 'L\'application se télécharge et s\'installe automatiquement. Vous recevrez une notification une fois terminé.'
+      title: 'Accès en un clic',
+      description: 'Profitez de la même vitesse et ergonomie qu\'une application native',
+      details: 'L\'icône s\'affiche sur votre bureau et se lance en plein écran avec un confort visuel optimal.'
     },
     {
       step: 4,
-      title: 'Lancer l\'application',
-      description: 'Ouvrez l\'application depuis votre écran d\'accueil',
-      details: 'Une fois installée, l\'application apparaîtra sur votre écran d\'accueil. Tapez dessus pour la lancer.'
+      title: 'Mises à jour automatiques',
+      description: 'Aucune maintenance manuelle nécessaire',
+      details: 'Dès qu\'une nouvelle université ou une nouvelle série est ajoutée dans notre base, elle est immédiatement disponible.'
     }
   ]
 };
 
 const troubleshootingTips = [
   {
-    icon: ExclamationTriangleIcon,
-    title: 'Erreur d\'installation',
-    solution: 'Vérifiez l\'espace de stockage disponible et redémarrez votre appareil si nécessaire.',
-    color: 'text-orange-600'
+    title: 'Téléchargement bloqué ou message "Fichier dangereux"',
+    solution: 'C\'est un avertissement standard d\'Android pour les fichiers APK hors Google Play. Cliquez sur "Télécharger quand même", le fichier est rigoureusement vérifié et sécurisé.'
   },
   {
-    icon: ExclamationTriangleIcon,
-    title: 'Application ne se lance pas',
-    solution: 'Vérifiez que vous avez la dernière version et que votre appareil est compatible.',
-    color: 'text-red-600'
+    title: 'Installation bloquée : "Source inconnue"',
+    solution: 'Allez dans Paramètres > Sécurité ou Applications > Accès spécial > Installer applications inconnues, et cochez l\'autorisation pour votre navigateur.'
   },
   {
-    icon: ExclamationTriangleIcon,
-    title: 'Problème de connexion',
-    solution: 'Assurez-vous d\'avoir une connexion internet stable et vérifiez vos paramètres réseau.',
-    color: 'text-blue-600'
+    title: 'Espace insuffisant sur le téléphone',
+    solution: 'Libérez au moins 50 Mo en vidant le cache de vos applications courantes, puis relancez le fichier d\'installation.'
   }
 ];
 
 export function InstallationGuide() {
-  const [selectedPlatform, setSelectedPlatform] = useState<'android' | 'ios'>('android');
+  const [selectedPlatform, setSelectedPlatform] = useState<'android' | 'web'>('android');
 
   return (
-    <section id="installation" className="section-padding bg-gradient-to-br from-neutral-50 to-primary-50 dark:from-neutral-800 dark:to-neutral-900">
+    <section id="installation" className="py-16 sm:py-24 bg-slate-50/70 dark:bg-[#0a192f]">
       <div className="container-custom">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-14"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900 dark:text-white mb-6">
-            Guide d'{' '}
-            <span className="bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
-              Installation
-            </span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] text-xs font-bold uppercase tracking-wider mb-4">
+            Tutoriel Pas à Pas
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
+            Guide d'<span className="text-[#13508F] dark:text-[#3B9DF8]">installation</span> simple
           </h2>
-          <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
-            Suivez ces étapes simples pour installer l'application Conseil d'Orientation 
-            sur votre appareil. Nous vous guidons à chaque étape.
+          <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg">
+            Installez l'application en moins de 2 minutes en suivant ces étapes claires et détaillées.
           </p>
         </motion.div>
 
         {/* Platform Selection */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="mb-12"
+          transition={{ duration: 0.6 }}
+          className="flex justify-center mb-12"
         >
-          <div className="flex justify-center mb-8">
-            <div className="bg-white dark:bg-neutral-800 rounded-2xl p-2 border border-neutral-200 dark:border-neutral-700">
-              <button
-                onClick={() => setSelectedPlatform('android')}
-                className={`px-8 py-3 rounded-xl font-semibold transition-all duration-200 flex items-center space-x-2 ${
-                  selectedPlatform === 'android'
-                    ? 'bg-primary-600 text-white shadow-lg'
-                    : 'text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700'
-                }`}
-              >
-                <ComputerDesktopIcon className="h-5 w-5" />
-                <span>Android</span>
-              </button>
-              <button
-                onClick={() => setSelectedPlatform('ios')}
-                className={`px-8 py-3 rounded-xl font-semibold transition-all duration-200 flex items-center space-x-2 ${
-                  selectedPlatform === 'ios'
-                    ? 'bg-primary-600 text-white shadow-lg'
-                    : 'text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700'
-                }`}
-              >
-                <DevicePhoneMobileIcon className="h-5 w-5" />
-                <span>iOS</span>
-              </button>
-            </div>
+          <div className="inline-flex p-1.5 rounded-2xl bg-white dark:bg-[#112240] border border-slate-200 dark:border-slate-800 shadow-xs">
+            <button
+              onClick={() => setSelectedPlatform('android')}
+              className={`flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-200 min-h-[44px] ${
+                selectedPlatform === 'android'
+                  ? 'bg-[#13508F] text-white shadow-sm'
+                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <DevicePhoneMobileIcon className="h-4 w-4" />
+              <span>Android (Fichier APK)</span>
+            </button>
+            <button
+              onClick={() => setSelectedPlatform('web')}
+              className={`flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-200 min-h-[44px] ${
+                selectedPlatform === 'web'
+                  ? 'bg-[#13508F] text-white shadow-sm'
+                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <GlobeAltIcon className="h-4 w-4" />
+              <span>iOS & Navigateur (Web PWA)</span>
+            </button>
           </div>
         </motion.div>
 
         {/* Installation Steps */}
         <div className="max-w-4xl mx-auto mb-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {installationSteps[selectedPlatform].map((step, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white dark:bg-neutral-800 rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 hover:shadow-lg transition-all duration-200"
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-white dark:bg-[#112240] rounded-2xl p-6 sm:p-7 border border-slate-200 dark:border-slate-800 shadow-card hover:border-[#13508F]/40 dark:hover:border-[#3B9DF8]/40 transition-all duration-300"
               >
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-primary-500 to-secondary-500 text-white rounded-full flex items-center justify-center text-lg font-bold">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-[#13508F] text-white flex items-center justify-center text-base font-bold shadow-sm">
                     {step.step}
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-2">
+                    <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-1.5 leading-snug">
                       {step.title}
                     </h3>
-                    <p className="text-neutral-600 dark:text-neutral-400 mb-3">
+                    <p className="text-xs sm:text-sm font-medium text-[#13508F] dark:text-[#3B9DF8] mb-2.5">
                       {step.description}
                     </p>
-                    <p className="text-sm text-neutral-500 dark:text-neutral-500 bg-neutral-50 dark:bg-neutral-700 p-3 rounded-lg">
+                    <p className="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-[#0a192f] p-3 rounded-xl border border-slate-100 dark:border-slate-800/80 leading-relaxed">
                       {step.details}
                     </p>
                   </div>
@@ -182,100 +174,103 @@ export function InstallationGuide() {
           </div>
         </div>
 
-        {/* Visual Guide */}
+        {/* Visual 3-step Summary */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mb-16"
+          transition={{ duration: 0.6 }}
+          className="max-w-4xl mx-auto mb-16 p-8 rounded-3xl bg-white dark:bg-[#112240] border border-slate-200 dark:border-slate-800 shadow-card"
         >
-          <div className="bg-white dark:bg-neutral-800 rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700">
-            <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6 text-center">
-              📱 Aperçu de l'Installation
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <ArrowDownTrayIcon className="h-8 w-8 text-white" />
-                </div>
-                <h4 className="font-semibold text-neutral-900 dark:text-white mb-2">Téléchargement</h4>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                  Téléchargez le fichier d'installation
-                </p>
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-8 text-center">
+            Résumé visuel du parcours
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+            <div className="text-center p-4">
+              <div className="w-14 h-14 rounded-2xl bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] flex items-center justify-center mx-auto mb-3">
+                <ArrowDownTrayIcon className="h-7 w-7" />
               </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <ArrowRightIcon className="h-8 w-8 text-white" />
-                </div>
-                <h4 className="font-semibold text-neutral-900 dark:text-white mb-2">Installation</h4>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                  Suivez les instructions à l'écran
-                </p>
+              <h4 className="font-bold text-sm text-slate-900 dark:text-white mb-1">1. Télécharger</h4>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Fichier APK sécurisé (~15 Mo)</p>
+            </div>
+
+            <div className="text-center p-4">
+              <div className="w-14 h-14 rounded-2xl bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] flex items-center justify-center mx-auto mb-3">
+                <ArrowRightIcon className="h-7 w-7" />
               </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-violet-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircleIcon className="h-8 w-8 text-white" />
-                </div>
-                <h4 className="font-semibold text-neutral-900 dark:text-white mb-2">Prêt !</h4>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                  Lancez l'application et commencez
-                </p>
+              <h4 className="font-bold text-sm text-slate-900 dark:text-white mb-1">2. Installer</h4>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Autoriser l'installation en 1 clic</p>
+            </div>
+
+            <div className="text-center p-4">
+              <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto mb-3">
+                <CheckCircleIcon className="h-7 w-7" />
               </div>
+              <h4 className="font-bold text-sm text-slate-900 dark:text-white mb-1">3. Prêt à l'emploi</h4>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Explorez les universités du Mali</p>
             </div>
           </div>
         </motion.div>
 
         {/* Troubleshooting */}
-        <div className="mb-16">
-          <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-8 text-center">
-            🔧 Dépannage
+        <div className="max-w-4xl mx-auto mb-16">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6 text-center">
+            Questions fréquentes et dépannage
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {troubleshootingTips.map((tip, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white dark:bg-neutral-800 rounded-xl p-6 border border-neutral-200 dark:border-neutral-700"
+                className="bg-white dark:bg-[#112240] rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-card flex flex-col justify-between"
               >
-                <tip.icon className={`h-12 w-12 mx-auto mb-4 ${tip.color}`} />
-                <h4 className="font-semibold text-neutral-900 dark:text-white mb-3 text-center">
-                  {tip.title}
-                </h4>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400 text-center">
-                  {tip.solution}
-                </p>
+                <div>
+                  <div className="w-9 h-9 rounded-lg bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] flex items-center justify-center mb-3">
+                    <ExclamationCircleIcon className="w-5 h-5" />
+                  </div>
+                  <h4 className="font-bold text-sm text-slate-900 dark:text-white mb-2 leading-snug">
+                    {tip.title}
+                  </h4>
+                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                    {tip.solution}
+                  </p>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
 
-        {/* Need Help */}
+        {/* Need Help CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-center"
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl mx-auto text-center p-8 sm:p-10 rounded-3xl bg-[#13508F] text-white shadow-xl relative overflow-hidden"
         >
-          <div className="bg-gradient-to-r from-secondary-50 to-accent-50 dark:from-secondary-900/20 dark:to-accent-900/20 rounded-2xl p-8 border border-secondary-200 dark:border-secondary-700">
-            <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">
-              💡 Besoin d'aide pour l'installation ?
+          <div className="relative z-10">
+            <h3 className="text-2xl sm:text-3xl font-extrabold mb-3">
+              Besoin d'aide supplémentaire ?
             </h3>
-            <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto mb-6">
-              Notre équipe de support est là pour vous aider si vous rencontrez 
-              des difficultés lors de l'installation.
+            <p className="text-slate-200 text-sm sm:text-base max-w-xl mx-auto mb-6">
+              Notre équipe d'assistance répond volontiers à vos questions pour vous aider à installer l'application ou trouver vos filières.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <a href="/support#contact" className="px-8 py-4 bg-secondary-600 hover:bg-secondary-700 text-white rounded-xl font-semibold transition-colors duration-200">
+              <Link
+                href="/support"
+                className="px-6 py-3 rounded-xl bg-[#3B9DF8] hover:bg-[#258bf0] text-white font-semibold text-sm transition-all duration-200 shadow-md min-h-[44px] inline-flex items-center justify-center"
+              >
                 Contacter le Support
-              </a>
-              <a href="/support#faq" className="px-8 py-4 border-2 border-secondary-600 text-secondary-600 hover:bg-secondary-600 hover:text-white rounded-xl font-semibold transition-all duration-200">
-                Voir la FAQ
-              </a>
+              </Link>
+              <Link
+                href="/docs"
+                className="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-sm border border-white/20 transition-all duration-200 min-h-[44px] inline-flex items-center justify-center"
+              >
+                Consulter la documentation
+              </Link>
             </div>
           </div>
         </motion.div>

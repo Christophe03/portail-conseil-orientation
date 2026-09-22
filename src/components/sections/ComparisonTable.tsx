@@ -6,217 +6,270 @@ import { APP_DOWNLOAD_URL } from '@/lib/app-links';
 import { 
   CheckIcon,
   XMarkIcon,
-  StarIcon
-} from '@heroicons/react/24/solid';
+  SparklesIcon,
+  AcademicCapIcon,
+  BuildingLibraryIcon
+} from '@heroicons/react/24/outline';
 
-const features = [
-  'Intelligence Artificielle',
-  'Base de données complète',
-  'Recherche de bourses',
-  'Analyse du marché du travail',
-  'Support multilingue',
-  'Application mobile',
-  'Conseils personnalisés',
-  'Communauté étudiante',
-  'Sécurité des données',
-  'Mises à jour régulières'
+const comparisonRows = [
+  {
+    feature: 'Fiches détaillées des universités publiques du Mali (USTTB, ULSHB, USSGB, USJPB)',
+    lyceen: true,
+    etudiant: true,
+    etablissement: true
+  },
+  {
+    feature: 'Répertoire certifié des universités & instituts privés (Bamako & régions)',
+    lyceen: true,
+    etudiant: true,
+    etablissement: true
+  },
+  {
+    feature: 'Matrice de correspondance Série du Bac ➔ Filières accessibles',
+    lyceen: true,
+    etudiant: true,
+    etablissement: true
+  },
+  {
+    feature: 'Conditions d\'admission officielles, dossiers & frais de scolarité',
+    lyceen: true,
+    etudiant: true,
+    etablissement: true
+  },
+  {
+    feature: 'Conseiller d\'orientation virtuel par IA pour questions personnalisées',
+    lyceen: true,
+    etudiant: true,
+    etablissement: true
+  },
+  {
+    feature: 'Mode hors-ligne sur application mobile Android',
+    lyceen: true,
+    etudiant: true,
+    etablissement: true
+  },
+  {
+    feature: 'Recherche de bourses d\'études & opportunités de mobilités',
+    lyceen: true,
+    etudiant: true,
+    etablissement: true
+  },
+  {
+    feature: 'Ateliers et séances d\'orientation collectives dans les lycées',
+    lyceen: false,
+    etudiant: false,
+    etablissement: true
+  },
+  {
+    feature: 'Tableau de bord statistique pour administration scolaire',
+    lyceen: false,
+    etudiant: false,
+    etablissement: true
+  }
 ];
 
-const plans = [
+const profiles = [
   {
-    name: 'Gratuit',
-    price: '0€',
-    period: 'pour toujours',
-    description: 'Accès aux fonctionnalités de base',
-    features: [true, true, false, false, false, true, false, false, true, true],
-    popular: false,
-    color: 'from-neutral-500 to-neutral-600',
-    bgColor: 'from-neutral-50 to-neutral-100',
-    darkBgColor: 'from-neutral-800 to-neutral-700'
+    name: 'Lycéens & Bacheliers',
+    tag: 'Accès 100% Gratuit',
+    icon: AcademicCapIcon,
+    price: 'Gratuit',
+    subtext: 'Pour tous les élèves du Mali',
+    description: 'Trouvez la série et la faculté adaptées à vos talents et ambitions.',
+    cta: 'Télécharger l\'application',
+    href: APP_DOWNLOAD_URL,
+    external: true,
+    popular: true
   },
   {
-    name: 'Premium',
-    price: '9.99€',
-    period: 'par mois',
-    description: 'Accès complet à toutes les fonctionnalités',
-    features: [true, true, true, true, true, true, true, true, true, true],
-    popular: true,
-    color: 'from-primary-500 to-primary-600',
-    bgColor: 'from-primary-50 to-primary-100',
-    darkBgColor: 'from-primary-900/20 to-primary-800/20'
+    name: 'Étudiants Universitaires',
+    tag: 'Accès 100% Gratuit',
+    icon: SparklesIcon,
+    price: 'Gratuit',
+    subtext: 'Licence, Master & Doctorat',
+    description: 'Réorientations, passerelles, débouchés professionnels et bourses.',
+    cta: 'Explorer les filières',
+    href: '/universites',
+    external: false,
+    popular: false
   },
   {
-    name: 'Étudiant',
-    price: '4.99€',
-    period: 'par mois',
-    description: 'Tarif réduit pour les étudiants',
-    features: [true, true, true, true, false, true, true, false, true, true],
-    popular: false,
-    color: 'from-secondary-500 to-secondary-600',
-    bgColor: 'from-secondary-50 to-secondary-100',
-    darkBgColor: 'from-secondary-900/20 to-secondary-800/20'
+    name: 'Lycées & Universités',
+    tag: 'Partenariat Éducatif',
+    icon: BuildingLibraryIcon,
+    price: 'Sur Mesure',
+    subtext: 'Accompagnement d\'établissements',
+    description: 'Sessions d\'orientation dans vos classes et promotion de vos filières.',
+    cta: 'Demander un partenariat',
+    href: '/support',
+    external: false,
+    popular: false
   }
 ];
 
 export function ComparisonTable() {
   return (
-    <section id="formules" className="section-padding bg-gradient-to-br from-neutral-50 to-secondary-50 dark:from-neutral-800 dark:to-neutral-900">
+    <section id="formules" className="py-16 sm:py-24 bg-slate-50/70 dark:bg-[#0a192f] border-b border-slate-200 dark:border-slate-800">
       <div className="container-custom">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900 dark:text-white mb-6">
-            Comparaison des{' '}
-            <span className="bg-gradient-to-r from-secondary-600 to-primary-600 bg-clip-text text-transparent">
-              Formules
-            </span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] text-xs font-bold uppercase tracking-wider mb-4">
+            Offre & Accessibilité
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
+            Une plateforme pensée pour chaque{' '}
+            <span className="text-[#13508F] dark:text-[#3B9DF8]">acteur de l'éducation</span>
           </h2>
-          <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
-            Choisissez la formule qui correspond le mieux à vos besoins. 
-            Toutes nos formules incluent un essai gratuit de 7 jours.
+          <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg">
+            Notre engagement est clair : l'information d'orientation est un bien public accessible gratuitement à chaque apprenant malien.
           </p>
         </motion.div>
 
-        {/* Plans Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          {plans.map((plan, index) => (
+        {/* Profile Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-16">
+          {profiles.map((profile, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className={`relative bg-gradient-to-br ${plan.bgColor} dark:${plan.darkBgColor} rounded-2xl p-6 md:p-8 border-2 ${
-                plan.popular 
-                  ? 'border-primary-500 shadow-2xl md:scale-105' 
-                  : 'border-neutral-200 dark:border-neutral-700'
-              } hover:shadow-xl transition-all duration-300`}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className={`relative rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 ${
+                profile.popular
+                  ? 'bg-white dark:bg-[#112240] border-2 border-[#13508F] dark:border-[#3B9DF8] shadow-card'
+                  : 'bg-white/80 dark:bg-[#112240]/80 border border-slate-200 dark:border-slate-800 shadow-sm'
+              }`}
             >
-              {/* Popular Badge */}
-              {plan.popular && (
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-white px-6 py-2 rounded-full text-sm font-semibold flex items-center space-x-1">
-                    <StarIcon className="h-4 w-4" />
-                    <span>Populaire</span>
-                  </div>
+              {profile.popular && (
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
+                  <span className="px-4 py-1 rounded-full text-xs font-bold bg-[#13508F] text-white shadow-sm">
+                    Le plus recommandé
+                  </span>
                 </div>
               )}
 
-              {/* Plan Header */}
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-2">
-                  {plan.name}
-                </h3>
-                <div className="mb-4">
-                  <span className="text-4xl font-bold text-neutral-900 dark:text-white">
-                    {plan.price}
-                  </span>
-                  <span className="text-neutral-600 dark:text-neutral-400 ml-2">
-                    {plan.period}
-                  </span>
+              <div>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] flex items-center justify-center">
+                    <profile.icon className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-base sm:text-lg text-slate-900 dark:text-white leading-tight">
+                      {profile.name}
+                    </h3>
+                    <span className="text-xs font-medium text-[#13508F] dark:text-[#3B9DF8]">
+                      {profile.tag}
+                    </span>
+                  </div>
                 </div>
-                <p className="text-neutral-600 dark:text-neutral-400">
-                  {plan.description}
+
+                <div className="my-5 pb-5 border-b border-slate-100 dark:border-slate-800">
+                  <div className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">
+                    {profile.price}
+                  </div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                    {profile.subtext}
+                  </div>
+                </div>
+
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+                  {profile.description}
                 </p>
               </div>
 
-              {/* Features List */}
-              <div className="space-y-4 mb-8">
-                {features.map((feature, featureIndex) => (
-                  <div key={featureIndex} className="flex items-center space-x-3">
-                    {plan.features[featureIndex] ? (
-                      <CheckIcon className="h-5 w-5 text-green-500 flex-shrink-0" />
-                    ) : (
-                      <XMarkIcon className="h-5 w-5 text-red-500 flex-shrink-0" />
-                    )}
-                    <span className={`text-sm ${
-                      plan.features[featureIndex] 
-                        ? 'text-neutral-700 dark:text-neutral-300' 
-                        : 'text-neutral-400 dark:text-neutral-500'
-                    }`}>
-                      {feature}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              {/* CTA Button */}
-              <a
-                href={plan.popular ? APP_DOWNLOAD_URL : '/download'}
-                target={plan.popular ? '_blank' : undefined}
-                rel={plan.popular ? 'noopener noreferrer' : undefined}
-                className={`block w-full py-4 px-6 text-center bg-gradient-to-r ${plan.color} text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-200 transform hover:scale-105`}
-              >
-                {plan.popular ? 'Commencer l\'essai gratuit' : 'Choisir ce plan'}
-              </a>
+              {profile.external ? (
+                <a
+                  href={profile.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`w-full text-center py-3 px-5 rounded-xl font-semibold text-sm transition-all duration-200 min-h-[44px] flex items-center justify-center ${
+                    profile.popular
+                      ? 'bg-[#13508F] hover:bg-[#0e3a6a] text-white shadow-md shadow-[#13508F]/20'
+                      : 'bg-slate-100 hover:bg-slate-200 text-slate-900 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-white'
+                  }`}
+                >
+                  {profile.cta}
+                </a>
+              ) : (
+                <Link
+                  href={profile.href}
+                  className={`w-full text-center py-3 px-5 rounded-xl font-semibold text-sm transition-all duration-200 min-h-[44px] flex items-center justify-center ${
+                    profile.popular
+                      ? 'bg-[#13508F] hover:bg-[#0e3a6a] text-white shadow-md shadow-[#13508F]/20'
+                      : 'bg-slate-100 hover:bg-slate-200 text-slate-900 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-white'
+                  }`}
+                >
+                  {profile.cta}
+                </Link>
+              )}
             </motion.div>
           ))}
         </div>
 
-        {/* Additional Info */}
+        {/* Feature Matrix Table */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-center"
+          transition={{ duration: 0.6 }}
+          className="rounded-3xl bg-white dark:bg-[#112240] border border-slate-200 dark:border-slate-800 shadow-card overflow-hidden"
         >
-          <div className="bg-white dark:bg-neutral-800 rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700">
-            <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6">
-              💡 Questions sur nos formules ?
+          <div className="p-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-[#0a192f]/50">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+              Tableau comparatif des fonctionnalités
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">🔄</span>
-                </div>
-                <h4 className="font-semibold text-neutral-900 dark:text-white mb-2">
-                  Changement de plan
-                </h4>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                  Changez de plan à tout moment sans frais supplémentaires
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">💰</span>
-                </div>
-                <h4 className="font-semibold text-neutral-900 dark:text-white mb-2">
-                  Remboursement
-                </h4>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                  Remboursement sous 30 jours si vous n'êtes pas satisfait
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-violet-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">🎓</span>
-                </div>
-                <h4 className="font-semibold text-neutral-900 dark:text-white mb-2">
-                  Tarif étudiant
-                </h4>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                  Réduction de 50% pour tous les étudiants avec justificatif
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex flex-wrap justify-center gap-4">
-              <a
-                href="mailto:conseilorientationinfo@gmail.com?subject=Question%20sur%20les%20formules"
-                className="px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-semibold transition-colors duration-200"
-              >
-                Contacter les Ventes
-              </a>
-              <Link href="/support#faq" className="px-8 py-4 border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white rounded-xl font-semibold transition-all duration-200">
-                Voir la FAQ
-              </Link>
-            </div>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+              Détail des services accessibles selon votre profil.
+            </p>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b border-slate-200 dark:border-slate-800 text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  <th className="py-4 px-6 font-semibold">Fonctionnalité</th>
+                  <th className="py-4 px-6 text-center font-semibold">Lycéens</th>
+                  <th className="py-4 px-6 text-center font-semibold">Étudiants</th>
+                  <th className="py-4 px-6 text-center font-semibold">Établissements</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800 text-xs sm:text-sm">
+                {comparisonRows.map((row, idx) => (
+                  <tr key={idx} className="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors">
+                    <td className="py-4 px-6 font-medium text-slate-800 dark:text-slate-200">
+                      {row.feature}
+                    </td>
+                    <td className="py-4 px-6 text-center">
+                      {row.lyceen ? (
+                        <CheckIcon className="w-5 h-5 text-emerald-600 dark:text-emerald-400 mx-auto" />
+                      ) : (
+                        <XMarkIcon className="w-5 h-5 text-slate-300 dark:text-slate-600 mx-auto" />
+                      )}
+                    </td>
+                    <td className="py-4 px-6 text-center">
+                      {row.etudiant ? (
+                        <CheckIcon className="w-5 h-5 text-emerald-600 dark:text-emerald-400 mx-auto" />
+                      ) : (
+                        <XMarkIcon className="w-5 h-5 text-slate-300 dark:text-slate-600 mx-auto" />
+                      )}
+                    </td>
+                    <td className="py-4 px-6 text-center">
+                      {row.etablissement ? (
+                        <CheckIcon className="w-5 h-5 text-emerald-600 dark:text-emerald-400 mx-auto" />
+                      ) : (
+                        <XMarkIcon className="w-5 h-5 text-slate-300 dark:text-slate-600 mx-auto" />
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </motion.div>
       </div>

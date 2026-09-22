@@ -9,7 +9,8 @@ import {
   CodeBracketIcon,
   QuestionMarkCircleIcon,
   LightBulbIcon,
-  RocketLaunchIcon
+  RocketLaunchIcon,
+  ChevronDownIcon
 } from '@heroicons/react/24/outline';
 
 const navSections = [
@@ -17,46 +18,36 @@ const navSections = [
     title: 'Démarrage Rapide',
     icon: RocketLaunchIcon,
     items: [
-      { name: 'Installation', href: '/download#installation', description: 'Télécharger l\'application Android' },
+      { name: 'Installation APK', href: '/download#installation', description: 'Télécharger sur Android' },
       { name: 'Premiers Pas', href: '#first-steps', description: 'Guide de démarrage rapide' },
-      { name: 'Prérequis', href: '/download#requirements', description: 'Compatibilité Android et APK' }
+      { name: 'Exigences Système', href: '/download#requirements', description: 'Compatibilité et stockage' }
     ]
   },
   {
-    title: 'Fonctionnalités',
-    icon: LightBulbIcon,
-    items: [
-      { name: 'Universités Privées', href: '/universites/privees', description: 'Explorer les universités privées du Mali' },
-      { name: 'Universités Publiques', href: '/universites/publiques', description: 'Découvrir les universités publiques par série' },
-      { name: 'Séries du BAC', href: '/universites/series', description: 'Comprendre les séries du baccalauréat' },
-      { name: 'Toutes les universités', href: '/universites', description: 'Vue d\'ensemble des ressources' }
-    ]
-  },
-  {
-    title: 'Tutoriels',
+    title: 'Orientation & Séries',
     icon: AcademicCapIcon,
     items: [
-      { name: 'Recherche d\'Universités', href: '/universites', description: 'Comment trouver une université' },
-      { name: 'Choix de Série', href: '/universites/series', description: 'Choisir la bonne série' },
-      { name: 'Débouchés', href: '/universites/publiques', description: 'Comprendre les débouchés professionnels' }
+      { name: 'Séries du BAC', href: '/universites/series', description: 'Comprendre chaque série' },
+      { name: 'Universités Publiques', href: '/universites/publiques', description: 'Filières de l\'État malien' },
+      { name: 'Universités Privées', href: '/universites/privees', description: 'Instituts et grandes écoles' },
+      { name: 'Toutes les filières', href: '/universites', description: 'Catalogue général' }
     ]
   },
   {
-    title: 'Dépannage',
+    title: 'Assistance & FAQ',
     icon: QuestionMarkCircleIcon,
     items: [
-      { name: 'FAQ', href: '/support#faq', description: 'Questions fréquentes' },
-      { name: 'Problèmes Courants', href: '/support#common-issues', description: 'Solutions aux erreurs' },
-      { name: 'Contact', href: '/support#contact', description: 'Contacter l\'équipe' }
+      { name: 'Foire aux Questions', href: '/support#faq', description: 'Réponses à vos interrogations' },
+      { name: 'Dépannage d\'installation', href: '/download#installation', description: 'Résoudre les blocages' },
+      { name: 'Nous contacter', href: '/support#contact', description: 'Assistance directe par email' }
     ]
   },
   {
-    title: 'Développeurs',
+    title: 'Ressources Techniques',
     icon: CodeBracketIcon,
     items: [
-      { name: 'API', href: '#api', description: 'Documentation de l\'API' },
-      { name: 'Données', href: '/universites', description: 'Structure des données publiques' },
-      { name: 'Intégration', href: '/features#integration', description: 'Guides d\'intégration' }
+      { name: 'Référentiel Données', href: '#api', description: 'Structure des données publiques' },
+      { name: 'Intégration & Widgets', href: '/features#integration', description: 'Pour les lycées et partenaires' }
     ]
   }
 ];
@@ -69,101 +60,82 @@ export function DocumentationNav() {
   };
 
   return (
-    <nav className="lg:sticky lg:top-8">
-      <div className="bg-white dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700 p-6 shadow-soft">
-        <div className="flex items-center space-x-3 mb-6">
-          <BookOpenIcon className="h-6 w-6 text-secondary-600" />
-          <h3 className="text-lg font-bold text-neutral-900 dark:text-white">
-            Navigation
-          </h3>
+    <nav className="lg:sticky lg:top-24">
+      <div className="bg-white dark:bg-[#112240] rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-card">
+        <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
+          <div className="w-9 h-9 rounded-lg bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] flex items-center justify-center">
+            <BookOpenIcon className="h-5 w-5" />
+          </div>
+          <div>
+            <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">
+              Sommaire
+            </h3>
+            <span className="text-xs text-slate-500 dark:text-slate-400">Documentation</span>
+          </div>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-2">
           {navSections.map((section, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.05 }}
-            >
+            <div key={index} className="rounded-xl overflow-hidden border border-transparent">
               <button
                 onClick={() => toggleSection(index)}
-                className="w-full flex items-center justify-between p-3 rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors duration-200"
+                className={`w-full flex items-center justify-between p-3 rounded-xl text-left transition-colors duration-200 ${
+                  openSection === index
+                    ? 'bg-[#13508F]/5 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8]'
+                    : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/60'
+                }`}
               >
-                <div className="flex items-center space-x-3">
-                  <section.icon className="h-5 w-5 text-secondary-600" />
-                  <span className="font-medium text-neutral-900 dark:text-white text-left">
+                <div className="flex items-center gap-2.5">
+                  <section.icon className={`h-4 w-4 ${openSection === index ? 'text-[#13508F] dark:text-[#3B9DF8]' : 'text-slate-400'}`} />
+                  <span className="text-sm font-semibold">
                     {section.title}
                   </span>
                 </div>
-                <motion.div
-                  animate={{ rotate: openSection === index ? 180 : 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="text-neutral-400"
-                >
-                  ▼
-                </motion.div>
+                <ChevronDownIcon
+                  className={`h-4 w-4 transition-transform duration-200 text-slate-400 ${
+                    openSection === index ? 'rotate-180 text-[#13508F] dark:text-[#3B9DF8]' : ''
+                  }`}
+                />
               </button>
 
               {openSection === index && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="ml-8 mt-2 space-y-2"
-                >
+                <div className="pl-6 pr-2 py-2 space-y-1">
                   {section.items.map((item, itemIndex) => (
                     <a
                       key={itemIndex}
                       href={item.href}
-                      className="block p-3 rounded-lg hover:bg-secondary-50 dark:hover:bg-secondary-900/20 transition-colors duration-200 group"
+                      className="block p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-colors duration-150 group"
                     >
-                      <div className="font-medium text-neutral-700 dark:text-neutral-300 group-hover:text-secondary-600 transition-colors duration-200">
+                      <div className="text-xs font-semibold text-slate-800 dark:text-slate-200 group-hover:text-[#13508F] dark:group-hover:text-[#3B9DF8] transition-colors">
                         {item.name}
                       </div>
-                      <div className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
                         {item.description}
                       </div>
                     </a>
                   ))}
-                </motion.div>
+                </div>
               )}
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        {/* Quick Actions */}
-        <div className="mt-8 pt-6 border-t border-neutral-200 dark:border-neutral-700">
-          <h4 className="font-semibold text-neutral-900 dark:text-white mb-4">
-            Actions Rapides
-          </h4>
-          <div className="space-y-3">
-            <Link href="/universites" className="block w-full text-left p-3 bg-secondary-50 dark:bg-secondary-900/20 rounded-lg hover:bg-secondary-100 dark:hover:bg-secondary-900/30 transition-colors duration-200">
-              <div className="font-medium text-secondary-700 dark:text-secondary-300">
-                🏛️ Guide des Universités
-              </div>
-              <div className="text-sm text-secondary-600 dark:text-secondary-400">
-                Liste complète
-              </div>
-            </Link>
-            <Link href="/universites/series" className="block w-full text-left p-3 bg-accent-50 dark:bg-accent-900/20 rounded-lg hover:bg-accent-100 dark:hover:bg-accent-900/30 transition-colors duration-200">
-              <div className="font-medium text-accent-700 dark:text-accent-300">
-                📊 Recherche par Série
-              </div>
-              <div className="text-sm text-accent-600 dark:text-accent-400">
-                Trouver votre voie
-              </div>
-            </Link>
-            <Link href="/support#contact" className="block w-full text-left p-3 bg-primary-50 dark:bg-primary-900/20 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors duration-200">
-              <div className="font-medium text-primary-700 dark:text-primary-300">
-                💬 Contact
-              </div>
-              <div className="text-sm text-primary-600 dark:text-primary-400">
-                Aide et support
-              </div>
-            </Link>
-          </div>
+        {/* Quick Links Footer */}
+        <div className="mt-6 pt-5 border-t border-slate-100 dark:border-slate-800 space-y-2">
+          <Link
+            href="/universites"
+            className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-[#0a192f] border border-slate-200 dark:border-slate-800 hover:border-[#13508F]/40 transition-colors"
+          >
+            <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">Catalogue des universités</span>
+            <span className="text-xs text-[#13508F] dark:text-[#3B9DF8] font-bold">→</span>
+          </Link>
+          <Link
+            href="/support"
+            className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-[#0a192f] border border-slate-200 dark:border-slate-800 hover:border-[#13508F]/40 transition-colors"
+          >
+            <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">Centre d'Assistance</span>
+            <span className="text-xs text-[#13508F] dark:text-[#3B9DF8] font-bold">→</span>
+          </Link>
         </div>
       </div>
     </nav>

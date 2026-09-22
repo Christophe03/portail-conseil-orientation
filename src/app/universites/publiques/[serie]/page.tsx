@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import series from '@/data/series_mali.json';
 import { slugify } from '@/lib/utils';
 import { BackLink } from '@/components/ui/BackLink';
+import { BuildingLibraryIcon, ArrowRightIcon, AcademicCapIcon } from '@heroicons/react/24/outline';
 
 type Fac = {
   li?: boolean;
@@ -32,7 +33,7 @@ export function generateMetadata({ params }: { params: { serie: string } }): Met
     return { title: 'Série introuvable', robots: { index: false, follow: false } };
   }
 
-  const title = `${serie.nom} — Universités publiques`;
+  const title = `${serie.nom} — Universités publiques au Mali`;
   const description = `Découvrez les universités publiques et les formations accessibles avec la série ${serie.nom} au Mali.`;
   const path = `/universites/publiques/${params.serie}`;
 
@@ -49,45 +50,84 @@ export default function SerieUniversitesPage({ params }: { params: { serie: stri
   const s = getSerie(params.serie);
   if (!s) {
     return (
-      <section className="container-custom pt-24 pb-12 sm:pt-28">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-neutral-600 dark:text-neutral-300">Série introuvable.</p>
-          <BackLink fallbackHref="/universites/publiques" className="mt-4 inline-flex text-sm text-primary-600 hover:underline">
+      <div className="min-h-screen bg-slate-50/70 dark:bg-[#0a192f] pt-28 pb-16 sm:pt-36">
+        <div className="container-custom max-w-4xl text-center">
+          <p className="text-slate-600 dark:text-slate-300">Série introuvable.</p>
+          <BackLink fallbackHref="/universites/publiques" className="mt-4 inline-flex text-sm text-[#13508F] dark:text-[#3B9DF8] hover:underline font-semibold">
             Retour aux séries
           </BackLink>
         </div>
-      </section>
+      </div>
     );
   }
 
   return (
-    <section className="container-custom pt-24 pb-12 sm:pt-28">
-      <div className="max-w-4xl mx-auto">
-        <BackLink fallbackHref="/universites/publiques" className="text-sm text-primary-600 hover:underline">
-          ← Retour aux séries
-        </BackLink>
-        <h1 className="mt-4 text-xl sm:text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white break-words">
-          {s.nom}
-        </h1>
+    <div className="min-h-screen bg-slate-50/70 dark:bg-[#0a192f] pt-28 pb-16 sm:pt-36 sm:pb-24">
+      <div className="container-custom max-w-4xl">
+        {/* Breadcrumb & Back */}
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+          <nav className="flex items-center text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+            <Link href="/" className="hover:text-[#13508F] dark:hover:text-[#3B9DF8]">Accueil</Link>
+            <span className="mx-2">/</span>
+            <Link href="/universites" className="hover:text-[#13508F] dark:hover:text-[#3B9DF8]">Universités</Link>
+            <span className="mx-2">/</span>
+            <Link href="/universites/publiques" className="hover:text-[#13508F] dark:hover:text-[#3B9DF8]">Publiques</Link>
+            <span className="mx-2">/</span>
+            <span className="text-slate-900 dark:text-white font-medium truncate">{s.nom}</span>
+          </nav>
+          <BackLink fallbackHref="/universites/publiques" className="text-xs sm:text-sm font-semibold text-[#13508F] dark:text-[#3B9DF8] hover:underline">
+            ← Toutes les séries
+          </BackLink>
+        </div>
 
-        <div className="mt-6 space-y-4">
-          {s.universite.map((u) => (
-            <div key={u.nom} className="rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4 sm:p-5 shadow-soft">
-              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
-                <div>
-                  <h2 className="text-lg font-semibold text-neutral-900 dark:text-white">{u.nom}</h2>
+        {/* Header */}
+        <div className="mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] text-xs font-bold uppercase tracking-wider mb-3">
+            Série du Baccalauréat
+          </div>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
+            {s.nom}
+          </h1>
+          <p className="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-300">
+            Voici les universités publiques du Mali qui accueillent les titulaires de ce baccalauréat.
+          </p>
+        </div>
+
+        {/* University list */}
+        <div className="space-y-4">
+          {s.universite.map((u) => {
+            const facCount = u.fac?.length || 0;
+            return (
+              <div
+                key={u.nom}
+                className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#112240] p-5 sm:p-6 shadow-card hover:border-[#13508F]/40 dark:hover:border-[#3B9DF8]/40 transition-all duration-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="w-11 h-11 rounded-xl bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <BuildingLibraryIcon className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-snug">
+                      {u.nom}
+                    </h2>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                      {facCount} {facCount > 1 ? 'facultés ou instituts accessibles' : 'faculté ou institut accessible'}
+                    </p>
+                  </div>
                 </div>
-                <Link href={`/universites/publiques/${params.serie}/${slugify(u.nom)}`} className="text-primary-600 hover:underline text-sm sm:text-base">
-                  Voir les facultés →
+
+                <Link
+                  href={`/universites/publiques/${params.serie}/${slugify(u.nom)}`}
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#13508F] hover:bg-[#0e3a6a] text-white text-xs sm:text-sm font-semibold transition-all shadow-sm min-h-[40px] whitespace-nowrap self-start sm:self-auto"
+                >
+                  <span>Voir les facultés</span>
+                  <ArrowRightIcon className="w-4 h-4" />
                 </Link>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
-    </section>
+    </div>
   );
 }
-
-
-

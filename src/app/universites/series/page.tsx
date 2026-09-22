@@ -16,6 +16,8 @@ import {
   CpuChipIcon,
   BoltIcon,
   QuestionMarkCircleIcon,
+  ArrowRightIcon,
+  AcademicCapIcon
 } from '@heroicons/react/24/outline';
 
 type Serie = {
@@ -29,11 +31,11 @@ type Serie = {
 const data = series as unknown as Serie[];
 
 export const metadata: Metadata = {
-  title: 'Séries du baccalauréat au Mali',
-  description: 'Découvrez les séries du baccalauréat au Mali, leurs abréviations et des pistes pour préparer votre orientation post-bac.',
+  title: 'Séries du Baccalauréat au Mali - Guides & Débouchés',
+  description: 'Découvrez toutes les séries du baccalauréat au Mali (TSE, TSExp, TSS, TLL, STI, etc.), leurs avantages et les débouchés universitaires associés.',
   alternates: { canonical: '/universites/series' },
   openGraph: {
-    title: 'Séries du baccalauréat au Mali',
+    title: 'Séries du baccalauréat au Mali - Conseil d\'Orientation Mali',
     description: 'Liste des séries du baccalauréat et informations utiles pour préparer son orientation post-bac.',
     url: '/universites/series',
   },
@@ -46,39 +48,9 @@ export const metadata: Metadata = {
 
 export default function SeriesListPage() {
   const items = data.sort((a, b) => a.abre.localeCompare(b.abre));
-  const colorFor = (icon?: string) => {
-    switch ((icon || '').toLowerCase()) {
-      case 'book':
-        return 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300';
-      case 'palette':
-        return 'bg-pink-50 text-pink-700 dark:bg-pink-900/30 dark:text-pink-300';
-      case 'people':
-        return 'bg-teal-50 text-teal-700 dark:bg-teal-900/30 dark:text-teal-300';
-      case 'science':
-      case 'biotech':
-        return 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300';
-      case 'bar_chart':
-        return 'bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300';
-      case 'account_balance':
-        return 'bg-violet-50 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300';
-      case 'apartment':
-        return 'bg-slate-50 text-slate-700 dark:bg-slate-900/30 dark:text-slate-300';
-      case 'domain':
-        return 'bg-stone-50 text-stone-700 dark:bg-stone-900/30 dark:text-stone-300';
-      case 'build':
-        return 'bg-rose-50 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300';
-      case 'precision_manufacturing':
-        return 'bg-fuchsia-50 text-fuchsia-700 dark:bg-fuchsia-900/30 dark:text-fuchsia-300';
-      case 'memory':
-        return 'bg-sky-50 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300';
-      case 'bolt':
-        return 'bg-yellow-50 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300';
-      default:
-        return 'bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300';
-    }
-  };
+
   const renderIcon = (icon?: string) => {
-    const cls = 'h-6 w-6';
+    const cls = 'h-5 w-5';
     switch ((icon || '').toLowerCase()) {
       case 'book':
         return <BookOpenIcon className={cls} />;
@@ -106,42 +78,75 @@ export default function SeriesListPage() {
       case 'bolt':
         return <BoltIcon className={cls} />;
       default:
-        return <QuestionMarkCircleIcon className={cls} />;
+        return <AcademicCapIcon className={cls} />;
     }
   };
-  return (
-    <section className="container-custom pt-24 pb-12 sm:pt-28">
-      <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-neutral-900 dark:text-white text-center text-balance">
-        Séries
-      </h1>
-      <p className="mt-3 text-center text-sm sm:text-base text-neutral-600 dark:text-neutral-300">
-        Cliquez sur une série pour voir sa description et ses avantages.
-      </p>
 
-      <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {items.map((s) => (
-          <Link
-            key={s.abre}
-            href={`/universites/series/${slugify(s.abre)}`}
-            className="group rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4 sm:p-5 shadow-soft hover:shadow-medium transition-all"
-          >
-            <div className="flex items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <div className={`rounded-lg p-2 ${colorFor(s.icon)}`}>
-                  {renderIcon(s.icon)}
+  return (
+    <div className="min-h-screen bg-slate-50/70 dark:bg-[#0a192f] pt-28 pb-16 sm:pt-36 sm:pb-24">
+      <div className="container-custom">
+        {/* Breadcrumb */}
+        <nav className="mb-6 flex items-center text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+          <Link href="/" className="hover:text-[#13508F] dark:hover:text-[#3B9DF8]">Accueil</Link>
+          <span className="mx-2">/</span>
+          <Link href="/universites" className="hover:text-[#13508F] dark:hover:text-[#3B9DF8]">Universités</Link>
+          <span className="mx-2">/</span>
+          <span className="text-slate-900 dark:text-white font-medium">Séries du Bac</span>
+        </nav>
+
+        {/* Header */}
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] text-xs font-bold uppercase tracking-wider mb-4">
+            Guide des Lycéens
+          </div>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4 leading-tight">
+            Les séries du{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#13508F] to-[#3B9DF8]">
+              Baccalauréat malien
+            </span>
+          </h1>
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300">
+            Cliquez sur une série pour découvrir sa description, les matières dominantes, ses points forts et les filières conseillées à l'université.
+          </p>
+        </div>
+
+        {/* Series Grid */}
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((s) => (
+            <Link
+              key={s.abre}
+              href={`/universites/series/${slugify(s.abre)}`}
+              className="group rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#112240] p-6 shadow-card hover:border-[#13508F]/40 dark:hover:border-[#3B9DF8]/40 hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] flex items-center justify-center">
+                    {renderIcon(s.icon)}
+                  </div>
+                  <span className="text-xs font-black px-3 py-1 rounded-full bg-[#13508F] text-white shadow-xs">
+                    {s.abre}
+                  </span>
                 </div>
-                <h2 className="text-lg font-semibold text-neutral-900 dark:text-white">{s.abre}</h2>
+
+                <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white group-hover:text-[#13508F] dark:group-hover:text-[#3B9DF8] transition-colors leading-snug mb-2">
+                  {s.nom}
+                </h2>
+
+                {s.description && (
+                  <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
+                    {s.description}
+                  </p>
+                )}
               </div>
-              <span className="text-sm text-neutral-600 dark:text-neutral-300 group-hover:text-primary-600 transition-colors break-words sm:truncate">
-                {s.nom}
-              </span>
-            </div>
-          </Link>
-        ))}
+
+              <div className="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs font-semibold text-[#13508F] dark:text-[#3B9DF8]">
+                <span>Voir la fiche détaillée</span>
+                <ArrowRightIcon className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
-    </section>
+    </div>
   );
 }
-
-
-

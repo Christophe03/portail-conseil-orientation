@@ -5,96 +5,92 @@ import {
   MagnifyingGlassIcon,
   BuildingOffice2Icon,
   AcademicCapIcon,
-  UserGroupIcon,
   ShieldCheckIcon,
   DevicePhoneMobileIcon,
-  LightBulbIcon
+  LightBulbIcon,
+  CheckCircleIcon
 } from '@heroicons/react/24/outline';
 
 const mainFeatures = [
   {
     icon: MagnifyingGlassIcon,
     title: 'Trouver une Université selon votre Série',
-    description: 'Découvrez les universités qui correspondent parfaitement à votre série du baccalauréat',
+    description: 'Découvrez les universités qui correspondent parfaitement à votre série du baccalauréat.',
     benefits: [
-      'Recherche par série (TSE, TSS, TLL, etc.)',
+      'Recherche par série (TSE, TSS, TLL, TAL, TSECO, etc.)',
       'Universités publiques et privées du Mali',
       'Facultés et licences disponibles',
-      'Conditions d\'admission détaillées'
+      'Conditions d\'admission et critères d\'éligibilité'
     ],
-    color: 'from-blue-500 to-cyan-600',
-    bgColor: 'from-blue-50 to-cyan-50',
-    darkBgColor: 'from-blue-900/20 to-cyan-900/20'
+    iconBg: 'bg-[#13508f]/10 dark:bg-[#13508f]/30 text-[#13508f] dark:text-[#3b9df8]'
   },
   {
     icon: BuildingOffice2Icon,
-    title: 'Recherche d\'Universités Privées du Mali',
-    description: 'Explorez toutes les universités privées du Mali avec leurs informations complètes',
+    title: 'Annuaire des Universités Privées du Mali',
+    description: 'Explorez toutes les universités privées autorisées du Mali avec leurs informations vérifiées.',
     benefits: [
-      'Liste complète des universités privées',
-      'Informations de contact et localisation',
-      'Sites web et pages Facebook',
-      'Logos et détails de chaque établissement'
+      'Plus de 190 établissements répertoriés',
+      'Coordonnées officielles (téléphone, email, adresse)',
+      'Sites web et pages officielles',
+      'Fiches détaillées avec facultés et licences'
     ],
-    color: 'from-green-500 to-emerald-600',
-    bgColor: 'from-green-50 to-emerald-50',
-    darkBgColor: 'from-green-900/20 to-emerald-900/20'
+    iconBg: 'bg-[#3b9df8]/15 dark:bg-[#3b9df8]/25 text-[#0e4379] dark:text-[#7cc5fb]'
   },
   {
     icon: AcademicCapIcon,
     title: 'Que faire après le BAC',
-    description: 'Guide complet pour orienter votre parcours après l\'obtention du baccalauréat',
+    description: 'Guide complet pour orienter votre parcours après l\'obtention du baccalauréat malien.',
     benefits: [
-      'Parcours par série du baccalauréat',
-      'Débouchés professionnels détaillés',
-      'Conseils d\'orientation personnalisés',
-      'Étapes clés pour votre réussite'
+      'Parcours adaptés à chaque série du Baccalauréat',
+      'Débouchés professionnels sur le marché malien',
+      'Conseils d\'orientation personnalisés par IA',
+      'Étapes clés pour votre inscription'
     ],
-    color: 'from-purple-500 to-indigo-600',
-    bgColor: 'from-purple-50 to-indigo-50',
-    darkBgColor: 'from-purple-900/20 to-indigo-900/20'
+    iconBg: 'bg-[#13508f]/10 dark:bg-[#13508f]/30 text-[#13508f] dark:text-[#3b9df8]'
   }
 ];
 
 const additionalFeatures = [
   {
-    icon: ShieldCheckIcon,
-    title: 'Sécurité des Données',
-    description: 'Vos informations personnelles sont protégées et sécurisées'
-  },
-  {
     icon: DevicePhoneMobileIcon,
-    title: 'Application Mobile',
-    description: 'Accédez à toutes les fonctionnalités depuis votre smartphone'
+    title: 'Application Mobile Disponible',
+    description: 'Accédez à toutes les fonctionnalités et à l\'annuaire directement depuis votre smartphone Android & iOS.'
   },
   {
     icon: LightBulbIcon,
-    title: 'Conseils Personnalisés',
-    description: 'Recevez des conseils adaptés à votre situation et vos objectifs'
+    title: 'Conseils Personnalisés par IA',
+    description: 'Posez vos questions au conseiller intelligent pour recevoir des recommandations adaptées à vos objectifs.'
+  },
+  {
+    icon: ShieldCheckIcon,
+    title: 'Données Récentes & Vérifiées',
+    description: 'Informations continuellement mises à jour selon les directives du Ministère de l\'Enseignement Supérieur.'
   }
 ];
 
 export function FeaturesSection() {
   return (
-    <section id="features" className="section-padding bg-white dark:bg-neutral-900">
+    <section id="features" className="py-20 bg-white dark:bg-[#0a192f]">
       <div className="container-custom">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900 dark:text-white mb-6">
-            Fonctionnalités{' '}
-            <span className="bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
-              Principales
+          <div className="inline-flex items-center space-x-2 rounded-full px-3.5 py-1.5 bg-[#13508f]/10 dark:bg-[#112240] border border-[#13508f]/20 dark:border-[#3b9df8]/30 mb-4">
+            <span className="text-xs font-semibold text-[#13508f] dark:text-[#7cc5fb]">
+              Outils & Fonctionnalités
             </span>
+          </div>
+
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#13508f] dark:text-white mb-4">
+            Tout pour réussir votre <span className="text-[#3b9df8]">orientation post-bac</span>
           </h2>
-          <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
-            Découvrez les outils révolutionnaires qui font de Conseil d'Orientation 
-            votre compagnon indispensable pour réussir votre parcours académique et professionnel.
+          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
+            Des outils spécialement conçus pour les élèves, bacheliers et étudiants du Mali afin de faire le meilleur choix d'études.
           </p>
         </motion.div>
 
@@ -103,77 +99,67 @@ export function FeaturesSection() {
           {mainFeatures.map((feature, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className={`group relative rounded-2xl p-8 md:p-9 border border-neutral-200 dark:border-neutral-700 ring-1 ring-neutral-200/60 dark:ring-neutral-700/60 hover:ring-primary-300/70 hover:border-primary-300/70 shadow-soft hover:shadow-2xl transition-all duration-300 overflow-hidden transform hover:-translate-y-1.5`}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="rounded-3xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-[#112240] p-7 shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col justify-between"
             >
-              {/* Soft background for readability */}
-              <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${feature.bgColor} opacity-70 pointer-events-none`}></div>
-              <div className={`absolute inset-0 rounded-2xl bg-white/75 dark:bg-neutral-800/75 pointer-events-none`}></div>
-              <div className="relative">
-              <div className="flex items-start space-x-4 mb-6">
-                <div className={`p-4 rounded-xl bg-gradient-to-r ${feature.color} text-white shadow-md ring-1 ring-white/40 dark:ring-neutral-700`}> 
-                  <feature.icon className="h-8 w-8" />
+              <div>
+                <div className={`p-3.5 rounded-2xl w-fit ${feature.iconBg} mb-5`}>
+                  <feature.icon className="h-7 w-7" />
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 mb-3">
-                    {feature.title}
-                  </h3>
-                  <p className="text-neutral-800 dark:text-neutral-200 text-base md:text-lg">
-                    {feature.description}
-                  </p>
+                
+                <h3 className="text-xl font-bold text-[#13508f] dark:text-white mb-3">
+                  {feature.title}
+                </h3>
+                <p className="text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+                  {feature.description}
+                </p>
+
+                <div className="space-y-2.5 pt-4 border-t border-slate-100 dark:border-slate-800">
+                  <span className="block text-xs font-bold uppercase tracking-wider text-[#3b9df8] mb-3">
+                    Avantages clés :
+                  </span>
+                  <ul className="space-y-2">
+                    {feature.benefits.map((benefit, benefitIndex) => (
+                      <li key={benefitIndex} className="flex items-start space-x-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
+                        <CheckCircleIcon className="h-4 w-4 text-[#3b9df8] shrink-0 mt-0.5" />
+                        <span>{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              </div>
-              
-              <div className="space-y-3">
-                <h4 className="font-semibold text-neutral-900 dark:text-neutral-100 text-lg">
-                  Avantages clés :
-                </h4>
-                <ul className="space-y-2">
-                  {feature.benefits.map((benefit, benefitIndex) => (
-                    <li key={benefitIndex} className="flex items-start space-x-3">
-                      <div className="flex-shrink-0 w-2.5 h-2.5 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full mt-2 ring-1 ring-white/50 dark:ring-neutral-700"></div>
-                      <span className="text-neutral-900 dark:text-neutral-100">{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Additional Features */}
+        {/* Additional Features Row */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mb-16"
+          transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-8 text-center">
-            ✨ Autres Fonctionnalités
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {additionalFeatures.map((feature, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="w-full max-w-sm text-center p-6 bg-white/90 dark:bg-neutral-800/80 backdrop-blur-sm rounded-xl border border-neutral-200 dark:border-neutral-700 ring-1 ring-neutral-200/60 dark:ring-neutral-700/60 hover:ring-primary-300/70 hover:border-primary-300/70 shadow-soft hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
+                className="p-6 bg-slate-50 dark:bg-[#071324] rounded-2xl border border-slate-200/80 dark:border-slate-800 text-left flex items-start space-x-4"
               >
-                <feature.icon className="h-12 w-12 mx-auto mb-4 text-primary-600 drop-shadow-sm" />
-                <h4 className="font-semibold text-neutral-900 dark:text-neutral-100 mb-2">
-                  {feature.title}
-                </h4>
-                <p className="text-sm text-neutral-700 dark:text-neutral-200">
-                  {feature.description}
-                </p>
-              </motion.div>
+                <div className="p-2.5 rounded-xl bg-[#13508f]/10 dark:bg-[#13508f]/25 text-[#13508f] dark:text-[#3b9df8] shrink-0">
+                  <feature.icon className="h-6 w-6 text-[#3b9df8]" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-[#13508f] dark:text-white text-sm mb-1">
+                    {feature.title}
+                  </h4>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                    {feature.description}
+                  </p>
+                </div>
+              </div>
             ))}
           </div>
         </motion.div>

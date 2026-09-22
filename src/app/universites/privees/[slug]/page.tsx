@@ -3,6 +3,17 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import data from '@/data/universites_privees.json';
 import { formatDate, slugify } from '@/lib/utils';
+import { 
+  BuildingOfficeIcon, 
+  MapPinIcon, 
+  PhoneIcon, 
+  EnvelopeIcon, 
+  GlobeAltIcon, 
+  CalendarDaysIcon,
+  IdentificationIcon,
+  ArrowLeftIcon,
+  ArrowRightIcon
+} from '@heroicons/react/24/outline';
 
 type Privee = {
   ID: string;
@@ -65,8 +76,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const name = university.Nom;
   const acronym = university.Sigle ? ` (${university.Sigle})` : '';
   const location = university.Localisation || 'au Mali';
-  const title = `${name}${acronym} — Adresse, contact | Conseil d'Orientation Mali`;
-  const description = `${name}${acronym}, université privée située à ${location}, Mali. Adresse, contact, site web.`;
+  const title = `${name}${acronym} — Adresse, contact & filières | Mali`;
+  const description = `${name}${acronym}, université privée située à ${location}, Mali. Adresse, contact, site web et informations d'inscription.`;
   const path = `/universites/privees/${params.slug}`;
 
   return {
@@ -82,14 +93,14 @@ export default function PriveeDetailPage({ params }: { params: { slug: string } 
   const u = matchUniversity(params.slug);
   if (!u) {
     return (
-      <section className="container-custom pt-24 pb-12 sm:pt-28">
-        <div className="max-w-3xl mx-auto text-center">
-          <p className="text-neutral-600 dark:text-neutral-300">Université introuvable.</p>
-          <Link href="/universites/privees" className="mt-4 inline-flex items-center rounded-xl border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 px-4 py-2 text-sm text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition">
+      <div className="min-h-screen bg-slate-50/70 dark:bg-[#0a192f] pt-28 pb-16 sm:pt-36">
+        <div className="container-custom max-w-3xl text-center">
+          <p className="text-slate-600 dark:text-slate-300">Université introuvable.</p>
+          <Link href="/universites/privees" className="mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#13508F] text-white text-xs sm:text-sm font-semibold">
             ← Retour à la liste
           </Link>
         </div>
-      </section>
+      </div>
     );
   }
 
@@ -98,7 +109,7 @@ export default function PriveeDetailPage({ params }: { params: { slug: string } 
   const initials = u.Sigle ? u.Sigle.substring(0, 2).toUpperCase() : u.Nom.charAt(0).toUpperCase();
 
   const lastModifiedDate = getDynamicLastModified(u);
-  const directAnswer = `${u.Nom}${u.Sigle ? ` (${u.Sigle})` : ''} est une université ${u.Type?.toLowerCase() === 'publique' ? 'publique' : 'privée'} située à ${u.Localisation || 'au Mali'} au Mali. Elle est référencée dans le portail Conseil d’Orientation Mali pour aider les candidats à retrouver ses coordonnées, son adresse et ses informations de base.`;
+  const directAnswer = `${u.Nom}${u.Sigle ? ` (${u.Sigle})` : ''} est un établissement d'enseignement supérieur privé agréé situé à ${u.Localisation || 'au Mali'}. Retrouvez l'ensemble de ses coordonnées certifiées, ses filières de formation et les modalités de contact.`;
 
   const sameLocation = universites.filter(
     (other) => other.ID !== u.ID && other.Localisation && other.Localisation === u.Localisation
@@ -119,156 +130,193 @@ export default function PriveeDetailPage({ params }: { params: { slug: string } 
   const hasContactInfo = cleanContact || cleanMail || cleanSite || cleanFacebook || cleanAdresse;
 
   return (
-    <section className="container-custom pt-24 pb-12 sm:pt-28">
-      <div className="max-w-3xl mx-auto">
-        <nav className="mb-4 flex items-center text-sm text-neutral-500 whitespace-nowrap overflow-x-auto">
-          <Link href="/" className="text-primary-600 hover:underline">Accueil</Link>
-          <span className="mx-2">{'>'}</span>
-          <Link href="/universites" className="text-primary-600 hover:underline">Universités</Link>
-          <span className="mx-2">{'>'}</span>
-          <Link href="/universites/privees" className="text-primary-600 hover:underline">Universités privées</Link>
-          <span className="mx-2">{'>'}</span>
-          <span className="text-neutral-900 dark:text-neutral-200 truncate">{u.Nom}</span>
-        </nav>
+    <div className="min-h-screen bg-slate-50/70 dark:bg-[#0a192f] pt-28 pb-16 sm:pt-36 sm:pb-24">
+      <div className="container-custom max-w-3xl">
+        {/* Breadcrumb & Back */}
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+          <nav className="flex items-center text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+            <Link href="/" className="hover:text-[#13508F] dark:hover:text-[#3B9DF8]">Accueil</Link>
+            <span className="mx-2">/</span>
+            <Link href="/universites" className="hover:text-[#13508F] dark:hover:text-[#3B9DF8]">Universités</Link>
+            <span className="mx-2">/</span>
+            <Link href="/universites/privees" className="hover:text-[#13508F] dark:hover:text-[#3B9DF8]">Privées</Link>
+            <span className="mx-2">/</span>
+            <span className="text-slate-900 dark:text-white font-medium truncate">{u.Sigle || u.Nom}</span>
+          </nav>
 
-        <Link 
-          href="/universites/privees" 
-          className="inline-flex items-center rounded-xl border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 px-4 py-2 text-sm text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition mb-6"
-        >
-          ← Retour à la liste
-        </Link>
-        <div className="rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-5 sm:p-6 shadow-soft">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+          <Link 
+            href="/universites/privees" 
+            className="text-xs sm:text-sm font-semibold text-[#13508F] dark:text-[#3B9DF8] hover:underline"
+          >
+            ← Retour à la liste
+          </Link>
+        </div>
+
+        {/* University Main Card */}
+        <div className="rounded-3xl p-6 sm:p-8 bg-white dark:bg-[#112240] border border-slate-200 dark:border-slate-800 shadow-card mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-5 mb-5">
             {hasLogo ? (
-              <div className="relative h-16 w-16 rounded-xl overflow-hidden bg-neutral-100 dark:bg-neutral-800 flex-shrink-0">
+              <div className="relative h-16 w-16 rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-800 flex-shrink-0 border border-slate-200 dark:border-slate-700">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 {logoSrc.startsWith('http') ? (
                   <img src={logoSrc} alt={u.Nom} className="h-full w-full object-cover" />
                 ) : (
-                  <Image src={logoSrc} alt={u.Nom} fill className="object-contain" />
+                  <Image src={logoSrc} alt={u.Nom} fill className="object-contain p-1" />
                 )}
               </div>
             ) : (
-              <div className="h-16 w-16 rounded-xl bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center flex-shrink-0">
-                <span className="text-primary-700 dark:text-primary-300 font-bold text-lg">{initials}</span>
+              <div className="h-16 w-16 rounded-2xl bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] flex items-center justify-center flex-shrink-0 font-black text-xl">
+                {initials}
               </div>
             )}
             <div>
-              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white break-words">
+              <div className="flex flex-wrap items-center gap-2 mb-1.5">
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#13508F]/10 text-[#13508F] dark:bg-[#3B9DF8]/10 dark:text-[#3B9DF8]">
+                  Établissement Privé
+                </span>
+                {u.Localisation && (
+                  <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 dark:bg-[#0a192f] text-slate-600 dark:text-slate-300">
+                    📍 {u.Localisation}
+                  </span>
+                )}
+              </div>
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 dark:text-white leading-tight">
                 {u.Nom}
               </h1>
-              <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-300">{u.Désignation}</p>
+              {u.Désignation && (
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">{u.Désignation}</p>
+              )}
             </div>
           </div>
 
-          <p className="direct-answer mt-4 rounded-lg border border-primary-100 bg-primary-50/70 p-3 text-sm text-neutral-800 dark:border-primary-900/40 dark:bg-primary-950/30 dark:text-neutral-200">
+          <p className="p-4 rounded-xl bg-slate-50 dark:bg-[#0a192f] border border-slate-100 dark:border-slate-800 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-3">
             {directAnswer}
           </p>
-          <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
-            Informations mises à jour le {formatDate(lastModifiedDate)}
+          <p className="text-[11px] text-slate-400">
+            Fiche actualisée le {formatDate(lastModifiedDate)}
           </p>
 
-          <dl className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Quick info grid */}
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             {u.Sigle && (
-              <div className="rounded-lg border border-neutral-200 dark:border-neutral-700 p-4">
-                <dt className="text-xs uppercase tracking-wide text-neutral-500">Sigle</dt>
-                <dd className="mt-1 font-medium">{u.Sigle}</dd>
+              <div className="p-4 rounded-xl bg-slate-50/70 dark:bg-[#0a192f] border border-slate-200/80 dark:border-slate-800">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Sigle</span>
+                <span className="font-bold text-sm text-slate-900 dark:text-white">{u.Sigle}</span>
               </div>
             )}
             {u.Localisation && (
-              <div className="rounded-lg border border-neutral-200 dark:border-neutral-700 p-4">
-                <dt className="text-xs uppercase tracking-wide text-neutral-500">Localisation</dt>
-                <dd className="mt-1 font-medium">{u.Localisation}</dd>
+              <div className="p-4 rounded-xl bg-slate-50/70 dark:bg-[#0a192f] border border-slate-200/80 dark:border-slate-800">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Ville / Localisation</span>
+                <span className="font-bold text-sm text-slate-900 dark:text-white">{u.Localisation}</span>
               </div>
             )}
             {u.Ouverture && (
-              <div className="rounded-lg border border-neutral-200 dark:border-neutral-700 p-4">
-                <dt className="text-xs uppercase tracking-wide text-neutral-500">Date d'autorisation</dt>
-                <dd className="mt-1 font-medium">{u.Ouverture}</dd>
+              <div className="p-4 rounded-xl bg-slate-50/70 dark:bg-[#0a192f] border border-slate-200/80 dark:border-slate-800">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Arrêté / Date d'ouverture</span>
+                <span className="font-bold text-sm text-slate-900 dark:text-white">{u.Ouverture}</span>
               </div>
             )}
-          </dl>
+            {u.Responsable && (
+              <div className="p-4 rounded-xl bg-slate-50/70 dark:bg-[#0a192f] border border-slate-200/80 dark:border-slate-800">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Direction / Responsable</span>
+                <span className="font-bold text-sm text-slate-900 dark:text-white">{u.Responsable}</span>
+              </div>
+            )}
+          </div>
 
+          {/* Contact Details */}
           {hasContactInfo && (
-            <div className="mt-8">
-              <h2 className="text-lg font-semibold text-neutral-900 dark:text-white mb-4">Contact</h2>
-              <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
+              <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-4">
+                Coordonnées & Prise de Contact
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 {cleanContact && (
-                  <div className="rounded-lg border border-neutral-200 dark:border-neutral-700 p-4">
-                    <dt className="text-xs uppercase tracking-wide text-neutral-500">Téléphone</dt>
-                    <dd className="mt-1 font-medium">
-                      <a href={`tel:${cleanContact.replace(/\D/g, '')}`} className="text-primary-600 hover:underline">
+                  <div className="p-4 rounded-xl bg-slate-50/70 dark:bg-[#0a192f] border border-slate-200/80 dark:border-slate-800 flex items-start gap-3">
+                    <PhoneIcon className="w-5 h-5 text-[#3B9DF8] flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">Téléphone</span>
+                      <a href={`tel:${cleanContact.replace(/\D/g, '')}`} className="font-semibold text-xs sm:text-sm text-[#13508F] dark:text-[#3B9DF8] hover:underline">
                         {cleanContact}
                       </a>
-                    </dd>
+                    </div>
                   </div>
                 )}
                 {cleanMail && (
-                  <div className="rounded-lg border border-neutral-200 dark:border-neutral-700 p-4">
-                    <dt className="text-xs uppercase tracking-wide text-neutral-500">Email</dt>
-                    <dd className="mt-1 font-medium break-all">
-                      <a href={`mailto:${cleanMail}`} className="text-primary-600 hover:underline">
+                  <div className="p-4 rounded-xl bg-slate-50/70 dark:bg-[#0a192f] border border-slate-200/80 dark:border-slate-800 flex items-start gap-3">
+                    <EnvelopeIcon className="w-5 h-5 text-[#3B9DF8] flex-shrink-0 mt-0.5" />
+                    <div className="min-w-0">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">Email</span>
+                      <a href={`mailto:${cleanMail}`} className="font-semibold text-xs sm:text-sm text-[#13508F] dark:text-[#3B9DF8] hover:underline break-all">
                         {cleanMail}
                       </a>
-                    </dd>
+                    </div>
                   </div>
                 )}
                 {cleanSite && (
-                  <div className="rounded-lg border border-neutral-200 dark:border-neutral-700 p-4">
-                    <dt className="text-xs uppercase tracking-wide text-neutral-500">Site web</dt>
-                    <dd className="mt-1 font-medium break-all">
-                      <a href={`https://${cleanSite.replace(/^https?:\/\//, '')}`} className="text-primary-600 hover:underline" target="_blank" rel="noopener noreferrer">
+                  <div className="p-4 rounded-xl bg-slate-50/70 dark:bg-[#0a192f] border border-slate-200/80 dark:border-slate-800 flex items-start gap-3">
+                    <GlobeAltIcon className="w-5 h-5 text-[#3B9DF8] flex-shrink-0 mt-0.5" />
+                    <div className="min-w-0">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">Site Web</span>
+                      <a href={`https://${cleanSite.replace(/^https?:\/\//, '')}`} target="_blank" rel="noopener noreferrer" className="font-semibold text-xs sm:text-sm text-[#13508F] dark:text-[#3B9DF8] hover:underline break-all">
                         {cleanSite}
                       </a>
-                    </dd>
-                  </div>
-                )}
-                {cleanFacebook && (
-                  <div className="rounded-lg border border-neutral-200 dark:border-neutral-700 p-4 sm:col-span-2">
-                    <dt className="text-xs uppercase tracking-wide text-neutral-500">Facebook</dt>
-                    <dd className="mt-1 font-medium break-all">
-                      <a href={cleanFacebook} className="text-primary-600 hover:underline" target="_blank" rel="noopener noreferrer">
-                        {cleanFacebook}
-                      </a>
-                    </dd>
+                    </div>
                   </div>
                 )}
                 {cleanAdresse && (
-                  <div className="rounded-lg border border-neutral-200 dark:border-neutral-700 p-4 sm:col-span-2">
-                    <dt className="text-xs uppercase tracking-wide text-neutral-500">Adresse</dt>
-                    <dd className="mt-1 font-medium">{cleanAdresse}</dd>
+                  <div className="p-4 rounded-xl bg-slate-50/70 dark:bg-[#0a192f] border border-slate-200/80 dark:border-slate-800 flex items-start gap-3 sm:col-span-2">
+                    <MapPinIcon className="w-5 h-5 text-[#3B9DF8] flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">Adresse physique</span>
+                      <span className="text-xs sm:text-sm text-slate-800 dark:text-slate-200">{cleanAdresse}</span>
+                    </div>
                   </div>
                 )}
-              </dl>
+              </div>
             </div>
           )}
         </div>
 
-        <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-between">
-          <Link href={`/universites/privees/${getSlug(prevU)}`} className="flex-1 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4 hover:border-primary-300 dark:hover:border-primary-700 transition text-left shadow-soft">
-            <span className="block text-xs text-neutral-500 uppercase tracking-wider mb-1">Précédent</span>
-            <span className="font-semibold text-primary-600 line-clamp-1">← {prevU.Sigle || prevU.Nom}</span>
+        {/* Prev / Next navigation */}
+        <div className="flex flex-col sm:flex-row gap-3.5 justify-between mb-10">
+          <Link
+            href={`/universites/privees/${getSlug(prevU)}`}
+            className="flex-1 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#112240] hover:border-[#13508F]/40 shadow-xs transition-colors"
+          >
+            <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Précédent</span>
+            <span className="font-semibold text-xs sm:text-sm text-[#13508F] dark:text-[#3B9DF8] line-clamp-1">← {prevU.Sigle || prevU.Nom}</span>
           </Link>
-          <Link href={`/universites/privees/${getSlug(nextU)}`} className="flex-1 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4 hover:border-primary-300 dark:hover:border-primary-700 transition text-right shadow-soft">
-            <span className="block text-xs text-neutral-500 uppercase tracking-wider mb-1">Suivant</span>
-            <span className="font-semibold text-primary-600 line-clamp-1">{nextU.Sigle || nextU.Nom} →</span>
+          <Link
+            href={`/universites/privees/${getSlug(nextU)}`}
+            className="flex-1 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#112240] hover:border-[#13508F]/40 shadow-xs transition-colors text-right"
+          >
+            <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Suivant</span>
+            <span className="font-semibold text-xs sm:text-sm text-[#13508F] dark:text-[#3B9DF8] line-clamp-1">{nextU.Sigle || nextU.Nom} →</span>
           </Link>
         </div>
 
+        {/* Similar universities */}
         {similar.length >= 2 && (
-          <div className="mt-12">
-            <h2 className="text-xl font-bold text-neutral-900 dark:text-white mb-6">Universités à proximité</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <div>
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-4">
+              Autres universités à {u.Localisation}
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
               {similar.map((s) => (
-                <Link key={s.ID} href={`/universites/privees/${getSlug(s)}`} className="block rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4 hover:shadow-medium transition">
-                  <h3 className="font-semibold text-neutral-900 dark:text-white line-clamp-2">{s.Nom}</h3>
-                  {s.Sigle && <p className="text-sm text-neutral-500 mt-1">{s.Sigle}</p>}
+                <Link
+                  key={s.ID}
+                  href={`/universites/privees/${getSlug(s)}`}
+                  className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#112240] hover:border-[#13508F]/40 shadow-xs transition-colors block"
+                >
+                  <h4 className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white line-clamp-2">{s.Nom}</h4>
+                  {s.Sigle && <span className="text-[11px] text-[#13508F] dark:text-[#3B9DF8] font-semibold mt-1 block">{s.Sigle}</span>}
                 </Link>
               ))}
             </div>
           </div>
         )}
       </div>
-    </section>
+    </div>
   );
 }

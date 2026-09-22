@@ -12,101 +12,98 @@ const missions = [
   {
     icon: FlagIcon,
     title: 'Notre Mission',
-    description: 'Faciliter l\'orientation scolaire et post-bac des élèves et étudiants au Mali.',
-    color: 'text-primary-600'
+    description: 'Faciliter l\'orientation scolaire et post-bac des élèves et étudiants sur l\'ensemble du territoire malien.',
+    iconBg: 'bg-[#13508f]/10 dark:bg-[#13508f]/25 text-[#13508f] dark:text-[#3b9df8]'
   },
   {
     icon: LightBulbIcon,
     title: 'Notre Vision',
-    description: 'Permettre à chaque élève au Mali de préparer son avenir grâce à des informations utiles et accessibles.',
-    color: 'text-accent-600'
+    description: 'Permettre à chaque jeune au Mali de bâtir un parcours académique aligné avec ses talents et les besoins du pays.',
+    iconBg: 'bg-[#3b9df8]/15 dark:bg-[#3b9df8]/25 text-[#0e4379] dark:text-[#7cc5fb]'
   },
   {
     icon: HeartIcon,
     title: 'Nos Valeurs',
-    description: 'Innovation, accessibilité, excellence et impact social. Nous croyons au pouvoir transformateur de l\'éducation pour tous.',
-    color: 'text-brand-600'
+    description: 'Accessibilité universelle, rigueur des données éducatives, gratuité et impact social positif pour les familles.',
+    iconBg: 'bg-[#13508f]/10 dark:bg-[#13508f]/25 text-[#13508f] dark:text-[#3b9df8]'
   },
   {
     icon: GlobeAltIcon,
     title: 'Notre Engagement',
-    description: 'Mettre à disposition des informations utiles pour préparer l’orientation post-bac au Mali.',
-    color: 'text-secondary-600'
+    description: 'Actualiser sans cesse les fiches des facultés, licences et débouchés en partenariat avec les acteurs académiques.',
+    iconBg: 'bg-[#3b9df8]/15 dark:bg-[#3b9df8]/25 text-[#0e4379] dark:text-[#7cc5fb]'
   }
 ];
 
 export function MissionSection() {
   return (
-    <section className="section-padding bg-white dark:bg-neutral-900">
+    <section className="py-20 bg-white dark:bg-[#0a192f]">
       <div className="container-custom">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900 dark:text-white mb-6">
-            Notre{' '}
-            <span className="bg-gradient-to-r from-primary-600 via-brand-600 to-accent-500 bg-clip-text text-transparent">
-              Mission
+          <div className="inline-flex items-center space-x-2 rounded-full px-3.5 py-1.5 bg-[#13508f]/10 dark:bg-[#112240] border border-[#13508f]/20 dark:border-[#3b9df8]/30 mb-4">
+            <span className="text-xs font-semibold text-[#13508f] dark:text-[#7cc5fb]">
+              Piliers Fondateurs
             </span>
+          </div>
+
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#13508f] dark:text-white mb-4">
+            Notre Mission & <span className="text-[#3b9df8]">Notre Vision</span>
           </h2>
-          <p className="text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
-            Depuis le lancement de l'application en 2023, nous facilitons l'accès 
-            à l'information pour l'orientation scolaire et post-bac au Mali.
+          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
+            Depuis notre lancement, nous centralisons l'information pédagogique pour que la distance géographique ou le manque de documentation ne soient plus un obstacle à la réussite au Mali.
           </p>
         </motion.div>
 
         {/* Mission Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {missions.map((mission, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="text-center group"
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="text-center p-7 rounded-3xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-[#112240] shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col justify-between"
             >
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary-100 to-secondary-100 dark:from-primary-900/30 dark:to-secondary-900/30 rounded-2xl mb-6 group-hover:scale-110 transition-transform duration-300">
-                <mission.icon className={`h-10 w-10 ${mission.color}`} />
+              <div>
+                <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-5 ${mission.iconBg}`}>
+                  <mission.icon className="h-8 w-8" />
+                </div>
+                <h3 className="text-lg font-bold text-[#13508f] dark:text-white mb-3">
+                  {mission.title}
+                </h3>
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  {mission.description}
+                </p>
               </div>
-              <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-4">
-                {mission.title}
-              </h3>
-              <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                {mission.description}
-              </p>
             </motion.div>
           ))}
         </div>
 
-        {/* Story Section */}
+        {/* Story Section Callout */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-20 text-center"
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-16 p-8 sm:p-12 rounded-3xl bg-slate-50 dark:bg-[#071324] border border-slate-200/80 dark:border-slate-800 max-w-4xl mx-auto text-center"
         >
-          <div className="max-w-4xl mx-auto">
-            <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white mb-6">
-              L'Histoire derrière l'Innovation
-            </h3>
-            <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed mb-8">
-              Tout a commencé en 2023, quand notre équipe de passionnés d'éducation au Mali a constaté 
-              que l'orientation scolaire était souvent un parcours du combattant pour les élèves et étudiants. 
-              Nous avons décidé de créer une solution qui combine l'intelligence artificielle, 
-              l'expertise pédagogique et la technologie mobile pour démocratiser l'accès à 
-              des conseils d'orientation utiles au Mali.
-            </p>
-            <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              Aujourd'hui, Conseil d'Orientation rassemble des informations sur les universités, les séries 
-              du baccalauréat et les parcours post-bac afin d'aider les candidats à préparer leur avenir.
-            </p>
-          </div>
+          <h3 className="text-2xl font-extrabold text-[#13508f] dark:text-white mb-4">
+            L'Origine du Projet
+          </h3>
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+            Tout est parti d'un constat en 2023 : chaque année, des dizaines de milliers de bacheliers maliens se retrouvent désemparés devant la complexité des inscriptions universitaires et le manque de visibilité sur les débouchés réels.
+          </p>
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+            Nous avons donc allié la technologie mobile et l'intelligence artificielle pour concevoir un guide interactif complet, gratuit et adapté aux réalités du Mali, permettant à chacun de trouver sa filière d'excellence.
+          </p>
         </motion.div>
       </div>
     </section>

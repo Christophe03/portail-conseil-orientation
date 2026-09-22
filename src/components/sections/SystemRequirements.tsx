@@ -3,187 +3,187 @@
 import { motion } from 'framer-motion';
 import { 
   DevicePhoneMobileIcon,
+  GlobeAltIcon,
   ComputerDesktopIcon,
   CheckCircleIcon,
-  ExclamationTriangleIcon
+  InformationCircleIcon
 } from '@heroicons/react/24/outline';
 
 const requirements = [
   {
-    platform: 'Android',
+    platform: 'Android (APK)',
+    badge: 'Application Native',
     icon: DevicePhoneMobileIcon,
-    minVersion: '6.0 (API 23)',
-    ram: '2 GB minimum',
-    storage: '100 MB',
-    connection: 'Internet requis',
-    features: ['Notifications push', 'Synchronisation cloud', 'Mode hors ligne partiel'],
-    color: 'text-green-600',
-    bgColor: 'bg-green-100 dark:bg-green-900/30'
+    minVersion: 'Android 6.0 (Marshmallow+)',
+    ram: '1.5 Go minimum (2 Go conseillé)',
+    storage: '35 Mo disponible',
+    connection: 'Hors ligne partiel (synchro en ligne)',
+    features: [
+      'Accès instantané sans connexion',
+      'Calculateur de série du Bac intégré',
+      'Fiches universités complètes',
+      'Mises à jour automatiques'
+    ]
   },
   {
-    platform: 'iOS',
-    icon: DevicePhoneMobileIcon,
-    minVersion: '12.0',
-    ram: '2 GB minimum',
-    storage: '120 MB',
-    connection: 'Internet requis',
-    features: ['iCloud Sync', 'Notifications push', 'Mode hors ligne partiel'],
-    color: 'text-blue-600',
-    bgColor: 'bg-blue-100 dark:bg-blue-900/30'
+    platform: 'Navigateur Web & Mobile',
+    badge: 'Accès Direct Sans Installation',
+    icon: GlobeAltIcon,
+    minVersion: 'Chrome, Safari, Firefox, Edge',
+    ram: 'Tout smartphone ou ordinateur',
+    storage: '0 Mo requis',
+    connection: 'Connexion internet requise',
+    features: [
+      'Accessible sur iPhone, Android et PC',
+      'Recherche en direct de filières',
+      'Fiches téléchargeables en PDF',
+      'Partage de fiches par lien'
+    ]
   },
   {
-    platform: 'APK Direct',
+    platform: 'Tablettes & Ordinateurs',
+    badge: 'Grand Écran Optimisé',
     icon: ComputerDesktopIcon,
-    minVersion: '6.0 (API 23)',
-    ram: '2 GB minimum',
-    storage: '80 MB',
-    connection: 'Internet requis',
-    features: ['Installation manuelle', 'Contrôle total', 'Mises à jour manuelles'],
-    color: 'text-orange-600',
-    bgColor: 'bg-orange-100 dark:bg-orange-900/30'
+    minVersion: 'Windows, macOS, Linux, iPadOS',
+    ram: '2 Go minimum',
+    storage: 'Navigateur moderne à jour',
+    connection: 'Connexion haut débit ou 4G',
+    features: [
+      'Interface plein écran confortable',
+      'Comparateur de séries côte à côte',
+      'Espace d\'orientation pour conseillers',
+      'Exportation et impression de listes'
+    ]
   }
 ];
 
 const recommendations = [
-  'Connexion internet stable pour les fonctionnalités en temps réel',
-  'Espace de stockage suffisant pour les ressources téléchargées',
-  'Mise à jour régulière pour les dernières fonctionnalités',
-  'Fermeture des autres applications pour de meilleures performances'
+  'Vérifiez d\'avoir au moins 50 Mo d\'espace libre avant d\'installer le fichier APK.',
+  'Activez la mise à jour automatique ou consultez régulièrement cette page pour obtenir la dernière version.',
+  'Une connexion 3G/4G stable est recommandée lors du premier lancement pour synchroniser les dernières données.',
+  'L\'application est conçue pour fonctionner avec une très faible consommation de données mobiles.'
 ];
 
 export function SystemRequirements() {
   return (
-    <section id="requirements" className="section-padding bg-white dark:bg-neutral-900">
+    <section id="requirements" className="py-16 sm:py-24 bg-white dark:bg-[#0a192f] border-b border-slate-200 dark:border-slate-800">
       <div className="container-custom">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900 dark:text-white mb-6">
-            Exigences{' '}
-            <span className="bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
-              Système
-            </span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] text-xs font-bold uppercase tracking-wider mb-4">
+            Compatibilité Matérielle
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
+            Exigences et compatibilité{' '}
+            <span className="text-[#13508F] dark:text-[#3B9DF8]">système</span>
           </h2>
-          <p className="text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
-            Assurez-vous que votre appareil répond aux exigences minimales 
-            pour une expérience optimale avec l'application.
+          <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg">
+            Notre solution a été optimisée pour fonctionner de manière fluide même sur des smartphones d'entrée de gamme couramment utilisés au Mali.
           </p>
         </motion.div>
 
         {/* Requirements Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-16">
           {requirements.map((req, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700"
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="bg-slate-50/70 dark:bg-[#112240] rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 hover:border-[#13508F]/40 dark:hover:border-[#3B9DF8]/40 transition-all duration-300 flex flex-col justify-between"
             >
-              {/* Platform Header */}
-              <div className="flex items-center space-x-3 mb-6">
-                <div className={`w-12 h-12 ${req.bgColor} rounded-xl flex items-center justify-center`}>
-                  <req.icon className={`h-6 w-6 ${req.color}`} />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-neutral-900 dark:text-white">
-                    {req.platform}
-                  </h3>
-                  <p className="text-sm text-neutral-500 dark:text-neutral-400">
-                    Version minimale
-                  </p>
-                </div>
-              </div>
-
-              {/* Requirements List */}
-              <div className="space-y-4 mb-6">
-                <div className="flex items-center justify-between">
-                  <span className="text-neutral-600 dark:text-neutral-400">Version OS:</span>
-                  <span className="font-semibold text-neutral-900 dark:text-white">{req.minVersion}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-neutral-600 dark:text-neutral-400">RAM:</span>
-                  <span className="font-semibold text-neutral-900 dark:text-white">{req.ram}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-neutral-600 dark:text-neutral-400">Stockage:</span>
-                  <span className="font-semibold text-neutral-900 dark:text-white">{req.storage}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-neutral-600 dark:text-neutral-400">Connexion:</span>
-                  <span className="font-semibold text-neutral-900 dark:text-white">{req.connection}</span>
-                </div>
-              </div>
-
-              {/* Features */}
               <div>
-                <h4 className="font-semibold text-neutral-900 dark:text-white mb-3">
-                  Fonctionnalités incluses:
-                </h4>
-                <ul className="space-y-2">
-                  {req.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-center space-x-2 text-sm text-neutral-600 dark:text-neutral-400">
-                      <CheckCircleIcon className="h-4 w-4 text-green-500 flex-shrink-0" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                {/* Platform Header */}
+                <div className="flex items-center gap-3.5 mb-6">
+                  <div className="w-12 h-12 rounded-xl bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] flex items-center justify-center flex-shrink-0">
+                    <req.icon className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-slate-900 dark:text-white leading-tight">
+                      {req.platform}
+                    </h3>
+                    <span className="text-xs font-medium text-[#13508F] dark:text-[#3B9DF8]">
+                      {req.badge}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Requirements List */}
+                <div className="space-y-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 border-t border-b border-slate-200 dark:border-slate-800 py-4 mb-5">
+                  <div className="flex justify-between items-center">
+                    <span className="text-slate-500">Version min.</span>
+                    <span className="font-semibold text-slate-900 dark:text-white text-right">{req.minVersion}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-slate-500">Mémoire RAM</span>
+                    <span className="font-semibold text-slate-900 dark:text-white">{req.ram}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-slate-500">Stockage</span>
+                    <span className="font-semibold text-slate-900 dark:text-white">{req.storage}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-slate-500">Réseau</span>
+                    <span className="font-semibold text-slate-900 dark:text-white text-right">{req.connection}</span>
+                  </div>
+                </div>
+
+                {/* Features */}
+                <div>
+                  <h4 className="font-semibold text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
+                    Fonctionnalités incluses :
+                  </h4>
+                  <ul className="space-y-2">
+                    {req.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-start gap-2 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
+                        <CheckCircleIcon className="h-4 w-4 text-[#13508F] dark:text-[#3B9DF8] flex-shrink-0 mt-0.5" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Recommendations */}
+        {/* Recommendations banner */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 rounded-2xl p-8 border border-primary-200 dark:border-primary-700"
+          transition={{ duration: 0.6 }}
+          className="rounded-2xl p-6 sm:p-8 bg-slate-50 dark:bg-[#112240] border border-slate-200 dark:border-slate-800"
         >
-          <div className="flex items-start space-x-4 mb-6">
-            <ExclamationTriangleIcon className="h-8 w-8 text-primary-600 flex-shrink-0 mt-1" />
+          <div className="flex items-start gap-3.5 mb-6">
+            <div className="w-10 h-10 rounded-xl bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] flex items-center justify-center flex-shrink-0 mt-0.5">
+              <InformationCircleIcon className="w-6 h-6" />
+            </div>
             <div>
-              <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-2">
-                Recommandations pour une Expérience Optimale
+              <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
+                Conseils pour une utilisation optimale
               </h3>
-              <p className="text-neutral-600 dark:text-neutral-400">
-                Suivez ces conseils pour profiter pleinement de toutes les fonctionnalités de l'application.
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                Quelques recommandations pour tirer le maximum de l'application Conseil d'Orientation.
               </p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {recommendations.map((rec, index) => (
-              <div key={index} className="flex items-start space-x-3">
-                <CheckCircleIcon className="h-5 w-5 text-primary-500 flex-shrink-0 mt-0.5" />
-                <span className="text-neutral-700 dark:text-neutral-300">{rec}</span>
+              <div key={index} className="flex items-start gap-3 p-3 rounded-xl bg-white dark:bg-[#0a192f] border border-slate-200 dark:border-slate-800">
+                <CheckCircleIcon className="h-5 w-5 text-[#3B9DF8] flex-shrink-0 mt-0.5" />
+                <span className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{rec}</span>
               </div>
             ))}
           </div>
-        </motion.div>
-
-        {/* Compatibility Note */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-center mt-12"
-        >
-          <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-4">
-            Votre appareil n'est pas compatible ? Contactez notre support pour des alternatives.
-          </p>
-          <a href="/support#contact" className="inline-flex items-center space-x-2 text-primary-600 hover:text-primary-700 font-semibold transition-colors duration-200">
-            <span>Contacter le support</span>
-            <CheckCircleIcon className="h-4 w-4" />
-          </a>
         </motion.div>
       </div>
     </section>

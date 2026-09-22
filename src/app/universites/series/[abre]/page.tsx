@@ -1,5 +1,6 @@
 import series from '@/data/series.json';
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { formatDate, slugify } from '@/lib/utils';
 import { BackLink } from '@/components/ui/BackLink';
 import {
@@ -15,7 +16,9 @@ import {
   Cog6ToothIcon,
   CpuChipIcon,
   BoltIcon,
-  QuestionMarkCircleIcon,
+  AcademicCapIcon,
+  CheckCircleIcon,
+  ArrowRightIcon
 } from '@heroicons/react/24/outline';
 
 type Serie = {
@@ -50,8 +53,8 @@ export function generateMetadata({ params }: { params: { abre: string } }): Meta
     return { title: 'Série introuvable', robots: { index: false, follow: false } };
   }
 
-  const title = `${serie.abre} — ${serie.nom}`;
-  const description = `Découvrez la série ${serie.abre} (${serie.nom}) au Mali, ses caractéristiques et les possibilités d'orientation après le baccalauréat.`;
+  const title = `Série ${serie.abre} (${serie.nom}) — Débouchés & Universités | Mali`;
+  const description = `Découvrez la série ${serie.abre} (${serie.nom}) au Mali, ses caractéristiques, avantages et débouchés universitaires après le baccalauréat.`;
   const path = `/universites/series/${params.abre}`;
 
   return {
@@ -67,123 +70,139 @@ export default function SerieDetailPage({ params }: { params: { abre: string } }
   const s = getSerie(params.abre);
   if (!s) {
     return (
-      <section className="container-custom pt-24 pb-12 sm:pt-28">
-        <div className="max-w-3xl mx-auto text-center">
-          <p className="text-neutral-600 dark:text-neutral-300">Série introuvable.</p>
-          <BackLink fallbackHref="/universites/series" className="mt-4 inline-flex text-sm text-primary-600 hover:underline">
+      <div className="min-h-screen bg-slate-50/70 dark:bg-[#0a192f] pt-28 pb-16 sm:pt-36">
+        <div className="container-custom max-w-3xl text-center">
+          <p className="text-slate-600 dark:text-slate-300">Série introuvable.</p>
+          <BackLink fallbackHref="/universites/series" className="mt-4 inline-flex text-sm text-[#13508F] dark:text-[#3B9DF8] hover:underline font-semibold">
             Retour aux séries
           </BackLink>
         </div>
-      </section>
+      </div>
     );
   }
 
   const lastModifiedDate = getDynamicLastModified(s);
-  const directAnswer = `Pour la série ${s.abre} au Mali, plusieurs universités et formations sont compatibles avec ce baccalauréat. Cette page présente les options principales de ${s.nom} pour aider les candidats à identifier les voies possibles après le bac.`;
+  const directAnswer = `Pour la série ${s.abre} (${s.nom}) au Mali, plusieurs universités publiques et privées proposent des filières adaptées. Consultez ci-dessous les caractéristiques essentielles, les atouts de cette formation et les orientations recommandées.`;
 
-  const colorFor = (icon?: string) => {
+  const renderIcon = (icon?: string) => {
+    const cls = 'h-7 w-7';
     switch ((icon || '').toLowerCase()) {
       case 'book':
-        return 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300';
+        return <BookOpenIcon className={cls} />;
       case 'palette':
-        return 'bg-pink-50 text-pink-700 dark:bg-pink-900/30 dark:text-pink-300';
+        return <PaintBrushIcon className={cls} />;
       case 'people':
-        return 'bg-teal-50 text-teal-700 dark:bg-teal-900/30 dark:text-teal-300';
+        return <UsersIcon className={cls} />;
       case 'science':
       case 'biotech':
-        return 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300';
+        return <BeakerIcon className={cls} />;
       case 'bar_chart':
-        return 'bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300';
+        return <ChartBarIcon className={cls} />;
       case 'account_balance':
-        return 'bg-violet-50 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300';
+        return <BuildingLibraryIcon className={cls} />;
       case 'apartment':
-        return 'bg-slate-50 text-slate-700 dark:bg-slate-900/30 dark:text-slate-300';
+        return <BuildingOffice2Icon className={cls} />;
       case 'domain':
-        return 'bg-stone-50 text-stone-700 dark:bg-stone-900/30 dark:text-stone-300';
+        return <BuildingOfficeIcon className={cls} />;
       case 'build':
-        return 'bg-rose-50 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300';
+        return <WrenchScrewdriverIcon className={cls} />;
       case 'precision_manufacturing':
-        return 'bg-fuchsia-50 text-fuchsia-700 dark:bg-fuchsia-900/30 dark:text-fuchsia-300';
+        return <Cog6ToothIcon className={cls} />;
       case 'memory':
-        return 'bg-sky-50 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300';
+        return <CpuChipIcon className={cls} />;
       case 'bolt':
-        return 'bg-yellow-50 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300';
+        return <BoltIcon className={cls} />;
       default:
-        return 'bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300';
+        return <AcademicCapIcon className={cls} />;
     }
   };
 
   return (
-    <section className="container-custom pt-24 pb-12 sm:pt-28">
-      <div className="max-w-3xl mx-auto">
-        <BackLink fallbackHref="/universites/series" className="text-sm text-primary-600 hover:underline">
-          ← Retour aux séries
-        </BackLink>
-        <div className="mt-4 flex flex-col sm:flex-row sm:items-center gap-3">
-          <div className={`rounded-lg p-2 ${colorFor(s.icon)}`}>
-            {(function(icon?: string) {
-              const cls = 'h-7 w-7';
-              switch ((icon || '').toLowerCase()) {
-                case 'book':
-                  return <BookOpenIcon className={cls} />;
-                case 'palette':
-                  return <PaintBrushIcon className={cls} />;
-                case 'people':
-                  return <UsersIcon className={cls} />;
-                case 'science':
-                case 'biotech':
-                  return <BeakerIcon className={cls} />;
-                case 'bar_chart':
-                  return <ChartBarIcon className={cls} />;
-                case 'account_balance':
-                  return <BuildingLibraryIcon className={cls} />;
-                case 'apartment':
-                  return <BuildingOffice2Icon className={cls} />;
-                case 'domain':
-                  return <BuildingOfficeIcon className={cls} />;
-                case 'build':
-                  return <WrenchScrewdriverIcon className={cls} />;
-                case 'precision_manufacturing':
-                  return <Cog6ToothIcon className={cls} />;
-                case 'memory':
-                  return <CpuChipIcon className={cls} />;
-                case 'bolt':
-                  return <BoltIcon className={cls} />;
-                default:
-                  return <QuestionMarkCircleIcon className={cls} />;
-              }
-            })(s.icon)}
-          </div>
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white break-words">
-            {s.abre} — {s.nom}
-          </h1>
+    <div className="min-h-screen bg-slate-50/70 dark:bg-[#0a192f] pt-28 pb-16 sm:pt-36 sm:pb-24">
+      <div className="container-custom max-w-3xl">
+        {/* Breadcrumbs & Back */}
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+          <nav className="flex items-center text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+            <Link href="/" className="hover:text-[#13508F] dark:hover:text-[#3B9DF8]">Accueil</Link>
+            <span className="mx-2">/</span>
+            <Link href="/universites" className="hover:text-[#13508F] dark:hover:text-[#3B9DF8]">Universités</Link>
+            <span className="mx-2">/</span>
+            <Link href="/universites/series" className="hover:text-[#13508F] dark:hover:text-[#3B9DF8]">Séries</Link>
+            <span className="mx-2">/</span>
+            <span className="text-slate-900 dark:text-white font-medium">{s.abre}</span>
+          </nav>
+          <BackLink fallbackHref="/universites/series" className="text-xs sm:text-sm font-semibold text-[#13508F] dark:text-[#3B9DF8] hover:underline">
+            ← Toutes les séries
+          </BackLink>
         </div>
 
-        <p className="direct-answer mt-4 rounded-lg border border-primary-100 bg-primary-50/70 p-3 text-sm text-neutral-800 dark:border-primary-900/40 dark:bg-primary-950/30 dark:text-neutral-200">
-          {directAnswer}
-        </p>
-        <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
-          Informations mises à jour le {formatDate(lastModifiedDate)}
-        </p>
+        {/* Series Header Card */}
+        <div className="rounded-3xl p-6 sm:p-8 bg-white dark:bg-[#112240] border border-slate-200 dark:border-slate-800 shadow-card mb-8">
+          <div className="flex items-start gap-4 mb-4">
+            <div className="w-14 h-14 rounded-2xl bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] flex items-center justify-center flex-shrink-0">
+              {renderIcon(s.icon)}
+            </div>
+            <div>
+              <div className="inline-block px-3 py-0.5 rounded-full text-xs font-black bg-[#13508F] text-white mb-2 shadow-xs">
+                SÉRIE {s.abre}
+              </div>
+              <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white leading-snug">
+                {s.nom}
+              </h1>
+            </div>
+          </div>
 
-        <div className="mt-6 space-y-4">
+          <p className="p-4 rounded-xl bg-slate-50 dark:bg-[#0a192f] border border-slate-100 dark:border-slate-800 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-3">
+            {directAnswer}
+          </p>
+          <p className="text-[11px] text-slate-400">
+            Fiche mise à jour le {formatDate(lastModifiedDate)}
+          </p>
+        </div>
+
+        {/* Description & Avantages */}
+        <div className="space-y-6 mb-8">
           {s.description && (
-            <div className="rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4 sm:p-5">
-              <h2 className="text-base font-semibold text-neutral-900 dark:text-white">Description</h2>
-              <p className="mt-2 text-neutral-700 dark:text-neutral-300">{s.description}</p>
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#112240] p-6 shadow-card">
+              <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-3">
+                Présentation de la série
+              </h2>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                {s.description}
+              </p>
             </div>
           )}
+
           {s.avantage && (
-            <div className="rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4 sm:p-5">
-              <h2 className="text-base font-semibold text-neutral-900 dark:text-white">Avantages</h2>
-              <p className="mt-2 text-neutral-700 dark:text-neutral-300">{s.avantage}</p>
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#112240] p-6 shadow-card">
+              <div className="flex items-center gap-2 mb-3">
+                <CheckCircleIcon className="w-5 h-5 text-[#3B9DF8]" />
+                <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+                  Points forts & Atouts de la série
+                </h2>
+              </div>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                {s.avantage}
+              </p>
             </div>
           )}
+        </div>
+
+        {/* Action Link */}
+        <div className="rounded-2xl p-6 bg-[#13508F] text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg">
+          <div>
+            <h3 className="font-bold text-base">Voir les universités publiques pour cette série</h3>
+            <p className="text-xs text-slate-200">Consultez les facultés d'État qui recrutent les bacheliers {s.abre}.</p>
+          </div>
+          <Link
+            href="/universites/publiques"
+            className="px-5 py-2.5 rounded-xl bg-[#3B9DF8] hover:bg-[#258bf0] text-white font-semibold text-xs sm:text-sm whitespace-nowrap shadow-sm min-h-[40px] flex items-center gap-1.5"
+          >
+            <span>Universités publiques</span>
+            <ArrowRightIcon className="w-4 h-4" />
+          </Link>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
-
-
-

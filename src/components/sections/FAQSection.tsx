@@ -10,98 +10,90 @@ import { FAQStructuredData } from '@/components/seo/StructuredData';
 
 const faqs = [
   {
-    question: "Comment fonctionne l'assistant IA ?",
-    answer: "Notre assistant IA analyse votre profil académique, vos intérêts et vos objectifs pour vous proposer des parcours personnalisés. Il utilise des algorithmes avancés pour identifier les meilleures formations et métiers qui correspondent à votre profil."
+    question: "L'application Conseil d'Orientation est-elle 100% gratuite ?",
+    answer: "Oui, l'application est entièrement gratuite pour tous les lycéens, bacheliers et étudiants du Mali. Vous pouvez télécharger l'APK, consulter les fiches des universités, simuler votre orientation par série de Bac et interagir avec l'assistant sans payer le moindre frais."
   },
   {
-    question: "L'application est-elle vraiment gratuite ?",
-    answer: "Oui, l'application Conseil d'Orientation est entièrement gratuite. Toutes les fonctionnalités principales, y compris l'assistant IA, la recherche de bourses et les ressources éducatives, sont accessibles sans aucun coût."
+    question: "Comment savoir quelles facultés acceptent ma série de Baccalauréat ?",
+    answer: "Rendez-vous dans la rubrique 'Par Série' de l'application ou sur la page /universites/series de ce portail. Sélectionnez votre série (ex: TSE, TSExp, TSS, TLL, STI, TSEco) : la liste de toutes les facultés publiques (FST, FSEG, FSAP, FMOS, etc.) et instituts privés compatibles s'affiche immédiatement avec les conditions d'admission."
   },
   {
-    question: "Comment puis-je trouver des bourses d'études ?",
-    answer: "Utilisez notre moteur de recherche de bourses qui analyse votre profil et vous propose les opportunités les plus pertinentes. Vous pouvez filtrer par pays, domaine d'études, niveau et montant de la bourse."
+    question: "L'application fonctionne-t-elle sans connexion Internet (hors ligne) ?",
+    answer: "Oui ! Le répertoire des universités, la liste des séries de Bac et les critères d'admission sont stockés localement sur votre téléphone. Vous pouvez y accéder même sans forfait internet au village ou en zone à faible couverture réseau."
   },
   {
-    question: "L'application fonctionne-t-elle hors ligne ?",
-    answer: "Certaines fonctionnalités comme la consultation de votre profil et l'historique des recherches fonctionnent hors ligne. Cependant, pour les mises à jour des bourses et l'assistant IA, une connexion internet est nécessaire."
+    question: "Comment installer l'application sur un smartphone Android ?",
+    answer: "Téléchargez le fichier APK depuis notre page Télécharger ou via APKPure. Si Android vous demande confirmation, autorisez l'installation depuis votre navigateur, puis appuyez sur 'Installer'. Le fichier pèse environ 15 Mo et s'installe en moins d'une minute."
   },
   {
-    question: "Comment puis-je contacter le support ?",
-    answer: "Notre équipe de support est joignable via le chat intégré dans l'application, par email à conseilorientationinfo@gmail.com, ou par téléphone au +223 92 72 25 64. Vous pouvez aussi nous contacter via WhatsApp."
+    question: "Quelles sont les universités publiques répertoriées au Mali ?",
+    answer: "Nous répertorions l'ensemble des universités et grandes écoles publiques d'État : l'USTTB (Sciences et Techniques), l'ULSHB (Lettres et Sciences Humaines), l'USSGB (Sciences Sociales et Gestion), l'USJPB (Sciences Juridiques et Politiques), l'Université de Ségou, ainsi que l'ENI-ABT, l'IPR-IFRA et l'ENSup."
   },
   {
-    question: "Mes données sont-elles sécurisées ?",
-    answer: "Absolument. Nous respectons le RGPD et utilisons un chiffrement de niveau bancaire pour protéger vos données personnelles. Vos informations ne sont jamais partagées avec des tiers sans votre consentement explicite."
-  },
-  {
-    question: "Puis-je utiliser l'app sur plusieurs appareils ?",
-    answer: "Oui, votre compte se synchronise automatiquement sur tous vos appareils. Connectez-vous avec le même compte sur votre smartphone, tablette ou ordinateur pour accéder à vos données partout."
-  },
-  {
-    question: "Comment l'application s'adapte-t-elle à mon niveau ?",
-    answer: "L'application analyse votre parcours académique actuel et s'adapte automatiquement. Que vous soyez au lycée, en études supérieures ou en reconversion, les conseils et ressources sont adaptés à votre situation."
+    question: "Comment contacter l'équipe pour une assistance personnalisée ?",
+    answer: "Vous pouvez nous joindre instantanément sur WhatsApp au +223 92 72 25 64 ou par téléphone au +223 96 85 52 82. Vous pouvez également nous écrire par email à conseilorientationinfo@gmail.com ou remplir le formulaire ci-dessous."
   }
 ];
 
 export function FAQSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <section id="faq" className="section-padding bg-white dark:bg-neutral-900">
+    <section id="faq" className="py-16 sm:py-24 bg-white dark:bg-[#0a192f] border-b border-slate-200 dark:border-slate-800">
       <FAQStructuredData faqs={faqs} />
       <div className="container-custom">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900 dark:text-white mb-6">
-            Questions{' '}
-            <span className="bg-gradient-to-r from-accent-600 to-warning-600 bg-clip-text text-transparent">
-              Fréquentes
-            </span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] text-xs font-bold uppercase tracking-wider mb-4">
+            Questions Fréquentes
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
+            Tout ce que vous devez{' '}
+            <span className="text-[#13508F] dark:text-[#3B9DF8]">savoir</span>
           </h2>
-          <p className="text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
-            Trouvez rapidement des réponses aux questions les plus courantes 
-            sur l'application Conseil d'Orientation.
+          <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg">
+            Retrouvez les réponses aux interrogations les plus courantes des bacheliers et étudiants maliens.
           </p>
         </motion.div>
 
         {/* FAQ Items */}
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-3xl mx-auto space-y-3.5">
           {faqs.map((faq, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="mb-4"
+              transition={{ duration: 0.4, delay: index * 0.05 }}
+              className="rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden bg-white dark:bg-[#112240] shadow-xs"
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full text-left p-6 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors duration-200"
+                className="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 transition-colors hover:bg-slate-50 dark:hover:bg-slate-800/50"
               >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <QuestionMarkCircleIcon className="h-5 w-5 text-accent-500 flex-shrink-0" />
-                    <span className="text-lg font-semibold text-neutral-900 dark:text-white">
-                      {faq.question}
-                    </span>
+                <div className="flex items-center gap-3.5">
+                  <div className="w-8 h-8 rounded-lg bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] flex items-center justify-center flex-shrink-0">
+                    <QuestionMarkCircleIcon className="h-5 w-5" />
                   </div>
-                  <ChevronDownIcon 
-                    className={`h-5 w-5 text-neutral-500 transition-transform duration-200 ${
-                      openIndex === index ? 'rotate-180' : ''
-                    }`}
-                  />
+                  <span className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
+                    {faq.question}
+                  </span>
                 </div>
+                <ChevronDownIcon 
+                  className={`h-5 w-5 text-slate-400 flex-shrink-0 transition-transform duration-200 ${
+                    openIndex === index ? 'rotate-180 text-[#13508F] dark:text-[#3B9DF8]' : ''
+                  }`}
+                />
               </button>
               
               <AnimatePresence>
@@ -110,13 +102,11 @@ export function FAQSection() {
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.25 }}
                     className="overflow-hidden"
                   >
-                    <div className="px-6 py-4 bg-neutral-50 dark:bg-neutral-800 border-t border-neutral-200 dark:border-neutral-700 rounded-b-xl">
-                      <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed">
-                        {faq.answer}
-                      </p>
+                    <div className="px-5 sm:px-6 pb-6 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed pl-16">
+                      {faq.answer}
                     </div>
                   </motion.div>
                 )}
@@ -125,22 +115,19 @@ export function FAQSection() {
           ))}
         </div>
 
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-center mt-12"
-        >
-          <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-4">
-            Vous ne trouvez pas la réponse à votre question ?
+        {/* Bottom CTA */}
+        <div className="text-center mt-12">
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">
+            Vous avez une question particulière sur une faculté ou un concours ?
           </p>
-          <a href="#contact" className="inline-flex items-center space-x-2 text-accent-600 hover:text-accent-700 font-semibold transition-colors duration-200">
-            <span>Contacter notre équipe de support</span>
-            <ChevronDownIcon className="h-4 w-4 rotate-[-90deg]" />
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-[#13508F] dark:text-[#3B9DF8] hover:underline"
+          >
+            <span>Poser une question à notre équipe</span>
+            <span>→</span>
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
