@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import Link from 'next/link';
 import Image from 'next/image';
@@ -71,19 +71,19 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-neutral-950 text-white">
+    <footer className="relative overflow-hidden bg-[#070e1e] border-t border-slate-800/80 text-slate-200">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-32 right-0 h-64 w-64 rounded-full bg-primary-500/10 blur-3xl"></div>
-        <div className="absolute -bottom-32 left-0 h-64 w-64 rounded-full bg-secondary-500/10 blur-3xl"></div>
+        <div className="absolute -top-32 right-0 h-64 w-64 rounded-full bg-navy-500/10 blur-3xl"></div>
+        <div className="absolute -bottom-32 left-0 h-64 w-64 rounded-full bg-amber-500/5 blur-3xl"></div>
       </div>
 
       <div className="container-custom py-16 relative">
         <div className="mb-14 rounded-2xl border border-white/10 bg-gradient-to-r from-white/5 to-white/0 p-6 sm:p-8">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div>
-              <h3 className="text-2xl font-bold text-white">Pret a demarrer ?</h3>
-              <p className="mt-2 text-sm sm:text-base text-neutral-300">
-                Explorez les universites, les series et les parcours post-BAC en quelques minutes.
+              <h3 className="text-2xl font-bold text-white">Prêt à construire votre orientation ?</h3>
+              <p className="mt-2 text-sm sm:text-base text-slate-300">
+                Explorez les universités, les séries et les parcours post-BAC en quelques minutes.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
@@ -91,9 +91,9 @@ export function Footer() {
                 href={APP_DOWNLOAD_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-primary-600 to-secondary-600 px-5 py-3 text-sm font-semibold text-white shadow-soft hover:from-primary-700 hover:to-secondary-700 transition-colors"
+                className="inline-flex items-center justify-center rounded-xl bg-amber-500 hover:bg-amber-400 px-5 py-3 text-sm font-semibold text-navy-950 shadow-md transition-all"
               >
-                Telecharger l'app
+                Télécharger l'app
               </a>
               <Link
                 href="/universites"
