@@ -71,10 +71,10 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-[#070e1e] border-t border-slate-800/80 text-slate-200">
+    <footer className="relative overflow-hidden bg-[#071324] border-t border-slate-800/80 text-slate-200">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-32 right-0 h-64 w-64 rounded-full bg-navy-500/10 blur-3xl"></div>
-        <div className="absolute -bottom-32 left-0 h-64 w-64 rounded-full bg-amber-500/5 blur-3xl"></div>
+        <div className="absolute -top-32 right-0 h-64 w-64 rounded-full bg-[#13508f]/20 blur-3xl"></div>
+        <div className="absolute -bottom-32 left-0 h-64 w-64 rounded-full bg-[#3b9df8]/10 blur-3xl"></div>
       </div>
 
       <div className="container-custom py-16 relative">
@@ -91,7 +91,7 @@ export function Footer() {
                 href={APP_DOWNLOAD_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-xl bg-amber-500 hover:bg-amber-400 px-5 py-3 text-sm font-semibold text-navy-950 shadow-md transition-all"
+                className="inline-flex items-center justify-center rounded-xl bg-[#3b9df8] hover:bg-[#2589ec] px-5 py-3 text-sm font-semibold text-white shadow-md transition-all"
               >
                 Télécharger l'app
               </a>

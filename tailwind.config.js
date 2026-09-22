@@ -34,11 +34,20 @@ module.exports = {
           900: '#0f2942',
           950: '#081726',
         },
+        logo: {
+          deep: '#13508f',
+          deepHover: '#0e4379',
+          sky: '#3b9df8',
+          skyHover: '#2589ec',
+          skyLight: '#ebf5ff',
+          darkBg: '#0a192f',
+          darkCard: '#112240',
+        },
         surface: {
           light: '#f8fafc',
           card: '#ffffff',
-          dark: '#0b132b',
-          cardDark: '#14213d',
+          dark: '#0a192f',
+          cardDark: '#112240',
         },
         secondary: {
           50: '#f8fafc',

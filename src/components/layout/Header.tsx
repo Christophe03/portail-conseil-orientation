@@ -84,7 +84,7 @@ export function Header() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 26, stiffness: 220 }}
-            className="fixed inset-y-0 right-0 h-screen w-full max-w-xs overflow-y-auto bg-white/95 shadow-2xl backdrop-blur-lg dark:bg-[#0b132b]/95 border-l border-slate-200/80 dark:border-slate-800/80 p-6 flex flex-col justify-between"
+            className="fixed inset-y-0 right-0 h-screen w-full max-w-xs overflow-y-auto bg-white/95 shadow-2xl backdrop-blur-lg dark:bg-[#0a192f]/95 border-l border-slate-200/80 dark:border-slate-800/80 p-6 flex flex-col justify-between"
           >
             <div>
               <div className="flex items-center justify-between border-b border-slate-200/70 pb-4 dark:border-slate-800/70">
@@ -98,10 +98,10 @@ export function Header() {
                     />
                   </div>
                   <div>
-                    <span id="mobile-menu-title" className="block text-base font-bold text-navy-900 dark:text-white">
+                    <span id="mobile-menu-title" className="block text-base font-bold text-[#13508f] dark:text-white">
                       Conseil d'Orientation
                     </span>
-                    <span className="block text-xs font-medium text-amber-600 dark:text-amber-400">
+                    <span className="block text-xs font-semibold text-[#3b9df8]">
                       Portail Officiel • Mali
                     </span>
                   </div>
@@ -125,8 +125,8 @@ export function Header() {
                       href={item.href}
                       className={`flex min-h-[48px] items-center rounded-xl px-4 text-base font-medium transition-all ${
                         isActive
-                          ? 'bg-slate-100 text-navy-900 font-semibold dark:bg-[#14213d] dark:text-amber-400'
-                          : 'text-slate-700 hover:bg-slate-50 hover:text-navy-900 dark:text-slate-300 dark:hover:bg-slate-800/50 dark:hover:text-white'
+                          ? 'bg-[#13508f]/10 text-[#13508f] font-bold dark:bg-[#112240] dark:text-[#3b9df8]'
+                          : 'text-slate-700 hover:bg-slate-50 hover:text-[#13508f] dark:text-slate-300 dark:hover:bg-slate-800/50 dark:hover:text-white'
                       }`}
                       onClick={() => setMobileMenuOpen(false)}
                     >
@@ -144,7 +144,7 @@ export function Header() {
               </div>
               <Button
                 asChild
-                className="w-full min-h-[48px] rounded-xl bg-navy-900 text-white font-semibold hover:bg-navy-800 shadow-md dark:bg-amber-500 dark:text-navy-950 dark:hover:bg-amber-400 transition-all text-center flex items-center justify-center"
+                className="w-full min-h-[48px] rounded-xl bg-[#13508f] text-white font-semibold hover:bg-[#0e4379] shadow-md dark:bg-[#3b9df8] dark:text-white dark:hover:bg-[#2589ec] transition-all text-center flex items-center justify-center"
               >
                 <a
                   href={APP_DOWNLOAD_URL}
@@ -184,10 +184,10 @@ export function Header() {
                 />
               </div>
               <div className="min-w-0">
-                <span className="block max-w-[170px] truncate text-base font-bold text-navy-900 dark:text-white sm:max-w-none sm:text-lg md:text-xl tracking-tight">
+                <span className="block max-w-[170px] truncate text-base font-bold text-[#13508f] dark:text-white sm:max-w-none sm:text-lg md:text-xl tracking-tight">
                   Conseil d'Orientation
                 </span>
-                <span className="hidden sm:inline-block text-[11px] font-semibold uppercase tracking-wider text-amber-600 dark:text-amber-400">
+                <span className="hidden sm:inline-block text-[11px] font-bold uppercase tracking-wider text-[#3b9df8]">
                   Mali • Portail & IA
                 </span>
               </div>
@@ -202,8 +202,8 @@ export function Header() {
                     href={item.href}
                     className={`px-3.5 py-1.5 text-sm rounded-full transition-all duration-200 font-medium ${
                       isActive
-                        ? 'bg-white text-navy-900 font-semibold shadow-xs dark:bg-[#14213d] dark:text-amber-400 dark:shadow-none'
-                        : 'text-slate-600 hover:text-navy-900 dark:text-slate-300 dark:hover:text-white'
+                        ? 'bg-white text-[#13508f] font-bold shadow-xs dark:bg-[#112240] dark:text-[#3b9df8] dark:shadow-none'
+                        : 'text-slate-600 hover:text-[#13508f] dark:text-slate-300 dark:hover:text-white'
                     }`}
                   >
                     {item.name}
@@ -217,7 +217,7 @@ export function Header() {
               <Button
                 asChild
                 size="sm"
-                className="rounded-xl bg-navy-900 text-white font-semibold hover:bg-navy-800 dark:bg-amber-500 dark:text-navy-950 dark:hover:bg-amber-400 shadow-sm transition-all px-4 py-2 hover:shadow-md"
+                className="rounded-xl bg-[#13508f] text-white font-semibold hover:bg-[#0e4379] dark:bg-[#3b9df8] dark:text-white dark:hover:bg-[#2589ec] shadow-sm transition-all px-4 py-2 hover:shadow-md"
               >
                 <a href={APP_DOWNLOAD_URL} target="_blank" rel="noopener noreferrer">
                   Télécharger l'App

@@ -122,13 +122,18 @@ export function normalizeUserQuery(userMessage: string): string {
     }
   });
 
-  // 5. Dictionnaire d'abréviations SMS
+  // 5. Dictionnaire d'abréviations SMS et salutations
   const smsMap: [RegExp, string][] = [
     [/\bslt\b/gi, 'salut'],
+    [/\bhello\b/gi, 'bonjour'],
+    [/\bhi\b/gi, 'salut'],
+    [/\bhey\b/gi, 'salut'],
     [/\bbjr\b/gi, 'bonjour'],
     [/\bbsr\b/gi, 'bonsoir'],
     [/\bmrc\b/gi, 'merci'],
     [/\b(cv|sva)\b/gi, 'ça va'],
+    [/\bkow[eé]\b/gi, 'bonjour'],
+    [/\bkof[eé]\b/gi, 'bonjour'],
     [/\bunivs?\b/gi, 'université'],
     [/\bfacs?\b/gi, 'faculté'],
     [/\bstp\b/gi, "s'il te plaît"],

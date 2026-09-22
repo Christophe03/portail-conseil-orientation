@@ -98,7 +98,7 @@ export function PriveesList({ items }: { items: Privee[] }) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Rechercher une université, un institut ou un sigle..."
-            className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#14213d] pl-10 pr-10 py-3 text-sm text-navy-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-navy-800 dark:focus:ring-amber-400 transition-all"
+            className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#112240] pl-10 pr-10 py-3 text-sm text-[#13508f] dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3b9df8] dark:focus:ring-[#3b9df8] transition-all"
           />
           {query && (
             <button
@@ -117,7 +117,7 @@ export function PriveesList({ items }: { items: Privee[] }) {
             id="cityFilter"
             value={selectedCity}
             onChange={(e) => setSelectedCity(e.target.value)}
-            className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#14213d] px-4 py-3 text-sm text-navy-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-navy-800 dark:focus:ring-amber-400 transition-all"
+            className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#112240] px-4 py-3 text-sm text-[#13508f] dark:text-white focus:outline-none focus:ring-2 focus:ring-[#3b9df8] dark:focus:ring-[#3b9df8] transition-all"
           >
             <option value="Toutes les villes">Toutes les villes</option>
             {cityCounts.map(([city, count]) => (
@@ -130,7 +130,7 @@ export function PriveesList({ items }: { items: Privee[] }) {
       {/* Result Status & Clear Shortcut */}
       <div className="flex items-center justify-between text-sm text-slate-600 dark:text-slate-400 mb-6 px-1">
         <div>
-          <span className="font-bold text-navy-900 dark:text-white">{filtered.length}</span> établissement(s) répertorié(s)
+          <span className="font-bold text-[#13508f] dark:text-[#3b9df8]">{filtered.length}</span> établissement(s) répertorié(s)
           {selectedCity !== 'Toutes les villes' && (
             <span className="ml-1.5 text-xs bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">
               Ville : {selectedCity}
@@ -140,7 +140,7 @@ export function PriveesList({ items }: { items: Privee[] }) {
         {(query || selectedCity !== 'Toutes les villes') && (
           <button
             onClick={resetFilters}
-            className="text-xs text-amber-600 dark:text-amber-400 hover:underline font-semibold"
+            className="text-xs text-[#3b9df8] hover:underline font-semibold"
           >
             Réinitialiser les filtres
           </button>
@@ -158,7 +158,7 @@ export function PriveesList({ items }: { items: Privee[] }) {
             <Link
               key={u.ID}
               href={`/universites/privees/${slug}`}
-              className="group rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-[#14213d] p-5 shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col justify-between"
+              className="group rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-[#112240] p-5 shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-start gap-3.5 mb-3.5">
@@ -171,7 +171,7 @@ export function PriveesList({ items }: { items: Privee[] }) {
                         <Image src={logoSrc} alt={u.Nom} fill className="object-contain p-1" />
                       )
                     ) : (
-                      <div className="h-full w-full bg-navy-50 dark:bg-navy-950/60 text-navy-800 dark:text-amber-400 font-bold flex items-center justify-center text-sm">
+                      <div className="h-full w-full bg-[#13508f]/10 dark:bg-[#13508f]/30 text-[#13508f] dark:text-[#3b9df8] font-bold flex items-center justify-center text-sm">
                         {getInitials(u.Sigle || u.Nom)}
                       </div>
                     )}
@@ -179,11 +179,11 @@ export function PriveesList({ items }: { items: Privee[] }) {
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-1.5 mb-1">
                       {u.Sigle && (
-                        <span className="inline-block rounded-md bg-navy-50 text-navy-900 dark:bg-navy-950/80 dark:text-navy-200 px-2 py-0.5 text-xs font-bold">
+                        <span className="inline-block rounded-md bg-[#13508f]/10 text-[#13508f] dark:bg-[#13508f]/30 dark:text-[#7cc5fb] px-2 py-0.5 text-xs font-bold">
                           {u.Sigle}
                         </span>
                       )}
-                      <span className="inline-block rounded-md bg-amber-50 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 px-2 py-0.5 text-[11px] font-semibold">
+                      <span className="inline-block rounded-md bg-[#3b9df8]/15 text-[#0e4379] dark:bg-[#3b9df8]/25 dark:text-[#7cc5fb] px-2 py-0.5 text-[11px] font-semibold">
                         Privée Agréée
                       </span>
                     </div>
@@ -196,12 +196,12 @@ export function PriveesList({ items }: { items: Privee[] }) {
                   </div>
                 </div>
 
-                <h3 className="text-sm font-semibold text-navy-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-amber-400 transition-colors line-clamp-2 leading-snug">
+                <h3 className="text-sm font-semibold text-[#13508f] dark:text-white group-hover:text-[#3b9df8] transition-colors line-clamp-2 leading-snug">
                   {u.Nom}
                 </h3>
               </div>
 
-              <div className="pt-4 mt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 group-hover:text-navy-900 dark:group-hover:text-white transition-colors">
+              <div className="pt-4 mt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 group-hover:text-[#13508f] dark:group-hover:text-white transition-colors">
                 <span className="font-medium">Consulter la fiche</span>
                 <ArrowRightIcon className="h-3.5 w-3.5 transform group-hover:translate-x-1 transition-transform" />
               </div>
@@ -210,9 +210,9 @@ export function PriveesList({ items }: { items: Privee[] }) {
         })}
 
         {filtered.length === 0 && (
-          <div className="sm:col-span-2 lg:col-span-3 xl:col-span-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-[#14213d]/50 p-12 text-center">
-            <BuildingOffice2Icon className="h-12 w-12 text-slate-400 mx-auto mb-3" />
-            <h4 className="text-base font-bold text-navy-900 dark:text-white mb-1">
+          <div className="sm:col-span-2 lg:col-span-3 xl:col-span-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-[#112240]/50 p-12 text-center">
+            <BuildingOffice2Icon className="h-12 w-12 text-[#3b9df8] mx-auto mb-3" />
+            <h4 className="text-base font-bold text-[#13508f] dark:text-white mb-1">
               Aucun établissement ne correspond à votre recherche
             </h4>
             <p className="text-sm text-slate-500 dark:text-slate-400 mb-4 max-w-md mx-auto">
@@ -220,7 +220,7 @@ export function PriveesList({ items }: { items: Privee[] }) {
             </p>
             <button
               onClick={resetFilters}
-              className="inline-flex items-center px-4 py-2 rounded-xl bg-navy-900 text-white dark:bg-amber-500 dark:text-navy-950 font-semibold text-xs shadow-sm hover:shadow-md transition-all"
+              className="inline-flex items-center px-4 py-2 rounded-xl bg-[#13508f] hover:bg-[#0e4379] text-white dark:bg-[#3b9df8] dark:hover:bg-[#2589ec] font-semibold text-xs shadow-sm transition-all"
             >
               Réinitialiser tous les filtres
             </button>

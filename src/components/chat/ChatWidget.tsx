@@ -4,12 +4,13 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  ChatBubbleLeftRightIcon,
   XMarkIcon,
   PaperAirplaneIcon,
   SparklesIcon,
   ExclamationTriangleIcon,
-  ArrowPathIcon
+  ArrowPathIcon,
+  ArrowLeftIcon,
+  TrashIcon
 } from '@heroicons/react/24/outline';
 
 export interface ChatMessage {
@@ -30,7 +31,7 @@ const INITIAL_SUGGESTIONS = [
 const WELCOME_MESSAGE: ChatMessage = {
   id: 'welcome',
   role: 'assistant',
-  content: "Salut ! Je suis **COS** 🎓, ton assistant virtuel d'orientation scolaire au Mali.\n\nJe peux t'aider à trouver une université (privée ou publique) correspondant à ta série ou ta ville, et te guider sur le site. Pose-moi ta question !",
+  content: "Bonjour et bienvenue ! 👋 Je suis COS 🎓, ton Conseiller d'Orientation au Mali.\n\nMon rôle est de t'aider à faire le meilleur choix pour ton avenir. Pour commencer notre échange, dis-moi : quelle est ta série au BAC ou quel domaine d'études t'attire le plus ?",
   timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
   suggestions: INITIAL_SUGGESTIONS
 };
@@ -60,6 +61,18 @@ export function ChatWidget() {
     }
   }, [isOpen, messages, isLoading]);
 
+  // Blocage du scroll d'arrière-plan sur mobile lors de l'ouverture du chat
+  useEffect(() => {
+    if (isOpen && window.innerWidth < 640) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
   // Fermeture par la touche Echap (Accessibilité)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -70,6 +83,14 @@ export function ChatWidget() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen]);
+
+  const handleReset = () => {
+    setMessages([{
+      ...WELCOME_MESSAGE,
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    }]);
+    setErrorMsg(null);
+  };
 
   const handleSend = async (customText?: string) => {
     const trimmedInput = (customText || input).trim();
@@ -143,17 +164,23 @@ export function ChatWidget() {
 
   /**
    * Render de texte avec liens Markdown [Titre](URL) transformés en liens cliquables Next.js
+   * et nettoyage complet des astérisques pour une rédaction fluide
    */
   const renderFormattedContent = (content: string) => {
-    // Regex simple pour détecter **texte en gras** et [Titre](/url)
+    // Nettoyage de tous les astérisques résiduels (*, **)
+    const cleanedContent = content
+      .replace(/^(\s*)\*\s+/gm, '$1- ')
+      .replace(/(^|[^*])\*([^*]+)\*([^*]|$)/g, '$1$2$3')
+      .replace(/\*\*/g, '');
+
     const parts = [];
     const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
     let lastIndex = 0;
     let match;
 
-    while ((match = linkRegex.exec(content)) !== null) {
+    while ((match = linkRegex.exec(cleanedContent)) !== null) {
       if (match.index > lastIndex) {
-        parts.push(content.substring(lastIndex, match.index));
+        parts.push(cleanedContent.substring(lastIndex, match.index));
       }
 
       const linkText = match[1];
@@ -190,30 +217,15 @@ export function ChatWidget() {
       lastIndex = linkRegex.lastIndex;
     }
 
-    if (lastIndex < content.length) {
-      parts.push(content.substring(lastIndex));
+    if (lastIndex < cleanedContent.length) {
+      parts.push(cleanedContent.substring(lastIndex));
     }
 
-    // Gestion élémentaire des sauts de ligne et du gras
     return (
       <div className="space-y-2 whitespace-pre-line text-sm leading-relaxed">
-        {parts.map((part, idx) => {
-          if (typeof part === 'string') {
-            // Remplacer **texte** par <strong>
-            const boldParts = part.split(/(\*\*[^*]+\*\*)/g);
-            return (
-              <span key={idx}>
-                {boldParts.map((sub, i) => {
-                  if (sub.startsWith('**') && sub.endsWith('**')) {
-                    return <strong key={i} className="font-bold">{sub.slice(2, -2)}</strong>;
-                  }
-                  return sub;
-                })}
-              </span>
-            );
-          }
-          return part;
-        })}
+        {parts.map((part, idx) => (
+          <span key={idx}>{part}</span>
+        ))}
       </div>
     );
   };
@@ -221,53 +233,75 @@ export function ChatWidget() {
   return (
     <>
       {/* Floating Action Button (Bulle du chat) */}
-      <div className="fixed bottom-5 right-5 z-50 no-index" aria-label="Zone du chatbot COS">
-        <motion.button
-          onClick={() => setIsOpen(!isOpen)}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          aria-expanded={isOpen}
-          aria-label={isOpen ? "Fermer l'assistant COS" : "Ouvrir l'assistant COS"}
-          className="flex items-center gap-2.5 rounded-full bg-gradient-to-r from-primary-600 to-secondary-600 px-4 py-3 text-white shadow-xl hover:shadow-2xl transition-all focus:outline-none focus:ring-4 focus:ring-primary-500/30"
-        >
-          <div className="relative">
-            <SparklesIcon className="h-6 w-6" />
-            <span className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-green-400 animate-ping" />
-          </div>
-          <span className="font-bold text-sm tracking-wide">COS</span>
-        </motion.button>
-      </div>
+      {!isOpen && (
+        <div className="fixed bottom-5 right-5 z-50 no-index" aria-label="Zone du chatbot COS">
+          <motion.button
+            onClick={() => setIsOpen(true)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            aria-expanded={isOpen}
+            aria-label="Ouvrir l'assistant COS"
+            className="flex items-center gap-2.5 rounded-full bg-gradient-to-r from-primary-600 to-secondary-600 px-4 py-3 text-white shadow-xl hover:shadow-2xl transition-all focus:outline-none focus:ring-4 focus:ring-primary-500/30"
+          >
+            <div className="relative">
+              <SparklesIcon className="h-6 w-6" />
+              <span className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-green-400 animate-ping" />
+            </div>
+            <span className="font-bold text-sm tracking-wide">COS</span>
+          </motion.button>
+        </div>
+      )}
 
-      {/* Chat Window Panel */}
+      {/* Chat Window Panel - Plein écran sur mobile (style ChatGPT/Gemini), widget sur Desktop */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 30 }}
             transition={{ duration: 0.2 }}
             role="dialog"
             aria-label="Fenêtre de discussion avec COS"
-            className="fixed bottom-20 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[400px] h-[520px] max-h-[80vh] flex flex-col rounded-3xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-2xl overflow-hidden"
+            className="fixed inset-0 z-50 sm:inset-auto sm:bottom-20 sm:right-6 w-full h-[100dvh] sm:w-[420px] sm:h-[580px] sm:max-h-[85vh] flex flex-col rounded-none sm:rounded-3xl border-none sm:border sm:border-neutral-200 sm:dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-2xl overflow-hidden"
           >
             {/* Header Panel */}
-            <div className="bg-gradient-to-r from-primary-700 via-primary-800 to-secondary-800 text-white p-4 flex items-center justify-between shadow-sm">
+            <div className="bg-gradient-to-r from-primary-700 via-primary-800 to-secondary-800 text-white p-3.5 sm:p-4 flex items-center justify-between shadow-sm shrink-0">
               <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
+                <button
+                  onClick={() => setIsOpen(false)}
+                  aria-label="Retour / Fermer la discussion"
+                  className="rounded-full p-1.5 hover:bg-white/10 text-white/90 hover:text-white transition sm:hidden"
+                >
+                  <ArrowLeftIcon className="h-6 w-6" />
+                </button>
+                <div className="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center border border-white/20 shrink-0">
                   <SparklesIcon className="h-5 w-5 text-green-300" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-base leading-tight">COS — Assistant Orientation</h3>
-                  <p className="text-xs text-primary-200">Conseil d&apos;Orientation Mali</p>
+                  <h3 className="font-bold text-sm sm:text-base leading-tight flex items-center gap-1.5">
+                    <span>COS Assistant</span>
+                    <span className="h-2 w-2 rounded-full bg-green-400 inline-block" />
+                  </h3>
+                  <p className="text-[11px] sm:text-xs text-primary-200">Conseil d&apos;Orientation Mali</p>
                 </div>
               </div>
-              <button
-                onClick={() => setIsOpen(false)}
-                aria-label="Fermer la fenêtre (Echap)"
-                className="rounded-full p-1.5 hover:bg-white/10 text-white/80 hover:text-white transition"
-              >
-                <XMarkIcon className="h-5 w-5" />
-              </button>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={handleReset}
+                  title="Nouvelle conversation"
+                  aria-label="Réinitialiser la discussion"
+                  className="rounded-full p-2 hover:bg-white/10 text-white/80 hover:text-white transition"
+                >
+                  <TrashIcon className="h-5 w-5" />
+                </button>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  aria-label="Fermer la fenêtre (Echap)"
+                  className="hidden sm:flex rounded-full p-1.5 hover:bg-white/10 text-white/80 hover:text-white transition"
+                >
+                  <XMarkIcon className="h-5 w-5" />
+                </button>
+              </div>
             </div>
 
             {/* Messages Scroll Area */}
@@ -284,7 +318,7 @@ export function ChatWidget() {
                     className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
                   >
                     <div
-                      className={`max-w-[85%] rounded-2xl p-3.5 shadow-sm ${
+                      className={`max-w-[88%] sm:max-w-[85%] rounded-2xl p-3.5 shadow-sm ${
                         msg.role === 'user'
                           ? 'bg-primary-600 text-white rounded-br-none'
                           : 'bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white border border-neutral-200 dark:border-neutral-700/60 rounded-bl-none'
@@ -298,7 +332,7 @@ export function ChatWidget() {
                     </div>
 
                     {showSuggestions && (
-                      <div className="mt-2.5 flex flex-wrap gap-1.5 max-w-[90%]">
+                      <div className="mt-2.5 flex flex-wrap gap-1.5 max-w-[95%] sm:max-w-[90%]">
                         {msg.suggestions!.map((sug, i) => (
                           <button
                             key={i}
@@ -340,7 +374,7 @@ export function ChatWidget() {
             </div>
 
             {/* Input Footer */}
-            <div className="p-3 border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900">
+            <div className="p-3 border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] shrink-0">
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -359,11 +393,11 @@ export function ChatWidget() {
                     }}
                     placeholder="Pose ta question..."
                     disabled={isLoading}
-                    className="w-full rounded-2xl border border-neutral-300 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 px-4 py-2.5 text-sm text-neutral-900 dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:opacity-50 pr-12"
+                    className="w-full rounded-2xl border border-neutral-300 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 px-4 py-3 sm:py-2.5 text-sm text-neutral-900 dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:opacity-50 pr-12"
                   />
                   {input.length > 0 && (
                     <span
-                      className={`absolute right-3 top-3 text-[10px] ${
+                      className={`absolute right-3 top-3.5 sm:top-3 text-[10px] ${
                         input.length > 500 ? 'text-red-500 font-bold' : 'text-neutral-400'
                       }`}
                     >
@@ -376,7 +410,7 @@ export function ChatWidget() {
                   type="submit"
                   disabled={!input.trim() || isLoading || input.length > 500}
                   aria-label="Envoyer le message"
-                  className="rounded-2xl bg-gradient-to-r from-primary-600 to-secondary-600 p-2.5 text-white disabled:opacity-40 hover:from-primary-700 hover:to-secondary-700 transition focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="rounded-2xl bg-gradient-to-r from-primary-600 to-secondary-600 p-3 sm:p-2.5 text-white disabled:opacity-40 hover:from-primary-700 hover:to-secondary-700 transition focus:outline-none focus:ring-2 focus:ring-primary-500 shrink-0"
                 >
                   <PaperAirplaneIcon className="h-5 w-5" />
                 </button>

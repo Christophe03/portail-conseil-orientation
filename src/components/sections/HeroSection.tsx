@@ -10,9 +10,7 @@ import {
   DevicePhoneMobileIcon,
   AcademicCapIcon,
   ArrowRightIcon,
-  CheckBadgeIcon,
   BuildingLibraryIcon,
-  MapPinIcon
 } from '@heroicons/react/24/outline';
 
 const stats = [
@@ -23,27 +21,27 @@ const stats = [
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24 bg-gradient-to-b from-slate-50 via-white to-slate-50 dark:from-[#081225] dark:via-[#0b132b] dark:to-[#081225]">
+    <section className="relative overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24 bg-gradient-to-b from-slate-50 via-white to-blue-50/20 dark:from-[#060f1d] dark:via-[#0a192f] dark:to-[#060f1d]">
       {/* Subtle background grid pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f01f_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f01f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] dark:bg-[linear-gradient(to_right,#1e293b2a_1px,transparent_1px),linear-gradient(to_bottom,#1e293b2a_1px,transparent_1px)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#13508f0a_1px,transparent_1px),linear-gradient(to_bottom,#13508f0a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] dark:bg-[linear-gradient(to_right,#3b9df810_1px,transparent_1px),linear-gradient(to_bottom,#3b9df810_1px,transparent_1px)]" />
 
       <div className="container-custom relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
           {/* Left Column: Heading, Value Proposition & CTAs */}
           <div className="lg:col-span-7 text-left">
-            {/* National Orientation Badge */}
+            {/* National Orientation Badge in Logo Colors */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center space-x-2 rounded-full px-3.5 py-1.5 bg-slate-100 dark:bg-[#14213d] border border-slate-200/80 dark:border-slate-700/80 mb-6"
+              className="inline-flex items-center space-x-2 rounded-full px-3.5 py-1.5 bg-[#13508f]/10 dark:bg-[#112240] border border-[#13508f]/20 dark:border-[#3b9df8]/30 mb-6"
             >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3b9df8] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#3b9df8]"></span>
               </span>
-              <span className="text-xs font-semibold text-navy-900 dark:text-slate-200">
+              <span className="text-xs font-semibold text-[#13508f] dark:text-[#7cc5fb]">
                 Portail Officiel & IA • Orientation Post-Bac Mali
               </span>
             </motion.div>
@@ -53,9 +51,9 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-navy-900 dark:text-white tracking-tight leading-[1.15] mb-6 text-balance"
+              className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#13508f] dark:text-white tracking-tight leading-[1.15] mb-6 text-balance"
             >
-              Construisez votre avenir universitaire au Mali avec l'aide de l'IA
+              Construisez votre avenir universitaire au Mali avec <span className="text-[#3b9df8]">l'aide de l'IA</span>
             </motion.h1>
 
             {/* Subtitle / Description */}
@@ -79,7 +77,7 @@ export function HeroSection() {
               <Button
                 asChild
                 size="lg"
-                className="rounded-xl bg-navy-900 text-white font-semibold hover:bg-navy-800 shadow-md hover:shadow-lg dark:bg-amber-500 dark:text-navy-950 dark:hover:bg-amber-400 transition-all flex items-center justify-center px-6 py-3.5"
+                className="rounded-xl bg-[#13508f] text-white font-semibold hover:bg-[#0e4379] shadow-md hover:shadow-lg dark:bg-[#3b9df8] dark:text-white dark:hover:bg-[#2589ec] transition-all flex items-center justify-center px-6 py-3.5"
               >
                 <a href={APP_DOWNLOAD_URL} target="_blank" rel="noopener noreferrer">
                   <DevicePhoneMobileIcon className="h-5 w-5 mr-2.5" />
@@ -91,10 +89,10 @@ export function HeroSection() {
                 asChild
                 variant="outline"
                 size="lg"
-                className="rounded-xl border border-slate-300 dark:border-slate-700 bg-white/80 dark:bg-slate-800/60 text-navy-900 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 font-semibold transition-all flex items-center justify-center px-6 py-3.5"
+                className="rounded-xl border-2 border-[#13508f]/25 dark:border-[#3b9df8]/40 bg-white/80 dark:bg-slate-800/60 text-[#13508f] dark:text-[#7cc5fb] hover:bg-[#13508f]/5 dark:hover:bg-[#3b9df8]/10 font-semibold transition-all flex items-center justify-center px-6 py-3.5"
               >
                 <Link href="/universites">
-                  <AcademicCapIcon className="h-5 w-5 mr-2.5 text-primary-600 dark:text-amber-400" />
+                  <AcademicCapIcon className="h-5 w-5 mr-2.5 text-[#3b9df8]" />
                   Explorer les Universités
                 </Link>
               </Button>
@@ -109,7 +107,7 @@ export function HeroSection() {
             >
               {stats.map((stat, i) => (
                 <div key={i} className="text-left">
-                  <div className="text-2xl sm:text-3xl font-extrabold text-navy-900 dark:text-white">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-[#13508f] dark:text-[#3b9df8]">
                     {stat.value}
                   </div>
                   <div className="text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400">
@@ -120,7 +118,7 @@ export function HeroSection() {
             </motion.div>
           </div>
 
-          {/* Right Column: Realistic Smartphone App Showcase */}
+          {/* Right Column: Realistic Smartphone App Showcase in Logo Colors */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -128,8 +126,8 @@ export function HeroSection() {
             className="lg:col-span-5 flex justify-center"
           >
             <div className="relative w-full max-w-[340px] sm:max-w-[370px]">
-              {/* Soft decorative glow behind phone */}
-              <div className="absolute -inset-1.5 bg-gradient-to-r from-navy-800 to-amber-500 rounded-[3rem] opacity-20 blur-xl dark:opacity-30"></div>
+              {/* Soft decorative glow behind phone using logo dual-blue */}
+              <div className="absolute -inset-1.5 bg-gradient-to-r from-[#13508f] to-[#3b9df8] rounded-[3rem] opacity-25 blur-xl dark:opacity-35"></div>
 
               {/* Smartphone Frame */}
               <div className="relative rounded-[2.8rem] bg-slate-900 p-3 shadow-phone border-4 border-slate-800">
@@ -140,7 +138,7 @@ export function HeroSection() {
                 </div>
 
                 {/* Smartphone Screen Content */}
-                <div className="relative rounded-[2.3rem] overflow-hidden bg-slate-50 dark:bg-[#0d172c] border border-slate-700/50 p-4 pt-10 text-left space-y-3.5">
+                <div className="relative rounded-[2.3rem] overflow-hidden bg-slate-50 dark:bg-[#071324] border border-slate-700/50 p-4 pt-10 text-left space-y-3.5">
                   
                   {/* Top Bar of the App */}
                   <div className="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
@@ -153,22 +151,22 @@ export function HeroSection() {
                           className="object-cover"
                         />
                       </div>
-                      <span className="text-xs font-bold text-navy-900 dark:text-white">
+                      <span className="text-xs font-bold text-[#13508f] dark:text-white">
                         Conseil Orientation Mali
                       </span>
                     </div>
-                    <span className="text-[10px] font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 px-2 py-0.5 rounded-full">
+                    <span className="text-[10px] font-semibold bg-[#3b9df8]/15 text-[#13508f] dark:bg-[#3b9df8]/20 dark:text-[#7cc5fb] px-2 py-0.5 rounded-full">
                       En ligne
                     </span>
                   </div>
 
                   {/* Student Profile Card */}
-                  <div className="p-3 rounded-2xl bg-white dark:bg-[#14213d] border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
+                  <div className="p-3 rounded-2xl bg-white dark:bg-[#112240] border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
                     <div className="flex items-center justify-between mb-1.5">
                       <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">
                         Profil Bachelier
                       </span>
-                      <span className="text-[10px] font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded-md">
+                      <span className="text-[10px] font-bold text-[#13508f] dark:text-[#7cc5fb] bg-[#13508f]/10 dark:bg-[#13508f]/30 px-2 py-0.5 rounded-md">
                         Série TSE
                       </span>
                     </div>
@@ -178,31 +176,31 @@ export function HeroSection() {
                   </div>
 
                   {/* AI Recommendation Chat Bubble */}
-                  <div className="p-3.5 rounded-2xl bg-gradient-to-br from-navy-900 to-navy-950 text-white shadow-sm space-y-2">
-                    <div className="flex items-center space-x-1.5 text-amber-400">
-                      <SparklesIcon className="h-4 w-4" />
-                      <span className="text-xs font-bold tracking-wide">
+                  <div className="p-3.5 rounded-2xl bg-gradient-to-br from-[#13508f] to-[#0e3760] text-white shadow-sm space-y-2">
+                    <div className="flex items-center space-x-1.5 text-[#7cc5fb]">
+                      <SparklesIcon className="h-4 w-4 text-[#3b9df8]" />
+                      <span className="text-xs font-bold tracking-wide text-white">
                         Conseiller IA Orientation
                       </span>
                     </div>
-                    <p className="text-xs text-slate-200 leading-relaxed">
+                    <p className="text-xs text-slate-100 leading-relaxed">
                       « Avec ton Bac TSE, voici les formations phares idéales à Bamako :
                     </p>
                     <div className="space-y-1.5 pt-1">
-                      <div className="flex items-center space-x-2 text-[11px] bg-white/10 rounded-lg p-2 text-slate-100">
-                        <BuildingLibraryIcon className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+                      <div className="flex items-center space-x-2 text-[11px] bg-white/10 rounded-lg p-2 text-white">
+                        <BuildingLibraryIcon className="h-3.5 w-3.5 text-[#3b9df8] shrink-0" />
                         <span className="truncate">USTTB / FST • Génie Informatique</span>
                       </div>
-                      <div className="flex items-center space-x-2 text-[11px] bg-white/10 rounded-lg p-2 text-slate-100">
-                        <BuildingLibraryIcon className="h-3.5 w-3.5 text-amber-400 shrink-0" />
+                      <div className="flex items-center space-x-2 text-[11px] bg-white/10 rounded-lg p-2 text-white">
+                        <BuildingLibraryIcon className="h-3.5 w-3.5 text-[#7cc5fb] shrink-0" />
                         <span className="truncate">ENI-ABT • Télécommunications</span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Floating Action within the App Screen */}
+                  {/* Floating Action within the App Screen in Logo Sky Blue */}
                   <div className="pt-1">
-                    <div className="w-full py-2.5 px-3 rounded-xl bg-amber-500 text-navy-950 text-xs font-bold flex items-center justify-center space-x-1.5 shadow-sm">
+                    <div className="w-full py-2.5 px-3 rounded-xl bg-[#3b9df8] hover:bg-[#2589ec] text-white text-xs font-bold flex items-center justify-center space-x-1.5 shadow-sm transition-colors cursor-pointer">
                       <span>Poser une question à l'IA</span>
                       <ArrowRightIcon className="h-3.5 w-3.5" />
                     </div>
