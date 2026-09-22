@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { XMarkIcon, ShieldCheckIcon, InformationCircleIcon } from '@heroicons/react/24/outline';
+import { ShieldCheckIcon, XMarkIcon, InformationCircleIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
 interface CookiePreferences {
@@ -21,7 +21,6 @@ export function CookieBanner() {
   });
 
   useEffect(() => {
-    // Vérifier si l'utilisateur a déjà fait un choix
     const cookieConsent = localStorage.getItem('cookie-consent');
     if (!cookieConsent) {
       setShowBanner(true);
@@ -46,7 +45,7 @@ export function CookieBanner() {
 
   const handleRejectAll = () => {
     const allRejected = {
-      necessary: true, // Les cookies nécessaires sont toujours acceptés
+      necessary: true,
       analytics: false,
       marketing: false,
     };
@@ -59,22 +58,15 @@ export function CookieBanner() {
     localStorage.setItem('cookie-consent', JSON.stringify(consent));
     localStorage.setItem('cookie-consent-date', new Date().toISOString());
     
-    // Appliquer les préférences
     if (consent.analytics) {
-      // Activer Google Analytics
       window.gtag = window.gtag || function() {
         (window.gtag.q = window.gtag.q || []).push(arguments);
       };
     }
-    
-    if (consent.marketing) {
-      // Activer les cookies marketing
-      console.log('Cookies marketing activés');
-    }
   };
 
   const togglePreference = (type: keyof CookiePreferences) => {
-    if (type === 'necessary') return; // Les cookies nécessaires ne peuvent pas être désactivés
+    if (type === 'necessary') return;
     
     setPreferences(prev => ({
       ...prev,
@@ -87,163 +79,129 @@ export function CookieBanner() {
   return (
     <AnimatePresence>
       <motion.div
-        initial={{ y: 100, opacity: 0 }}
+        initial={{ y: 80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        exit={{ y: 100, opacity: 0 }}
+        exit={{ y: 80, opacity: 0 }}
         transition={{ duration: 0.3 }}
-        className="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-700 shadow-2xl"
+        className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-[#071324]/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 shadow-2xl"
       >
-        <div className="container-custom py-6">
+        <div className="container-custom py-5">
           {!showPreferences ? (
-            // Bannière principale
-            <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4">
-              <div className="flex-1">
-                <div className="flex items-start gap-3">
-                  <ShieldCheckIcon className="h-6 w-6 text-primary-600 flex-shrink-0 mt-1" />
-                  <div>
-                    <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">
-                      🍪 Nous utilisons des cookies
-                    </h3>
-                    <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
-                      Nous utilisons des cookies pour améliorer votre expérience, analyser le trafic et personnaliser le contenu. 
-                      En continuant à utiliser ce site, vous acceptez notre utilisation des cookies.
-                    </p>
-                    <div className="flex items-center gap-4 mt-3">
-                      <Link 
-                        href="/privacy" 
-                        className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 text-sm font-medium underline"
-                      >
-                        Politique de confidentialité
-                      </Link>
-                      <button
-                        onClick={() => setShowPreferences(true)}
-                        className="text-neutral-600 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200 text-sm font-medium underline"
-                      >
-                        Personnaliser
-                      </button>
-                    </div>
+            /* Main Banner */
+            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5">
+              <div className="flex items-start gap-3.5 max-w-3xl">
+                <div className="w-10 h-10 rounded-xl bg-[#13508F]/10 dark:bg-[#3B9DF8]/10 text-[#13508F] dark:text-[#3B9DF8] flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <ShieldCheckIcon className="h-5 w-5" />
+                </div>
+                <div>
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white leading-tight">
+                    🍪 Gestion des cookies & respect de votre vie privée
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
+                    Nous utilisons des cookies strictement nécessaires au fonctionnement du portail et des mesures d'audience anonymes pour améliorer les fiches d'orientation scolaire au Mali.
+                  </p>
+                  <div className="flex items-center gap-4 mt-2 text-xs">
+                    <Link 
+                      href="/privacy" 
+                      className="text-[#13508F] dark:text-[#3B9DF8] font-semibold hover:underline"
+                    >
+                      Politique de confidentialité
+                    </Link>
+                    <span className="text-slate-400">•</span>
+                    <button
+                      onClick={() => setShowPreferences(true)}
+                      className="text-slate-500 hover:text-slate-900 dark:hover:text-white font-medium underline"
+                    >
+                      Personnaliser mes choix
+                    </button>
                   </div>
                 </div>
               </div>
-              
-              <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
+
+              {/* Action buttons */}
+              <div className="flex flex-wrap items-center gap-2.5 w-full sm:w-auto shrink-0">
                 <button
                   onClick={handleRejectAll}
-                  className="px-6 py-3 border border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors duration-200 font-medium"
+                  className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-xs font-semibold min-h-[40px]"
                 >
-                  Refuser
+                  Refuser non-essentiels
                 </button>
                 <button
                   onClick={handleAcceptAll}
-                  className="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors duration-200 font-medium"
+                  className="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl bg-[#13508F] hover:bg-[#0e3a6a] text-white transition-all text-xs font-semibold shadow-sm min-h-[40px]"
                 >
                   Accepter tout
                 </button>
-              </div>
-              
-              <button
-                onClick={() => setShowBanner(false)}
-                className="lg:hidden p-2 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors duration-200"
-              >
-                <XMarkIcon className="h-5 w-5" />
-              </button>
-            </div>
-          ) : (
-            // Préférences détaillées
-            <div className="space-y-6">
-              <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">
-                  🎛️ Préférences des cookies
-                </h3>
                 <button
-                  onClick={() => setShowPreferences(false)}
-                  className="p-2 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors duration-200"
+                  onClick={() => setShowBanner(false)}
+                  className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg lg:ml-2"
+                  aria-label="Fermer la bannière"
                 >
                   <XMarkIcon className="h-5 w-5" />
                 </button>
               </div>
-              
-              <div className="space-y-4">
-                {/* Cookies nécessaires */}
-                <div className="flex items-center justify-between p-4 bg-neutral-50 dark:bg-neutral-800 rounded-lg">
-                  <div className="flex items-start gap-3">
-                    <ShieldCheckIcon className="h-5 w-5 text-green-600 mt-0.5" />
-                    <div>
-                      <h4 className="font-medium text-neutral-900 dark:text-white">
-                        Cookies nécessaires
-                      </h4>
-                      <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
-                        Essentiels au fonctionnement du site. Ne peuvent pas être désactivés.
-                      </p>
-                    </div>
+            </div>
+          ) : (
+            /* Preferences Panel */
+            <div className="space-y-4 max-w-4xl mx-auto">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+                <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
+                  Préférences des cookies
+                </h3>
+                <button
+                  onClick={() => setShowPreferences(false)}
+                  className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg"
+                >
+                  <XMarkIcon className="h-5 w-5" />
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#112240] border border-slate-200/80 dark:border-slate-800">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-xs font-bold text-slate-900 dark:text-white">Nécessaires</span>
+                    <input type="checkbox" checked={preferences.necessary} disabled className="h-4 w-4 text-[#13508F]" />
                   </div>
-                  <div className="flex items-center">
-                    <input
-                      type="checkbox"
-                      checked={preferences.necessary}
-                      disabled
-                      className="h-4 w-4 text-green-600 bg-neutral-100 border-neutral-300 rounded focus:ring-green-500"
-                    />
-                  </div>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">Indispensables au fonctionnement du portail.</p>
                 </div>
 
-                {/* Cookies analytiques */}
-                <div className="flex items-center justify-between p-4 bg-neutral-50 dark:bg-neutral-800 rounded-lg">
-                  <div className="flex items-start gap-3">
-                    <InformationCircleIcon className="h-5 w-5 text-blue-600 mt-0.5" />
-                    <div>
-                      <h4 className="font-medium text-neutral-900 dark:text-white">
-                        Cookies analytiques
-                      </h4>
-                      <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
-                        Nous aident à comprendre comment vous utilisez le site.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center">
+                <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#112240] border border-slate-200/80 dark:border-slate-800">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-xs font-bold text-slate-900 dark:text-white">Analytiques</span>
                     <input
                       type="checkbox"
                       checked={preferences.analytics}
                       onChange={() => togglePreference('analytics')}
-                      className="h-4 w-4 text-blue-600 bg-neutral-100 border-neutral-300 rounded focus:ring-blue-500"
+                      className="h-4 w-4 text-[#13508F] accent-[#13508F] cursor-pointer"
                     />
                   </div>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">Statistiques anonymes de fréquentation.</p>
                 </div>
 
-                {/* Cookies marketing */}
-                <div className="flex items-center justify-between p-4 bg-neutral-50 dark:bg-neutral-800 rounded-lg">
-                  <div className="flex items-start gap-3">
-                    <InformationCircleIcon className="h-5 w-5 text-purple-600 mt-0.5" />
-                    <div>
-                      <h4 className="font-medium text-neutral-900 dark:text-white">
-                        Cookies marketing
-                      </h4>
-                      <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
-                        Utilisés pour afficher des publicités pertinentes.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center">
+                <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#112240] border border-slate-200/80 dark:border-slate-800">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-xs font-bold text-slate-900 dark:text-white">Marketing</span>
                     <input
                       type="checkbox"
                       checked={preferences.marketing}
                       onChange={() => togglePreference('marketing')}
-                      className="h-4 w-4 text-purple-600 bg-neutral-100 border-neutral-300 rounded focus:ring-purple-500"
+                      className="h-4 w-4 text-[#13508F] accent-[#13508F] cursor-pointer"
                     />
                   </div>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">Partages et interactions sociales.</p>
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-neutral-200 dark:border-neutral-700">
+              <div className="flex justify-end gap-2.5 pt-2">
                 <button
                   onClick={handleRejectAll}
-                  className="px-6 py-3 border border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors duration-200 font-medium"
+                  className="px-4 py-2 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded-xl text-xs font-semibold"
                 >
                   Refuser tout
                 </button>
                 <button
                   onClick={handleAcceptSelected}
-                  className="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors duration-200 font-medium"
+                  className="px-5 py-2 bg-[#13508F] hover:bg-[#0e3a6a] text-white rounded-xl text-xs font-semibold shadow-sm"
                 >
                   Enregistrer mes choix
                 </button>

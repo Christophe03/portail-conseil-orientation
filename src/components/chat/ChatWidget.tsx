@@ -10,7 +10,8 @@ import {
   ExclamationTriangleIcon,
   ArrowPathIcon,
   ArrowLeftIcon,
-  TrashIcon
+  TrashIcon,
+  ChatBubbleLeftRightIcon
 } from '@heroicons/react/24/outline';
 
 export interface ChatMessage {
@@ -22,16 +23,16 @@ export interface ChatMessage {
 }
 
 const INITIAL_SUGGESTIONS = [
-  'Trouver ma série',
-  'Universités à Bamako',
-  "Comment télécharger l'app ?",
-  'Je ne sais pas quoi choisir'
+  'Trouver les facultés pour ma série',
+  'Universités publiques à Bamako',
+  'Comment télécharger l\'APK ?',
+  'Frais et bourses au Mali'
 ];
 
 const WELCOME_MESSAGE: ChatMessage = {
   id: 'welcome',
   role: 'assistant',
-  content: "Bonjour et bienvenue ! 👋 Je suis COS 🎓, ton Conseiller d'Orientation au Mali.\n\nMon rôle est de t'aider à faire le meilleur choix pour ton avenir. Pour commencer notre échange, dis-moi : quelle est ta série au BAC ou quel domaine d'études t'attire le plus ?",
+  content: "Bonjour et bienvenue ! 👋 Je suis COS 🎓, votre Conseiller d'Orientation virtuel au Mali.\n\nPosez-moi vos questions sur votre série de Bac, les facultés publiques (USTTB, ULSHB, USSGB, USJPB) ou les universités privées.",
   timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
   suggestions: INITIAL_SUGGESTIONS
 };
@@ -96,13 +97,11 @@ export function ChatWidget() {
     const trimmedInput = (customText || input).trim();
     if (!trimmedInput || isLoading) return;
 
-    // 1. Limite de longueur
     if (trimmedInput.length > 500) {
       setErrorMsg('Votre message ne doit pas dépasser 500 caractères.');
       return;
     }
 
-    // 2. Limite de fréquence (rate limiting client : 10 msgs / min)
     const now = Date.now();
     const oneMinuteAgo = now - 60000;
     const recentSends = sendTimestamps.filter(t => t > oneMinuteAgo);
@@ -127,7 +126,6 @@ export function ChatWidget() {
     setIsLoading(true);
 
     try {
-      // Préparation de la requête serveur
       const payloadMessages = newHistory.map(m => ({
         role: m.role,
         content: m.content
@@ -148,26 +146,20 @@ export function ChatWidget() {
       const assistantMsg: ChatMessage = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: data.reply || "Je n'ai pas pu générer de réponse.",
+        content: data.reply || "Je n'ai pas pu générer une réponse. Veuillez réessayer.",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        suggestions: data.suggestions || undefined
+        suggestions: data.suggestions
       };
 
-      setMessages(prev => [...prev, assistantMsg]);
+      setMessages([...newHistory, assistantMsg]);
     } catch (err: any) {
-      console.error('[COS Widget Client Error]:', err);
-      setErrorMsg(err.message || 'Désolé, je rencontre un problème technique, réessaie dans un instant.');
+      setErrorMsg(err.message || 'Problème de connexion. Veuillez réessayer.');
     } finally {
       setIsLoading(false);
     }
   };
 
-  /**
-   * Render de texte avec liens Markdown [Titre](URL) transformés en liens cliquables Next.js
-   * et nettoyage complet des astérisques pour une rédaction fluide
-   */
   const renderFormattedContent = (content: string) => {
-    // Nettoyage de tous les astérisques résiduels (*, **)
     const cleanedContent = content
       .replace(/^(\s*)\*\s+/gm, '$1- ')
       .replace(/(^|[^*])\*([^*]+)\*([^*]|$)/g, '$1$2$3')
@@ -195,7 +187,7 @@ export function ChatWidget() {
             onClick={() => {
               if (window.innerWidth < 640) setIsOpen(false);
             }}
-            className="text-primary-600 dark:text-primary-400 font-semibold hover:underline inline-flex items-center gap-0.5"
+            className="text-[#13508F] dark:text-[#3B9DF8] font-semibold hover:underline inline-flex items-center gap-0.5"
           >
             {linkText}
           </Link>
@@ -207,7 +199,7 @@ export function ChatWidget() {
             href={linkUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary-600 dark:text-primary-400 font-semibold hover:underline"
+            className="text-[#13508F] dark:text-[#3B9DF8] font-semibold hover:underline"
           >
             {linkText}
           </a>
@@ -232,57 +224,63 @@ export function ChatWidget() {
 
   return (
     <>
-      {/* Floating Action Button (Bulle du chat) */}
+      {/* Floating Action Button (Bouton Chatbot COS - Bas Droite) */}
       {!isOpen && (
-        <div className="fixed bottom-5 right-5 z-50 no-index" aria-label="Zone du chatbot COS">
+        <div className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 no-index" aria-label="Zone du chatbot COS">
           <motion.button
             onClick={() => setIsOpen(true)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             aria-expanded={isOpen}
             aria-label="Ouvrir l'assistant COS"
-            className="flex items-center gap-2.5 rounded-full bg-gradient-to-r from-primary-600 to-secondary-600 px-4 py-3 text-white shadow-xl hover:shadow-2xl transition-all focus:outline-none focus:ring-4 focus:ring-primary-500/30"
+            className="flex items-center gap-3 rounded-full bg-[#13508F] hover:bg-[#0e3a6a] text-white px-5 py-3.5 shadow-xl shadow-[#13508F]/25 hover:shadow-2xl transition-all border border-[#3B9DF8]/30 focus:outline-none focus:ring-4 focus:ring-[#3B9DF8]/30 group min-h-[48px]"
           >
-            <div className="relative">
-              <SparklesIcon className="h-6 w-6" />
-              <span className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-green-400 animate-ping" />
+            <div className="relative flex items-center justify-center">
+              <SparklesIcon className="h-5 w-5 text-[#3B9DF8] group-hover:rotate-12 transition-transform" />
+              <span className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-emerald-400 animate-ping" />
+              <span className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-emerald-400" />
             </div>
-            <span className="font-bold text-sm tracking-wide">COS</span>
+            <div className="flex flex-col text-left">
+              <span className="font-extrabold text-sm tracking-wide leading-tight">
+                COS <span className="text-[#3B9DF8] font-semibold">Assistant IA</span>
+              </span>
+              <span className="text-[10px] text-slate-200 font-medium">Posez votre question</span>
+            </div>
           </motion.button>
         </div>
       )}
 
-      {/* Chat Window Panel - Plein écran sur mobile (style ChatGPT/Gemini), widget sur Desktop */}
+      {/* Chat Window Panel - Mobile Plein Écran, Widget Desktop */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 30, scale: 0.95 }}
             transition={{ duration: 0.2 }}
             role="dialog"
             aria-label="Fenêtre de discussion avec COS"
-            className="fixed inset-0 z-50 sm:inset-auto sm:bottom-20 sm:right-6 w-full h-[100dvh] sm:w-[420px] sm:h-[580px] sm:max-h-[85vh] flex flex-col rounded-none sm:rounded-3xl border-none sm:border sm:border-neutral-200 sm:dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-2xl overflow-hidden"
+            className="fixed inset-0 z-50 sm:inset-auto sm:bottom-6 sm:right-6 w-full h-[100dvh] sm:w-[420px] sm:h-[600px] sm:max-h-[85vh] flex flex-col rounded-none sm:rounded-3xl border-none sm:border sm:border-slate-200 sm:dark:border-slate-800 bg-white dark:bg-[#0a192f] shadow-2xl overflow-hidden"
           >
             {/* Header Panel */}
-            <div className="bg-gradient-to-r from-primary-700 via-primary-800 to-secondary-800 text-white p-3.5 sm:p-4 flex items-center justify-between shadow-sm shrink-0">
+            <div className="bg-[#13508F] text-white p-4 flex items-center justify-between shadow-md shrink-0 border-b border-white/10">
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setIsOpen(false)}
-                  aria-label="Retour / Fermer la discussion"
-                  className="rounded-full p-1.5 hover:bg-white/10 text-white/90 hover:text-white transition sm:hidden"
+                  aria-label="Fermer la discussion"
+                  className="rounded-xl p-1.5 hover:bg-white/10 text-white/90 hover:text-white transition sm:hidden"
                 >
                   <ArrowLeftIcon className="h-6 w-6" />
                 </button>
-                <div className="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center border border-white/20 shrink-0">
-                  <SparklesIcon className="h-5 w-5 text-green-300" />
+                <div className="h-10 w-10 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center shrink-0">
+                  <SparklesIcon className="h-5 w-5 text-[#3B9DF8]" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-sm sm:text-base leading-tight flex items-center gap-1.5">
-                    <span>COS Assistant</span>
-                    <span className="h-2 w-2 rounded-full bg-green-400 inline-block" />
+                  <h3 className="font-extrabold text-sm sm:text-base leading-tight flex items-center gap-2">
+                    <span>COS • Conseiller d&apos;Orientation</span>
+                    <span className="h-2 w-2 rounded-full bg-emerald-400 inline-block animate-pulse" />
                   </h3>
-                  <p className="text-[11px] sm:text-xs text-primary-200">Conseil d&apos;Orientation Mali</p>
+                  <p className="text-[11px] text-slate-200 mt-0.5">Orientation Scolaire & Universitaire Mali</p>
                 </div>
               </div>
               <div className="flex items-center gap-1">
@@ -290,14 +288,14 @@ export function ChatWidget() {
                   onClick={handleReset}
                   title="Nouvelle conversation"
                   aria-label="Réinitialiser la discussion"
-                  className="rounded-full p-2 hover:bg-white/10 text-white/80 hover:text-white transition"
+                  className="rounded-xl p-2 hover:bg-white/10 text-white/80 hover:text-white transition"
                 >
-                  <TrashIcon className="h-5 w-5" />
+                  <TrashIcon className="h-4 w-4" />
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
                   aria-label="Fermer la fenêtre (Echap)"
-                  className="hidden sm:flex rounded-full p-1.5 hover:bg-white/10 text-white/80 hover:text-white transition"
+                  className="hidden sm:flex rounded-xl p-2 hover:bg-white/10 text-white/80 hover:text-white transition"
                 >
                   <XMarkIcon className="h-5 w-5" />
                 </button>
@@ -305,7 +303,7 @@ export function ChatWidget() {
             </div>
 
             {/* Messages Scroll Area */}
-            <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-neutral-50/50 dark:bg-neutral-950/40">
+            <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-slate-50/60 dark:bg-[#071324]/80">
               {messages.map((msg, index) => {
                 const isLastMsg = index === messages.length - 1;
                 const showSuggestions = msg.role === 'assistant' && msg.suggestions && msg.suggestions.length > 0 && (
@@ -318,10 +316,10 @@ export function ChatWidget() {
                     className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
                   >
                     <div
-                      className={`max-w-[88%] sm:max-w-[85%] rounded-2xl p-3.5 shadow-sm ${
+                      className={`max-w-[88%] sm:max-w-[85%] rounded-2xl p-3.5 shadow-xs ${
                         msg.role === 'user'
-                          ? 'bg-primary-600 text-white rounded-br-none'
-                          : 'bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white border border-neutral-200 dark:border-neutral-700/60 rounded-bl-none'
+                          ? 'bg-[#13508F] text-white rounded-br-none'
+                          : 'bg-white dark:bg-[#112240] text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-800 rounded-bl-none shadow-card'
                       }`}
                     >
                       {msg.role === 'assistant' ? (
@@ -339,7 +337,7 @@ export function ChatWidget() {
                             type="button"
                             onClick={() => handleSend(sug)}
                             disabled={isLoading}
-                            className="rounded-xl border border-primary-200 dark:border-primary-800 bg-primary-50/80 dark:bg-primary-950/50 px-3 py-1.5 text-xs text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/60 transition font-medium text-left"
+                            className="rounded-xl border border-[#13508F]/20 dark:border-[#3B9DF8]/30 bg-[#13508F]/5 dark:bg-[#3B9DF8]/10 px-3 py-1.5 text-xs text-[#13508F] dark:text-[#3B9DF8] hover:bg-[#13508F] hover:text-white dark:hover:bg-[#3B9DF8] dark:hover:text-slate-900 transition-all font-semibold text-left"
                           >
                             {sug}
                           </button>
@@ -347,7 +345,7 @@ export function ChatWidget() {
                       </div>
                     )}
 
-                    <span className="text-[10px] text-neutral-400 mt-1 px-1">
+                    <span className="text-[10px] text-slate-400 mt-1 px-1">
                       {msg.timestamp}
                     </span>
                   </div>
@@ -356,9 +354,9 @@ export function ChatWidget() {
 
               {isLoading && (
                 <div className="flex flex-col items-start">
-                  <div className="bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 rounded-2xl rounded-bl-none p-3.5 border border-neutral-200 dark:border-neutral-700/60 shadow-sm flex items-center gap-2 text-sm">
-                    <ArrowPathIcon className="h-4 w-4 animate-spin text-primary-600" />
-                    <span>COS est en train d&apos;écrire...</span>
+                  <div className="bg-white dark:bg-[#112240] text-slate-600 dark:text-slate-300 rounded-2xl rounded-bl-none p-3.5 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-2 text-xs sm:text-sm">
+                    <ArrowPathIcon className="h-4 w-4 animate-spin text-[#3B9DF8]" />
+                    <span>COS prépare votre réponse...</span>
                   </div>
                 </div>
               )}
@@ -374,7 +372,7 @@ export function ChatWidget() {
             </div>
 
             {/* Input Footer */}
-            <div className="p-3 border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] shrink-0">
+            <div className="p-3 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0a192f] pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] shrink-0">
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -391,14 +389,14 @@ export function ChatWidget() {
                       setInput(e.target.value);
                       if (errorMsg) setErrorMsg(null);
                     }}
-                    placeholder="Pose ta question..."
+                    placeholder="Posez votre question à COS..."
                     disabled={isLoading}
-                    className="w-full rounded-2xl border border-neutral-300 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 px-4 py-3 sm:py-2.5 text-sm text-neutral-900 dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:opacity-50 pr-12"
+                    className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-[#112240] px-4 py-3 sm:py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3B9DF8] disabled:opacity-50 pr-12 transition-all"
                   />
                   {input.length > 0 && (
                     <span
-                      className={`absolute right-3 top-3.5 sm:top-3 text-[10px] ${
-                        input.length > 500 ? 'text-red-500 font-bold' : 'text-neutral-400'
+                      className={`absolute right-3 top-3.5 sm:top-2.5 text-[10px] ${
+                        input.length > 500 ? 'text-red-500 font-bold' : 'text-slate-400'
                       }`}
                     >
                       {input.length}/500
@@ -410,9 +408,9 @@ export function ChatWidget() {
                   type="submit"
                   disabled={!input.trim() || isLoading || input.length > 500}
                   aria-label="Envoyer le message"
-                  className="rounded-2xl bg-gradient-to-r from-primary-600 to-secondary-600 p-3 sm:p-2.5 text-white disabled:opacity-40 hover:from-primary-700 hover:to-secondary-700 transition focus:outline-none focus:ring-2 focus:ring-primary-500 shrink-0"
+                  className="rounded-xl bg-[#13508F] hover:bg-[#0e3a6a] p-3 sm:p-2.5 text-white disabled:opacity-40 transition-all focus:outline-none focus:ring-2 focus:ring-[#3B9DF8] shrink-0 min-h-[40px] flex items-center justify-center"
                 >
-                  <PaperAirplaneIcon className="h-5 w-5" />
+                  <PaperAirplaneIcon className="h-4 w-4" />
                 </button>
               </form>
             </div>
