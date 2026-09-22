@@ -32,9 +32,9 @@ export function HeroSection() {
           <div className="lg:col-span-7 text-left">
             {/* National Orientation Badge in Logo Colors */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.4 }}
               className="inline-flex items-center space-x-2 rounded-full px-3.5 py-1.5 bg-[#13508f]/10 dark:bg-[#112240] border border-[#13508f]/20 dark:border-[#3b9df8]/30 mb-6"
             >
               <span className="relative flex h-2 w-2">
@@ -48,9 +48,9 @@ export function HeroSection() {
 
             {/* Main Headline */}
             <motion.h1
-              initial={{ opacity: 0, y: 25 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.5 }}
               className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#13508f] dark:text-white tracking-tight leading-[1.15] mb-6 text-balance"
             >
               Construisez votre avenir universitaire au Mali avec <span className="text-[#3b9df8]">l'aide de l'IA</span>
@@ -58,9 +58,9 @@ export function HeroSection() {
 
             {/* Subtitle / Description */}
             <motion.p
-              initial={{ opacity: 0, y: 25 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.5 }}
               className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-8 max-w-2xl"
             >
               Explorez l'annuaire de plus de 190 universités, facultés et instituts agréés au Mali. 
@@ -69,15 +69,15 @@ export function HeroSection() {
 
             {/* Action Buttons */}
             <motion.div
-              initial={{ opacity: 0, y: 25 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              transition={{ duration: 0.5 }}
               className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 mb-10"
             >
               <Button
                 asChild
                 size="lg"
-                className="rounded-xl bg-[#13508f] text-white font-semibold hover:bg-[#0e4379] shadow-md hover:shadow-lg dark:bg-[#3b9df8] dark:text-white dark:hover:bg-[#2589ec] transition-all flex items-center justify-center px-6 py-3.5"
+                className="rounded-xl bg-[#13508f] text-white font-semibold hover:bg-[#0e4379] shadow-md hover:shadow-lg dark:bg-[#3b9df8] dark:text-white dark:hover:bg-[#2589ec] transition-all flex items-center justify-center px-6 py-3.5 min-h-[48px]"
               >
                 <a href={APP_DOWNLOAD_URL} target="_blank" rel="noopener noreferrer">
                   <DevicePhoneMobileIcon className="h-5 w-5 mr-2.5" />
@@ -89,7 +89,7 @@ export function HeroSection() {
                 asChild
                 variant="outline"
                 size="lg"
-                className="rounded-xl border-2 border-[#13508f]/25 dark:border-[#3b9df8]/40 bg-white/80 dark:bg-slate-800/60 text-[#13508f] dark:text-[#7cc5fb] hover:bg-[#13508f]/5 dark:hover:bg-[#3b9df8]/10 font-semibold transition-all flex items-center justify-center px-6 py-3.5"
+                className="rounded-xl border-2 border-[#13508f]/25 dark:border-[#3b9df8]/40 bg-white/80 dark:bg-slate-800/60 text-[#13508f] dark:text-[#7cc5fb] hover:bg-[#13508f]/5 dark:hover:bg-[#3b9df8]/10 font-semibold transition-all flex items-center justify-center px-6 py-3.5 min-h-[48px]"
               >
                 <Link href="/universites">
                   <AcademicCapIcon className="h-5 w-5 mr-2.5 text-[#3b9df8]" />
@@ -100,9 +100,9 @@ export function HeroSection() {
 
             {/* Stats Row */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              transition={{ duration: 0.5 }}
               className="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200/80 dark:border-slate-800/80 max-w-xl"
             >
               {stats.map((stat, i) => (
@@ -120,9 +120,9 @@ export function HeroSection() {
 
           {/* Right Column: Realistic Smartphone App Showcase in Logo Colors */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 30 }}
+            initial={false}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.6 }}
             className="lg:col-span-5 flex justify-center"
           >
             <div className="relative w-full max-w-[340px] sm:max-w-[370px]">

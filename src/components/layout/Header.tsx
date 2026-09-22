@@ -57,6 +57,7 @@ export function Header() {
 
   const isHome = pathname === '/';
   const solidHeader = scrolled || !isHome;
+  const iconSrc = mounted && theme === 'dark' ? '/app_icon_blanc.png' : '/app_icon.png';
 
   const mobileMenu = (
     <AnimatePresence>
@@ -91,7 +92,7 @@ export function Header() {
                 <div className="flex items-center space-x-2.5">
                   <div className="relative h-10 w-10">
                     <Image
-                      src={theme === 'dark' ? '/app_icon_blanc.png' : '/app_icon.png'}
+                      src={iconSrc}
                       alt="Conseil d'Orientation"
                       fill
                       className="object-contain"
@@ -176,7 +177,7 @@ export function Header() {
             <Link href="/" className="flex min-w-0 items-center space-x-3 group">
               <div className="relative h-11 w-11 md:h-12 md:w-12 transition-transform duration-200 group-hover:scale-105">
                 <Image
-                  src={theme === 'dark' ? '/app_icon_blanc.png' : '/app_icon.png'}
+                  src={iconSrc}
                   alt="Conseil d'Orientation"
                   fill
                   className="object-contain"
