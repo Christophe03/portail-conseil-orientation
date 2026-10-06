@@ -6,13 +6,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   XMarkIcon,
   PaperAirplaneIcon,
-  SparklesIcon,
   ExclamationTriangleIcon,
   ArrowPathIcon,
   ArrowLeftIcon,
-  TrashIcon,
-  ChatBubbleLeftRightIcon
+  TrashIcon
 } from '@heroicons/react/24/outline';
+import { Bot } from 'lucide-react';
 
 export interface ChatMessage {
   id: string;
@@ -84,6 +83,13 @@ export function ChatWidget() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen]);
+
+  // Écoute de l'événement global pour ouvrir le chatbot au clic sur n'importe quel élément COS
+  useEffect(() => {
+    const handleOpen = () => setIsOpen(true);
+    window.addEventListener('open-cos-chatbot', handleOpen);
+    return () => window.removeEventListener('open-cos-chatbot', handleOpen);
+  }, []);
 
   const handleReset = () => {
     setMessages([{
@@ -224,28 +230,26 @@ export function ChatWidget() {
 
   return (
     <>
-      {/* Floating Action Button (Bouton Chatbot COS - Bas Droite) */}
+      {/* Floating Action Button (Bouton Robot Chatbot COS - Bas Droite) */}
       {!isOpen && (
         <div className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 no-index" aria-label="Zone du chatbot COS">
           <motion.button
             onClick={() => setIsOpen(true)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.92 }}
             aria-expanded={isOpen}
-            aria-label="Ouvrir l'assistant COS"
-            className="flex items-center gap-3 rounded-full bg-[#13508F] hover:bg-[#0e3a6a] text-white px-5 py-3.5 shadow-xl shadow-[#13508F]/25 hover:shadow-2xl transition-all border border-[#3B9DF8]/30 focus:outline-none focus:ring-4 focus:ring-[#3B9DF8]/30 group min-h-[48px]"
+            aria-label="Ouvrir le Chatbot COS Assistant IA"
+            title="COS Assistant IA • Cliquez pour ouvrir le chatbot"
+            className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-[#13508F] to-[#3B9DF8] hover:from-[#0e3a6a] hover:to-[#2589ec] text-white shadow-2xl shadow-[#13508F]/40 border-2 border-white/40 flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-[#3B9DF8]/40 transition-all group"
           >
-            <div className="relative flex items-center justify-center">
-              <SparklesIcon className="h-5 w-5 text-[#3B9DF8] group-hover:rotate-12 transition-transform" />
-              <span className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-emerald-400 animate-ping" />
-              <span className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-emerald-400" />
-            </div>
-            <div className="flex flex-col text-left">
-              <span className="font-extrabold text-sm tracking-wide leading-tight">
-                COS <span className="text-[#3B9DF8] font-semibold">Assistant IA</span>
-              </span>
-              <span className="text-[10px] text-slate-200 font-medium">Posez votre question</span>
-            </div>
+            {/* Robot Icon */}
+            <Bot className="w-7 h-7 sm:w-8 sm:h-8 text-white group-hover:scale-110 transition-transform duration-200 drop-shadow-md" />
+
+            {/* Online Indicator Badge */}
+            <span className="absolute top-1 right-1 sm:top-1.5 sm:right-1.5 flex h-3.5 w-3.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-400 border-2 border-[#13508F]" />
+            </span>
           </motion.button>
         </div>
       )}
@@ -273,7 +277,7 @@ export function ChatWidget() {
                   <ArrowLeftIcon className="h-6 w-6" />
                 </button>
                 <div className="h-10 w-10 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center shrink-0">
-                  <SparklesIcon className="h-5 w-5 text-[#3B9DF8]" />
+                  <Bot className="h-5 w-5 text-white" />
                 </div>
                 <div>
                   <h3 className="font-extrabold text-sm sm:text-base leading-tight flex items-center gap-2">
