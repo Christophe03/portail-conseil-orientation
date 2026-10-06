@@ -7,6 +7,7 @@ import { Footer } from '@/components/layout/Footer';
 import { ChatWidget } from '@/components/chat/ChatWidget';
 import { Analytics } from '@/components/analytics/Analytics';
 import { Analytics as VercelAnalytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { CookieBanner } from '@/components/ui/CookieBanner';
 import { CookiePreferences } from '@/components/ui/CookiePreferences';
 import { StructuredData } from '@/components/seo/StructuredData';
@@ -164,6 +165,7 @@ export default function RootLayout({
           <ChatWidget />
           <Analytics />
           <VercelAnalytics />
+          <SpeedInsights />
           <CookieBanner />
           <CookiePreferences />
         </ThemeProvider>
