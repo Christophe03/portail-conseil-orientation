@@ -4,6 +4,8 @@ import { HeroDownload } from '@/components/sections/HeroDownload';
 import { InstallationGuide } from '@/components/sections/InstallationGuide';
 import { SystemRequirements } from '@/components/sections/SystemRequirements';
 
+import { BreadcrumbStructuredData, StructuredData } from '@/components/seo/StructuredData';
+
 export const metadata: Metadata = {
   title: 'Télécharger - Conseil d\'Orientation Mali | App Mobile Gratuite',
   description: 'Téléchargez gratuitement l\'application Conseil d\'Orientation Mali sur Android (APK).',
@@ -43,6 +45,13 @@ export const metadata: Metadata = {
 export default function DownloadPage() {
   return (
     <main className="min-h-screen">
+      <BreadcrumbStructuredData
+        items={[
+          { name: 'Accueil', item: '/' },
+          { name: 'Télécharger l\'application', item: '/download' },
+        ]}
+      />
+      <StructuredData type="mobileApplication" />
       <HeroDownload />
       <DownloadSection />
       <SystemRequirements />

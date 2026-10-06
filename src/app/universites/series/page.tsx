@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import series from '@/data/series.json';
 import { slugify } from '@/lib/utils';
+import { BreadcrumbStructuredData } from '@/components/seo/StructuredData';
 import {
   BookOpenIcon,
   PaintBrushIcon,
@@ -31,18 +32,31 @@ type Serie = {
 const data = series as unknown as Serie[];
 
 export const metadata: Metadata = {
-  title: 'Séries du Baccalauréat au Mali - Guides & Débouchés',
-  description: 'Découvrez toutes les séries du baccalauréat au Mali (TSE, TSExp, TSS, TLL, STI, etc.), leurs avantages et les débouchés universitaires associés.',
+  title: 'Séries du Baccalauréat au Mali — Guides & Débouchés',
+  description: 'Découvrez toutes les séries officielles du baccalauréat au Mali (TSE, TSExp, TSS, TLL, STI, TSEco, etc.), leurs matières clés, leurs coefficients et les débouchés universitaires associés.',
+  keywords: [
+    'séries du bac Mali',
+    'baccalauréat malien',
+    'TSE Mali',
+    'TSExp Mali',
+    'TSS Mali',
+    'TLL Mali',
+    'TSEco Mali',
+    'débouchés bac Mali',
+  ],
   alternates: { canonical: '/universites/series' },
   openGraph: {
-    title: 'Séries du baccalauréat au Mali - Conseil d\'Orientation Mali',
-    description: 'Liste des séries du baccalauréat et informations utiles pour préparer son orientation post-bac.',
+    title: 'Séries du Baccalauréat au Mali — Guides & Débouchés',
+    description: 'Liste des séries du baccalauréat et formations supérieures associées au Mali.',
     url: '/universites/series',
+    type: 'website',
+    images: [{ url: '/app_icon.png', width: 512, height: 512, alt: 'Séries du Baccalauréat Mali' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Séries du baccalauréat au Mali',
-    description: 'Liste des séries du baccalauréat et informations utiles pour préparer son orientation post-bac.',
+    title: 'Séries du Baccalauréat au Mali',
+    description: 'Liste des séries du baccalauréat et formations supérieures associées au Mali.',
+    images: ['/app_icon.png'],
   },
 };
 
@@ -84,6 +98,13 @@ export default function SeriesListPage() {
 
   return (
     <div className="min-h-screen bg-slate-50/70 dark:bg-[#0a192f] pt-28 pb-16 sm:pt-36 sm:pb-24">
+      <BreadcrumbStructuredData
+        items={[
+          { name: 'Accueil', item: '/' },
+          { name: 'Universités', item: '/universites' },
+          { name: 'Séries du Bac', item: '/universites/series' },
+        ]}
+      />
       <div className="container-custom">
         {/* Breadcrumb */}
         <nav className="mb-6 flex items-center text-xs sm:text-sm text-slate-500 dark:text-slate-400">

@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import data from '@/data/universites_privees.json';
 import { PriveesList } from '@/components/sections/PriveesList';
 import { BuildingOfficeIcon } from '@heroicons/react/24/outline';
+import { BreadcrumbStructuredData } from '@/components/seo/StructuredData';
 
 type Privee = {
   ID: string;
@@ -25,18 +26,28 @@ type Privee = {
 const universites: Privee[] = data as unknown as Privee[];
 
 export const metadata: Metadata = {
-  title: 'Universités privées au Mali - Répertoire & Contacts Officiels',
-  description: 'Consultez la liste des universités privées et instituts au Mali avec leurs coordonnées, contacts, filières et adresses à Bamako et dans les régions.',
+  title: 'Universités privées au Mali — Répertoire & Contacts Officiels',
+  description: 'Consultez la liste des universités privées et instituts agréés au Mali avec leurs coordonnées certifiées, contacts, filières et adresses à Bamako et dans les régions.',
+  keywords: [
+    'universités privées Mali',
+    'instituts privés Bamako',
+    'facultés privées Mali',
+    'écoles supérieures privées Mali',
+    'contact universités Mali',
+  ],
   alternates: { canonical: '/universites/privees' },
   openGraph: {
-    title: 'Universités privées au Mali - Conseil d\'Orientation Mali',
-    description: 'Liste des universités privées au Mali avec des fiches détaillées pour trouver leurs coordonnées.',
+    title: 'Universités privées au Mali — Conseil d\'Orientation Mali',
+    description: 'Liste des universités privées agréées au Mali avec des fiches détaillées pour trouver leurs coordonnées.',
     url: '/universites/privees',
+    type: 'website',
+    images: [{ url: '/app_icon.png', width: 512, height: 512, alt: 'Universités privées au Mali' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Universités privées au Mali',
-    description: 'Liste des universités privées au Mali avec des fiches détaillées pour trouver leurs coordonnées.',
+    description: 'Liste des universités privées agréées au Mali avec fiches détaillées.',
+    images: ['/app_icon.png'],
   },
 };
 
@@ -47,6 +58,13 @@ export default function PriveesPage() {
 
   return (
     <div className="min-h-screen bg-slate-50/70 dark:bg-[#0a192f] pt-28 pb-16 sm:pt-36 sm:pb-24">
+      <BreadcrumbStructuredData
+        items={[
+          { name: 'Accueil', item: '/' },
+          { name: 'Universités', item: '/universites' },
+          { name: 'Universités Privées', item: '/universites/privees' },
+        ]}
+      />
       <div className="container-custom">
         {/* Breadcrumb */}
         <nav className="mb-6 flex items-center text-xs sm:text-sm text-slate-500 dark:text-slate-400">

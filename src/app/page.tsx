@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
 import { HeroSection } from '@/components/sections/HeroSection';
+import { AppShowcase } from '@/components/sections/AppShowcase';
+import { AppGallery } from '@/components/sections/AppGallery';
 import { StudentBenefitsSection } from '@/components/sections/StudentBenefitsSection';
 import { FeaturesSection } from '@/components/sections/FeaturesSection';
 import { DownloadSection } from '@/components/sections/DownloadSection';
@@ -48,6 +50,8 @@ export default function HomePage() {
     <>
       <StructuredData type="softwareApplication" />
       <HeroSection />
+      <AppShowcase />
+      <AppGallery />
       <StudentBenefitsSection />
       <FeaturesSection />
       <DownloadSection />

@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import data from '@/data/universites_privees.json';
 import { formatDate, slugify } from '@/lib/utils';
 import { ShareButton } from '@/components/ui/ShareButton';
+import { BreadcrumbStructuredData, UniversityStructuredData } from '@/components/seo/StructuredData';
 import { 
   BuildingOfficeIcon, 
   MapPinIcon, 
@@ -147,6 +148,26 @@ export default function PriveeDetailPage({ params }: { params: { slug: string } 
   return (
     <div className="min-h-screen bg-slate-50/70 dark:bg-[#0a192f] pt-28 pb-16 sm:pt-36 sm:pb-24">
       <div className="container-custom max-w-4xl">
+        <BreadcrumbStructuredData
+          items={[
+            { name: 'Accueil', item: '/' },
+            { name: 'Universités', item: '/universites' },
+            { name: 'Universités Privées', item: '/universites/privees' },
+            { name: u.Sigle || u.Nom, item: `/universites/privees/${params.slug}` },
+          ]}
+        />
+        <UniversityStructuredData
+          name={u.Nom}
+          acronym={u.Sigle}
+          location={u.Localisation}
+          address={u.Adresse}
+          phone={cleanContact}
+          email={cleanMail}
+          website={cleanSite}
+          isPublic={false}
+          description={directAnswer}
+          url={`/universites/privees/${params.slug}`}
+        />
         {/* Breadcrumb & Back */}
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
           <nav className="flex items-center text-xs sm:text-sm text-slate-500 dark:text-slate-400">

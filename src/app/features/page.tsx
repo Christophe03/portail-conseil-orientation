@@ -3,6 +3,7 @@ import { FeaturesSection } from '@/components/sections/FeaturesSection';
 import { HeroFeatures } from '@/components/sections/HeroFeatures';
 import { ComparisonTable } from '@/components/sections/ComparisonTable';
 import { IntegrationSection } from '@/components/sections/IntegrationSection';
+import { BreadcrumbStructuredData, StructuredData } from '@/components/seo/StructuredData';
 
 export const metadata: Metadata = {
   title: 'Fonctionnalités - Conseil d\'Orientation Mali | IA & Bourses d\'Études',
@@ -43,6 +44,13 @@ export const metadata: Metadata = {
 export default function FeaturesPage() {
   return (
     <main className="min-h-screen">
+      <BreadcrumbStructuredData
+        items={[
+          { name: 'Accueil', item: '/' },
+          { name: 'Fonctionnalités', item: '/features' },
+        ]}
+      />
+      <StructuredData type="softwareApplication" />
       <HeroFeatures />
       <FeaturesSection />
       <ComparisonTable />

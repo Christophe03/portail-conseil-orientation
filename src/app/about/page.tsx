@@ -3,6 +3,8 @@ import { HeroAbout } from '@/components/sections/HeroAbout';
 import { MissionSection } from '@/components/sections/MissionSection';
 import { StorySection } from '@/components/sections/StorySection';
 import { ValuesSection } from '@/components/sections/ValuesSection';
+import { AppShowcase } from '@/components/sections/AppShowcase';
+import { BreadcrumbStructuredData, StructuredData } from '@/components/seo/StructuredData';
 
 export const metadata: Metadata = {
   title: "À Propos - Conseil d'Orientation Mali | Notre Histoire & Mission",
@@ -50,9 +52,17 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <main className="min-h-screen">
+      <BreadcrumbStructuredData
+        items={[
+          { name: 'Accueil', item: '/' },
+          { name: 'À Propos', item: '/about' },
+        ]}
+      />
+      <StructuredData type="organization" />
       <HeroAbout />
       <MissionSection />
       <StorySection />
+      <AppShowcase variant="compact" />
       <ValuesSection />
     </main>
   );

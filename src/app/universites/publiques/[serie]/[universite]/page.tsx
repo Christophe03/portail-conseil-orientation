@@ -4,6 +4,7 @@ import series from '@/data/series_mali.json';
 import { formatDate, slugify } from '@/lib/utils';
 import { BackLink } from '@/components/ui/BackLink';
 import { ShareButton } from '@/components/ui/ShareButton';
+import { BreadcrumbStructuredData, UniversityStructuredData } from '@/components/seo/StructuredData';
 import { 
   BuildingLibraryIcon, 
   AcademicCapIcon, 
@@ -105,6 +106,21 @@ export default function UniversiteFacultesPage({ params }: { params: { serie: st
   return (
     <div className="min-h-screen bg-slate-50/70 dark:bg-[#0a192f] pt-28 pb-16 sm:pt-36 sm:pb-24">
       <div className="container-custom max-w-4xl">
+        <BreadcrumbStructuredData
+          items={[
+            { name: 'Accueil', item: '/' },
+            { name: 'Universités', item: '/universites' },
+            { name: 'Universités Publiques', item: '/universites/publiques' },
+            { name: serie.nom, item: `/universites/publiques/${params.serie}` },
+            { name: univ.nom, item: `/universites/publiques/${params.serie}/${params.universite}` },
+          ]}
+        />
+        <UniversityStructuredData
+          name={univ.nom}
+          isPublic={true}
+          description={directAnswer}
+          url={`/universites/publiques/${params.serie}/${params.universite}`}
+        />
         {/* Breadcrumb & Navigation */}
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
           <nav className="flex items-center text-xs sm:text-sm text-slate-500 dark:text-slate-400">

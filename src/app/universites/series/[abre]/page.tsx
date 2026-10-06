@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { formatDate, slugify } from '@/lib/utils';
 import { BackLink } from '@/components/ui/BackLink';
 import { ShareButton } from '@/components/ui/ShareButton';
+import { BreadcrumbStructuredData, ProgramStructuredData } from '@/components/seo/StructuredData';
 import {
   BookOpenIcon,
   PaintBrushIcon,
@@ -149,6 +150,19 @@ export default function SerieDetailPage({ params }: { params: { abre: string } }
   return (
     <div className="min-h-screen bg-slate-50/70 dark:bg-[#0a192f] pt-28 pb-16 sm:pt-36 sm:pb-24">
       <div className="container-custom max-w-4xl">
+        <BreadcrumbStructuredData
+          items={[
+            { name: 'Accueil', item: '/' },
+            { name: 'Universités', item: '/universites' },
+            { name: 'Séries du Bac', item: '/universites/series' },
+            { name: `${s.abre} - ${s.nom}`, item: `/universites/series/${params.abre}` },
+          ]}
+        />
+        <ProgramStructuredData
+          name={`Série ${s.abre} : ${s.nom}`}
+          description={directAnswer}
+          url={`/universites/series/${params.abre}`}
+        />
         {/* Breadcrumbs & Back */}
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
           <nav className="flex items-center text-xs sm:text-sm text-slate-500 dark:text-slate-400">

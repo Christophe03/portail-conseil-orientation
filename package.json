@@ -17,7 +17,8 @@
     "export": "next export",
     "deploy": "npm run build && npm run export",
     "analyze": "ANALYZE=true next build",
-    "sitemap": "next-sitemap"
+    "sitemap": "next-sitemap",
+    "optimize:images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
     "@google/genai": "^2.15.0",
@@ -49,6 +50,7 @@
     "next-sitemap": "^4.2.0",
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
+    "sharp": "^0.35.5",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.9.2"
   },

@@ -9,23 +9,36 @@ import {
 } from '@heroicons/react/24/outline';
 import privees from '@/data/universites_privees.json';
 import seriesPub from '@/data/series_mali.json';
+import { BreadcrumbStructuredData } from '@/components/seo/StructuredData';
 
 type Privee = { Nom: string };
 type SeriePub = { universite: { nom: string }[] };
 
 export const metadata: Metadata = {
-  title: 'Universités & Formations au Mali',
-  description: 'Explorez les universités au Mali : publiques et privées agréées, avec détails complets sur les facultés, filières et débouchés.',
+  title: 'Universités & Formations au Mali — Répertoire Officiel',
+  description: 'Explorez l\'annuaire des universités au Mali : universités publiques d\'État et universités privées agréées. Détails complets sur les facultés, licences, séries admises et débouchés.',
+  keywords: [
+    'universités Mali',
+    'universités Bamako',
+    'enseignement supérieur Mali',
+    'universités publiques Mali',
+    'universités privées Mali',
+    'facultés Mali',
+    'orientation post-bac Mali',
+  ],
   alternates: { canonical: '/universites' },
   openGraph: {
-    title: 'Universités au Mali - Portail Conseil d\'Orientation',
+    title: 'Universités & Formations au Mali — Répertoire Officiel',
     description: 'Explorez les universités privées et publiques au Mali, avec leurs formations et débouchés.',
     url: '/universites',
+    type: 'website',
+    images: [{ url: '/app_icon.png', width: 512, height: 512, alt: 'Universités au Mali' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Universités au Mali - Portail Conseil d\'Orientation',
+    title: 'Universités au Mali — Répertoire Officiel',
     description: 'Explorez les universités privées et publiques au Mali, avec leurs formations et débouchés.',
+    images: ['/app_icon.png'],
   },
 };
 
@@ -37,6 +50,12 @@ export default function UniversitesPage() {
 
   return (
     <section className="container-custom pt-28 pb-16 sm:pt-36 sm:pb-24">
+      <BreadcrumbStructuredData
+        items={[
+          { name: 'Accueil', item: '/' },
+          { name: 'Universités', item: '/universites' },
+        ]}
+      />
       {/* Header section */}
       <div className="max-w-3xl mx-auto text-center mb-12">
         <div className="inline-flex items-center space-x-2 rounded-full px-3.5 py-1.5 bg-[#13508f]/10 dark:bg-[#112240] border border-[#13508f]/20 dark:border-[#3b9df8]/30 mb-4">

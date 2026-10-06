@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import series from '@/data/series_mali.json';
 import { slugify } from '@/lib/utils';
 import { AcademicCapIcon, BuildingLibraryIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
+import { BreadcrumbStructuredData } from '@/components/seo/StructuredData';
 
 type Serie = {
   nom: string;
@@ -12,18 +13,30 @@ type Serie = {
 const data = series as unknown as Serie[];
 
 export const metadata: Metadata = {
-  title: 'Universités publiques au Mali - Facultés & Licences par Série',
-  description: 'Choisissez votre série du baccalauréat pour découvrir les universités publiques, facultés et licences disponibles au Mali (USTTB, ULSHB, USSGB, USJPB).',
+  title: 'Universités publiques au Mali — Facultés & Licences par Série',
+  description: 'Choisissez votre série du baccalauréat pour découvrir les universités publiques, facultés et licences d\'État disponibles au Mali (USTTB, ULSHB, USSGB, USJPB).',
+  keywords: [
+    'universités publiques Mali',
+    'facultés publiques Bamako',
+    'USTTB',
+    'ULSHB',
+    'USSGB',
+    'USJPB',
+    'orientation bac série Mali',
+  ],
   alternates: { canonical: '/universites/publiques' },
   openGraph: {
-    title: 'Universités publiques au Mali - Conseil d\'Orientation Mali',
+    title: 'Universités publiques au Mali — Facultés & Licences par Série',
     description: 'Explorez les universités publiques et leurs formations selon votre série du baccalauréat.',
     url: '/universites/publiques',
+    type: 'website',
+    images: [{ url: '/app_icon.png', width: 512, height: 512, alt: 'Universités publiques au Mali' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Universités publiques au Mali',
     description: 'Explorez les universités publiques et leurs formations selon votre série du baccalauréat.',
+    images: ['/app_icon.png'],
   },
 };
 
@@ -34,6 +47,13 @@ export default function PubliquesSeriesPage() {
 
   return (
     <div className="min-h-screen bg-slate-50/70 dark:bg-[#0a192f] pt-28 pb-16 sm:pt-36 sm:pb-24">
+      <BreadcrumbStructuredData
+        items={[
+          { name: 'Accueil', item: '/' },
+          { name: 'Universités', item: '/universites' },
+          { name: 'Universités Publiques', item: '/universites/publiques' },
+        ]}
+      />
       <div className="container-custom">
         {/* Breadcrumb */}
         <nav className="mb-6 flex items-center text-xs sm:text-sm text-slate-500 dark:text-slate-400">

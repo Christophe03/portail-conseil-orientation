@@ -6,11 +6,8 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import { APP_DOWNLOAD_URL } from '@/lib/app-links';
 import { 
-  SparklesIcon,
   DevicePhoneMobileIcon,
   AcademicCapIcon,
-  ArrowRightIcon,
-  BuildingLibraryIcon,
 } from '@heroicons/react/24/outline';
 
 const stats = [
@@ -118,102 +115,31 @@ export function HeroSection() {
             </motion.div>
           </div>
 
-          {/* Right Column: Realistic Smartphone App Showcase in Logo Colors */}
+          {/* Right Column: 3D Smartphone App Mockup (1.png) */}
           <motion.div
             initial={false}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="lg:col-span-5 flex justify-center"
           >
-            <div className="relative w-full max-w-[340px] sm:max-w-[370px]">
+            <div className="relative w-full max-w-[360px] sm:max-w-[400px]">
               {/* Soft decorative glow behind phone using logo dual-blue */}
-              <div className="absolute -inset-1.5 bg-gradient-to-r from-[#13508f] to-[#3b9df8] rounded-[3rem] opacity-25 blur-xl dark:opacity-35"></div>
+              <div
+                className="absolute inset-4 bg-gradient-to-tr from-[#13508f]/25 via-[#3b9df8]/20 to-transparent rounded-full blur-2xl opacity-70 dark:opacity-80"
+                aria-hidden="true"
+              />
 
-              {/* Smartphone Frame */}
-              <div className="relative rounded-[2.8rem] bg-slate-900 p-3 shadow-phone border-4 border-slate-800">
-                {/* Phone Speaker & Camera Notch */}
-                <div className="absolute top-6 left-1/2 -translate-x-1/2 w-24 h-4 bg-slate-900 rounded-full z-20 flex items-center justify-center">
-                  <div className="w-10 h-1 bg-slate-800 rounded-full"></div>
-                  <div className="w-2.5 h-2.5 bg-slate-800 rounded-full ml-2"></div>
-                </div>
-
-                {/* Smartphone Screen Content */}
-                <div className="relative rounded-[2.3rem] overflow-hidden bg-slate-50 dark:bg-[#071324] border border-slate-700/50 p-4 pt-10 text-left space-y-3.5">
-                  
-                  {/* Top Bar of the App */}
-                  <div className="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
-                    <div className="flex items-center space-x-2">
-                      <div className="relative w-7 h-7 rounded-lg overflow-hidden">
-                        <Image
-                          src="/app_icon.png"
-                          alt="Conseil d'Orientation"
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                      <span className="text-xs font-bold text-[#13508f] dark:text-white">
-                        Conseil Orientation Mali
-                      </span>
-                    </div>
-                    <span className="text-[10px] font-semibold bg-[#3b9df8]/15 text-[#13508f] dark:bg-[#3b9df8]/20 dark:text-[#7cc5fb] px-2 py-0.5 rounded-full">
-                      En ligne
-                    </span>
-                  </div>
-
-                  {/* Student Profile Card */}
-                  <div className="p-3 rounded-2xl bg-white dark:bg-[#112240] border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">
-                        Profil Bachelier
-                      </span>
-                      <span className="text-[10px] font-bold text-[#13508f] dark:text-[#7cc5fb] bg-[#13508f]/10 dark:bg-[#13508f]/30 px-2 py-0.5 rounded-md">
-                        Série TSE
-                      </span>
-                    </div>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-snug">
-                      Mali • Bamako • Intérêts : Informatique, Ingénierie, Technologies
-                    </p>
-                  </div>
-
-                  {/* AI Recommendation Chat Bubble */}
-                  <div className="p-3.5 rounded-2xl bg-gradient-to-br from-[#13508f] to-[#0e3760] text-white shadow-sm space-y-2">
-                    <div className="flex items-center space-x-1.5 text-[#7cc5fb]">
-                      <SparklesIcon className="h-4 w-4 text-[#3b9df8]" />
-                      <span className="text-xs font-bold tracking-wide text-white">
-                        Conseiller IA Orientation
-                      </span>
-                    </div>
-                    <p className="text-xs text-slate-100 leading-relaxed">
-                      « Avec ton Bac TSE, voici les formations phares idéales à Bamako :
-                    </p>
-                    <div className="space-y-1.5 pt-1">
-                      <div className="flex items-center space-x-2 text-[11px] bg-white/10 rounded-lg p-2 text-white">
-                        <BuildingLibraryIcon className="h-3.5 w-3.5 text-[#3b9df8] shrink-0" />
-                        <span className="truncate">USTTB / FST • Génie Informatique</span>
-                      </div>
-                      <div className="flex items-center space-x-2 text-[11px] bg-white/10 rounded-lg p-2 text-white">
-                        <BuildingLibraryIcon className="h-3.5 w-3.5 text-[#7cc5fb] shrink-0" />
-                        <span className="truncate">ENI-ABT • Télécommunications</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Floating Action within the App Screen in Logo Sky Blue */}
-                  <div className="pt-1">
-                    <div className="w-full py-2.5 px-3 rounded-xl bg-[#3b9df8] hover:bg-[#2589ec] text-white text-xs font-bold flex items-center justify-center space-x-1.5 shadow-sm transition-colors cursor-pointer">
-                      <span>Poser une question à l'IA</span>
-                      <ArrowRightIcon className="h-3.5 w-3.5" />
-                    </div>
-                  </div>
-
-                  {/* Status Indicator */}
-                  <div className="text-center pt-1">
-                    <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">
-                      ✓ Données vérifiées • Rentrée académique 2026/2027
-                    </span>
-                  </div>
-
-                </div>
+              {/* 3D Phone Mockup with subtle floating animation */}
+              <div className="relative aspect-[16/15] w-full flex items-center justify-center motion-safe:animate-[float_6s_ease-in-out_infinite]">
+                <Image
+                  src="/images/app/app-mockup-1.webp"
+                  alt="Aperçu 3D de l'application mobile Conseil d'Orientation Mali - Écran des domaines d'études"
+                  width={800}
+                  height={750}
+                  priority
+                  sizes="(min-width: 1024px) 400px, (min-width: 640px) 360px, 300px"
+                  className="w-full h-auto object-contain drop-shadow-[0_25px_45px_rgba(15,41,66,0.30)]"
+                />
               </div>
             </div>
           </motion.div>
