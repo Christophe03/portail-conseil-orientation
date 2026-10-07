@@ -115,12 +115,12 @@ export async function POST(req: NextRequest) {
 
     if (apiKey && apiKey.trim() !== '') {
       const ai = new GoogleGenAI({ apiKey });
-      const modelsToTry = ['gemini-2.0-flash-lite', 'gemini-2.0-flash'];
+      const modelsToTry = ['gemini-flash-lite-latest', 'gemini-3.5-flash-lite', 'gemini-flash-latest'];
 
       for (const modelName of modelsToTry) {
         try {
           const timeoutPromise = new Promise((_, reject) =>
-            setTimeout(() => reject(new Error('TIMEOUT')), 15000)
+            setTimeout(() => reject(new Error('TIMEOUT')), 12000)
           );
 
           const apiCallPromise = ai.models.generateContent({
@@ -128,8 +128,7 @@ export async function POST(req: NextRequest) {
             contents,
             config: {
               systemInstruction: fullSystemInstruction,
-              temperature: 0.3,
-              tools: [{ googleSearch: {} }],
+              temperature: 0.4,
               responseMimeType: 'application/json'
             }
           });
@@ -141,7 +140,7 @@ export async function POST(req: NextRequest) {
           }
         } catch (err: any) {
           lastError = err;
-          if (err?.message === 'TIMEOUT') throw err;
+          console.warn(`[COS Gemini ${modelName} notice]:`, err?.message || err);
         }
       }
     }
