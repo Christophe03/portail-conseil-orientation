@@ -155,11 +155,10 @@ export async function POST(req: NextRequest) {
         const parsed = JSON.parse(cleaned);
         let replyText = parsed.reponse || parsed.reply || jsonResponseText;
         
-        // Nettoyage des astérisques bruts pour une rédaction fluide style Gemini/ChatGPT
+        // Normalisation des listes à puces avec astérisques en tirets lisibles, tout en conservant le gras (**texte**)
         replyText = replyText
           .replace(/^(\s*)\*\s+/gm, '$1- ')
-          .replace(/(^|[^*])\*([^*]+)\*([^*]|$)/g, '$1$2$3')
-          .replace(/\*\*/g, '');
+          .replace(/(^|[^*])\*([^*\n]+)\*([^*]|$)/g, '$1$2$3');
 
         const intention = parsed.intention || 'question_orientation';
         const suggestions = parsed.suggestions || getContextualSuggestions(userPrompt, intention);
@@ -168,8 +167,7 @@ export async function POST(req: NextRequest) {
       } catch (e) {
         let cleanedReply = jsonResponseText
           .replace(/^(\s*)\*\s+/gm, '$1- ')
-          .replace(/(^|[^*])\*([^*]+)\*([^*]|$)/g, '$1$2$3')
-          .replace(/\*\*/g, '');
+          .replace(/(^|[^*])\*([^*\n]+)\*([^*]|$)/g, '$1$2$3');
         const suggestions = getContextualSuggestions(userPrompt, 'question_orientation');
         return NextResponse.json({ reply: cleanedReply, intention: 'question_orientation', suggestions });
       }

@@ -165,65 +165,111 @@ export function ChatWidget() {
     }
   };
 
-  const renderFormattedContent = (content: string) => {
-    const cleanedContent = content
-      .replace(/^(\s*)\*\s+/gm, '$1- ')
-      .replace(/(^|[^*])\*([^*]+)\*([^*]|$)/g, '$1$2$3')
-      .replace(/\*\*/g, '');
-
-    const parts = [];
-    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  const renderInlineTokens = (text: string, keyPrefix: string) => {
+    const tokenRegex = /(\[[^\]]+\]\([^)]+\)|\*\*[^*]+\*\*)/g;
     let lastIndex = 0;
+    const elements: React.ReactNode[] = [];
     let match;
 
-    while ((match = linkRegex.exec(cleanedContent)) !== null) {
+    while ((match = tokenRegex.exec(text)) !== null) {
       if (match.index > lastIndex) {
-        parts.push(cleanedContent.substring(lastIndex, match.index));
-      }
-
-      const linkText = match[1];
-      const linkUrl = match[2];
-      const isInternal = linkUrl.startsWith('/');
-
-      if (isInternal) {
-        parts.push(
-          <Link
-            key={match.index}
-            href={linkUrl}
-            onClick={() => {
-              if (window.innerWidth < 640) setIsOpen(false);
-            }}
-            className="text-[#13508F] dark:text-[#3B9DF8] font-semibold hover:underline inline-flex items-center gap-0.5"
-          >
-            {linkText}
-          </Link>
-        );
-      } else {
-        parts.push(
-          <a
-            key={match.index}
-            href={linkUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#13508F] dark:text-[#3B9DF8] font-semibold hover:underline"
-          >
-            {linkText}
-          </a>
+        elements.push(
+          <span key={`${keyPrefix}-t-${lastIndex}`} className="text-slate-900 dark:text-slate-100">
+            {text.substring(lastIndex, match.index)}
+          </span>
         );
       }
 
-      lastIndex = linkRegex.lastIndex;
+      const token = match[0];
+      if (token.startsWith('**') && token.endsWith('**')) {
+        const boldText = token.slice(2, -2);
+        elements.push(
+          <strong
+            key={`${keyPrefix}-b-${match.index}`}
+            className="font-bold text-slate-950 dark:text-white"
+          >
+            {boldText}
+          </strong>
+        );
+      } else if (token.startsWith('[')) {
+        const linkMatch = token.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+        if (linkMatch) {
+          const linkText = linkMatch[1];
+          const linkUrl = linkMatch[2];
+          const isInternal = linkUrl.startsWith('/');
+
+          if (isInternal) {
+            elements.push(
+              <Link
+                key={`${keyPrefix}-l-${match.index}`}
+                href={linkUrl}
+                onClick={() => {
+                  if (window.innerWidth < 640) setIsOpen(false);
+                }}
+                className="text-[#09488a] dark:text-[#60a5fa] font-bold underline decoration-[#2563eb]/70 dark:decoration-[#60a5fa]/70 decoration-2 underline-offset-2 hover:text-[#062c56] dark:hover:text-[#93c5fd] hover:decoration-[#1d4ed8] transition-colors inline"
+              >
+                {linkText}
+              </Link>
+            );
+          } else {
+            elements.push(
+              <a
+                key={`${keyPrefix}-l-${match.index}`}
+                href={linkUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#09488a] dark:text-[#60a5fa] font-bold underline decoration-[#2563eb]/70 dark:decoration-[#60a5fa]/70 decoration-2 underline-offset-2 hover:text-[#062c56] dark:hover:text-[#93c5fd] hover:decoration-[#1d4ed8] transition-colors inline"
+              >
+                {linkText}
+              </a>
+            );
+          }
+        }
+      }
+
+      lastIndex = tokenRegex.lastIndex;
     }
 
-    if (lastIndex < cleanedContent.length) {
-      parts.push(cleanedContent.substring(lastIndex));
+    if (lastIndex < text.length) {
+      elements.push(
+        <span key={`${keyPrefix}-t-${lastIndex}`} className="text-slate-900 dark:text-slate-100">
+          {text.substring(lastIndex)}
+        </span>
+      );
     }
+
+    return elements;
+  };
+
+  const renderFormattedContent = (content: string) => {
+    const normalized = content.replace(/^(\s*)\*\s+/gm, '$1- ');
+    const lines = normalized.split('\n');
 
     return (
-      <div className="space-y-2 whitespace-pre-line text-sm leading-relaxed">
-        {parts.map((part, idx) => (
-          <span key={idx}>{part}</span>
-        ))}
+      <div className="space-y-2 text-[13.5px] sm:text-sm leading-relaxed text-slate-900 dark:text-slate-100 font-normal">
+        {lines.map((line, lineIdx) => {
+          const trimmed = line.trim();
+          if (!trimmed) {
+            return <div key={`l-${lineIdx}`} className="h-1" />;
+          }
+
+          const isBullet = trimmed.startsWith('- ') || trimmed.startsWith('• ');
+          const lineText = isBullet ? trimmed.replace(/^[-•]\s+/, '') : line;
+
+          return (
+            <div
+              key={`l-${lineIdx}`}
+              className={isBullet ? 'flex items-start gap-2.5 pl-1 my-1' : ''}
+            >
+              {isBullet && (
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#13508F] dark:bg-[#60a5fa] mt-2 shrink-0" />
+              )}
+              <div className={isBullet ? 'flex-1' : ''}>
+                {renderInlineTokens(lineText, `line-${lineIdx}`)}
+              </div>
+            </div>
+          );
+        })}
       </div>
     );
   };
@@ -307,7 +353,7 @@ export function ChatWidget() {
             </div>
 
             {/* Messages Scroll Area */}
-            <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-slate-50/60 dark:bg-[#071324]/80">
+            <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-[#f8fafc] dark:bg-[#071324]">
               {messages.map((msg, index) => {
                 const isLastMsg = index === messages.length - 1;
                 const showSuggestions = msg.role === 'assistant' && msg.suggestions && msg.suggestions.length > 0 && (
@@ -320,16 +366,16 @@ export function ChatWidget() {
                     className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
                   >
                     <div
-                      className={`max-w-[88%] sm:max-w-[85%] rounded-2xl p-3.5 shadow-xs ${
+                      className={`max-w-[88%] sm:max-w-[85%] rounded-2xl p-3.5 ${
                         msg.role === 'user'
-                          ? 'bg-[#13508F] text-white rounded-br-none'
-                          : 'bg-white dark:bg-[#112240] text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-800 rounded-bl-none shadow-card'
+                          ? 'bg-[#13508F] text-white rounded-br-xs shadow-md'
+                          : 'bg-white dark:bg-[#0f213e] text-slate-900 dark:text-slate-100 border border-slate-200/90 dark:border-blue-900/50 rounded-bl-xs shadow-sm'
                       }`}
                     >
                       {msg.role === 'assistant' ? (
                         renderFormattedContent(msg.content)
                       ) : (
-                        <p className="text-sm leading-relaxed">{msg.content}</p>
+                        <p className="text-[13.5px] sm:text-sm leading-relaxed text-white font-medium">{msg.content}</p>
                       )}
                     </div>
 
@@ -341,7 +387,7 @@ export function ChatWidget() {
                             type="button"
                             onClick={() => handleSend(sug)}
                             disabled={isLoading}
-                            className="rounded-xl border border-[#13508F]/20 dark:border-[#3B9DF8]/30 bg-[#13508F]/5 dark:bg-[#3B9DF8]/10 px-3 py-1.5 text-xs text-[#13508F] dark:text-[#3B9DF8] hover:bg-[#13508F] hover:text-white dark:hover:bg-[#3B9DF8] dark:hover:text-slate-900 transition-all font-semibold text-left"
+                            className="rounded-xl border border-blue-200/90 dark:border-blue-700/60 bg-white dark:bg-[#0f213e] px-3.5 py-2 text-xs text-[#0f3d6e] dark:text-[#7dd3fc] hover:bg-[#13508F] hover:text-white dark:hover:bg-[#3B9DF8] dark:hover:text-slate-950 hover:border-[#13508F] dark:hover:border-[#3B9DF8] transition-all font-semibold text-left shadow-xs active:scale-95"
                           >
                             {sug}
                           </button>
@@ -349,7 +395,7 @@ export function ChatWidget() {
                       </div>
                     )}
 
-                    <span className="text-[10px] text-slate-400 mt-1 px-1">
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-1 px-1">
                       {msg.timestamp}
                     </span>
                   </div>
@@ -358,7 +404,7 @@ export function ChatWidget() {
 
               {isLoading && (
                 <div className="flex flex-col items-start">
-                  <div className="bg-white dark:bg-[#112240] text-slate-600 dark:text-slate-300 rounded-2xl rounded-bl-none p-3.5 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-2 text-xs sm:text-sm">
+                  <div className="bg-white dark:bg-[#0f213e] text-slate-900 dark:text-slate-200 rounded-2xl rounded-bl-xs p-3.5 border border-slate-200/90 dark:border-blue-900/50 shadow-sm flex items-center gap-2 text-xs sm:text-sm font-medium">
                     <ArrowPathIcon className="h-4 w-4 animate-spin text-[#3B9DF8]" />
                     <span>COS prépare votre réponse...</span>
                   </div>
@@ -395,12 +441,12 @@ export function ChatWidget() {
                     }}
                     placeholder="Posez votre question à COS..."
                     disabled={isLoading}
-                    className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-[#112240] px-4 py-3 sm:py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3B9DF8] disabled:opacity-50 pr-12 transition-all"
+                    className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-[#0f213e] px-4 py-3 sm:py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3B9DF8] focus:border-[#13508F] dark:focus:border-[#3B9DF8] disabled:opacity-50 pr-12 transition-all font-normal"
                   />
                   {input.length > 0 && (
                     <span
-                      className={`absolute right-3 top-3.5 sm:top-2.5 text-[10px] ${
-                        input.length > 500 ? 'text-red-500 font-bold' : 'text-slate-400'
+                      className={`absolute right-3 top-3.5 sm:top-2.5 text-[11px] ${
+                        input.length > 500 ? 'text-red-500 font-bold' : 'text-slate-500 dark:text-slate-400 font-medium'
                       }`}
                     >
                       {input.length}/500
